@@ -5629,6 +5629,11 @@ packages:
     dev: false
     engines:
       node: '>=4.0'
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
     resolution:
       integrity: sha1-5VmK1QF0wbxOhyMB6CrCzZf5Amc=
       tarball: follow-redirects/download/follow-redirects-1.13.3.tgz?cache=0&sync_timestamp=1614438016247&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffollow-redirects%2Fdownload%2Ffollow-redirects-1.13.3.tgz
@@ -5778,6 +5783,8 @@ packages:
     engines:
       node: ^8.16.0 || ^10.6.0 || >=11.0.0
     optional: true
+    os:
+      - darwin
     resolution:
       integrity: sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=
       tarball: fsevents/download/fsevents-2.3.2.tgz

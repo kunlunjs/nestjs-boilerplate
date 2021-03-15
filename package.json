@@ -21,15 +21,11 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "echo 'No e2e tests implemented yet.'"
+    "test:e2e": "echo 'No e2e tests implemented yet.'",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
-  "keywords": [
-    "nestjs",
-    "typeorm",
-    "graphql",
-    "mongoose",
-    "prisma"
-  ],
+  "keywords": ["nestjs", "typeorm", "graphql", "mongoose", "prisma"],
   "author": "zhuyudong@aliyun.com",
   "license": "ISC",
   "dependencies": {
