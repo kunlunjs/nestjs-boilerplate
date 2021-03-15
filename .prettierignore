@@ -1,0 +1,36 @@
+**/node_modules/**
+# package.json
+
+# fixtures
+
+# templates
+# **/templates/**
+
+# docs
+**/*.md
+
+# coverage
+/coverage
+/build
+/dist
+
+
+**/*.svg
+.dockerignore
+.DS_Store
+.eslintignore
+*.png
+*.toml
+docker
+.editorconfig
+Dockerfile*
+.gitignore
+.prettierignore
+LICENSE
+.eslintcache
+*.lock
+yarn-error.log
+.history
+CNAME
+
+.env*

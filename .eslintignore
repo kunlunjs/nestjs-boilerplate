@@ -1,0 +1,7 @@
+node_modules/
+**/build/**
+**/dist/**
+**/__tmp__/**
+.github/actions/next-stats-action/.work
+test/integration/async-modules/**
+test-timings.json

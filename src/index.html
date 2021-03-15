@@ -1,0 +1,9 @@
+<script>
+  // 请注意 /api 由 app.setGlobalPrefix(...) 设置
+  const eventSource = new EventSource('/api/sse')
+  eventSource.onmessage = ({ data }) => {
+    const message = document.createElement('li')
+    message.innerText = 'New message: ' + data
+    document.body.appendChild(message)
+  }
+</script>
