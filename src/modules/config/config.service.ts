@@ -1,7 +1,7 @@
-import path from 'path'
+import * as path from 'path'
+import { readFileSync } from 'fs-extra'
+import * as dotenv from 'dotenv'
 import { Inject, Injectable } from '@nestjs/common'
-import dotenv from 'dotenv'
-import fs from 'fs-extra'
 import { CONFIG_OPTIONS } from './constants'
 import {
   ConfigModuleOptions,
@@ -18,9 +18,7 @@ export class ConfigService {
   constructor() {
     const envPath = `${process.env.NODE_ENV || 'development'}.env`
     const envFile = path.resolve(process.cwd(), './config', envPath)
-    this.envConfig = (dotenv.parse(
-      fs.readFileSync(envFile)
-    ) as any) as EnvConfig
+    this.envConfig = (dotenv.parse(readFileSync(envFile)) as any) as EnvConfig
   }
 
   get<T extends EnvConfigKeys>(key: T): EnvConfigValueType<T> {
