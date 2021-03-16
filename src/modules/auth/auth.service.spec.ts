@@ -18,7 +18,7 @@ describe('AuthService', () => {
         JwtModule.register({
           secret: jwtConstants.secret,
           signOptions: {
-            expiresIn: '60s'
+            expiresIn: jwtConstants.expiresIn
           }
         })
       ],
@@ -42,7 +42,7 @@ describe('validateUser', () => {
         PassportModule,
         JwtModule.register({
           secret: jwtConstants.secret,
-          signOptions: { expiresIn: '60s' }
+          signOptions: { expiresIn: '600s' }
         })
       ],
       providers: [AuthService, LocalStrategy, JwtStrategy]
@@ -72,7 +72,7 @@ describe('validateLogin', () => {
         PassportModule,
         JwtModule.register({
           secret: jwtConstants.secret,
-          signOptions: { expiresIn: '60s' }
+          signOptions: { expiresIn: jwtConstants.expiresIn }
         })
       ],
       providers: [AuthService, LocalStrategy, JwtStrategy]

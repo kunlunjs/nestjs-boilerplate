@@ -1,24 +1,8 @@
-import {
-  Global,
-  HttpModule,
-  HttpModuleOptions,
-  HttpModuleOptionsFactory,
-  Injectable,
-  Module
-} from '@nestjs/common'
+import { Global, HttpModule, Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 import { ConfigModule } from './modules/config/config.module'
 import { ConfigService } from './modules/config/config.service'
-
-// @Injectable()
-// export class HttpConfigService implements HttpModuleOptionsFactory {
-//   createHttpOptions(): HttpModuleOptions {
-//     return {
-//       timeout: 5000,
-//       maxRedirects: 5
-//     }
-//   }
-// }
+// import { HttpConfigService } from './modules/http/http-config.service'
 
 @Global()
 @Module({
@@ -39,11 +23,13 @@ import { ConfigService } from './modules/config/config.service'
     //   useClass: HttpConfigService
     // }),
     HttpModule.registerAsync({
+      inject: [ConfigService],
+      imports: [ConfigModule],
       // 可异步配置
       useFactory: (configService: ConfigService) => {
         return {
-          timeout: 5000,
-          maxRedirects: 5
+          timeout: configService.get('HTTP_TIMEOUT'),
+          maxRedirects: configService.get('HTTP_MAX_REDIRECTS')
         }
       }
     }),

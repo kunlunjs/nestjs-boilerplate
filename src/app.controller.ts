@@ -1,5 +1,5 @@
-import * as path from 'path'
-import * as fs from 'fs-extra'
+import { join } from 'path'
+import { readFileSync } from 'fs-extra'
 import {
   Controller,
   Get,
@@ -59,6 +59,7 @@ export class AppController {
    *
    * authService.validateUser -> userService.findOne() -> authService.login
    */
+  // @Public()
   @UseGuards(LocalAuthGuard) // 等效于 @UseGuards(AuthGuard('local'))
   @Post('auth/login')
   async login(@Request() req: Express.Request) {
@@ -76,6 +77,7 @@ export class AppController {
    *
    * curl http://localhost:3000/api/profile -H "Authorization: Bearer ..."
    */
+  // @Public()
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req: Express.Request) {
@@ -99,6 +101,7 @@ export class AppController {
   /**
    * 缓存
    * GET /api/cache
+   * https://docs.nestjs.com/techniques/caching
    */
   @Get('cache')
   getCache() {
@@ -142,6 +145,7 @@ export class AppController {
    * MVC 渲染动态模板
    * http://localhost:3000/api/hbs
    */
+  @Public()
   @Get('hbs')
   @Render('index') // views/index.hbs
   render() {
@@ -153,17 +157,19 @@ export class AppController {
    * sse
    */
   // 浏览器中打开 http://localhost:3000/api/index
+  // @Public()
   @Get('index')
   index(@Res() response: Response) {
-    //
+    // index.html 中通过 EventSource 对象来与 /api/sse 接口通讯
     response
       .type('text/html')
-      .send(fs.readFileSync(path.join(__dirname, 'index.html')).toString())
+      .send(readFileSync(join(__dirname, '../public/index.html')).toString())
   }
 
   // 通过 GET /api/sse （加载index.html 时自动请求）每秒钟向 index.html 推送一条数据
+  // @Public()
   @Sse('sse')
   sse(): Observable<MessageEvent> {
-    return interval(1000).pipe(map(_ => ({ data: { hello: 'world' } })))
+    return interval(1000).pipe(map(i => ({ data: { number: i } })))
   }
 }

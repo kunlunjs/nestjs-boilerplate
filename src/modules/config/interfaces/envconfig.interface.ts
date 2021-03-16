@@ -14,6 +14,10 @@ export interface EnvConfig {
   // CACHE
   CACHE_TTL: string
 
+  // HTTP
+  HTTP_TIMEOUT: number
+  HTTP_MAX_REDIRECTS: number
+
   // DATABASE
   DB_TYPE: DatabaseType
   DB_USERNAME: string

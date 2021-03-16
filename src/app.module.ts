@@ -20,6 +20,10 @@ import { WebSocketEventsModule } from './modules/events/websocket-events.module'
 import { DynamicConfigModule } from './modules/dynamic/dynamic-config.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { UsersModule } from './modules/users/users.module'
+import { ConfigModule } from './modules/config/config.module'
+import { ConfigService } from './modules/config/config.service'
+import { CacheConfigService } from './modules/cache/cache-config.service'
+import { GlobalModule } from './global.module'
 
 @Module({
   imports: [
@@ -38,13 +42,24 @@ import { UsersModule } from './modules/users/users.module'
     /**
      * 队列处理
      */
-    BullModule.forRoot({
-      redis: {
-        host: '42.193.185.71',
-        port: 6379
+    // BullModule.forRoot({
+    //   redis: {
+    //     host: '42.193.185.71',
+    //     port: 6379
+    //   }
+    // }),
+    BullModule.forRootAsync({
+      imports: [GlobalModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return {
+          redis: {
+            host: configService.get('REDIS_HOST'),
+            port: configService.get('REDIS_PORT')
+          }
+        }
       }
     }),
-    // BullModule.forRootAsync({}),
     QueueModule,
     /*----------------------------------------------------------------*/
     /**
@@ -58,6 +73,8 @@ import { UsersModule } from './modules/users/users.module'
       rootPath: path.join(__dirname, '../client'),
       exclude: ['/api*']
     }),
+    // TODO 理解 ServeStaticModule 异步配置
+    // ServeStaticModule.forRootAsync({})
     // 异步读取配置
     // ServeStaticModule.forRootAsync({})
     /*----------------------------------------------------------------*/
@@ -67,11 +84,25 @@ import { UsersModule } from './modules/users/users.module'
      * AppController 上添加 class 级别 @UseInterceptors(CacheInterceptor)
      */
     // 同步读取配置
-    CacheModule.register(),
-    // 异步读取配置
+    // CacheModule.register(),
     // CacheModule.registerAsync({
-
-    // })
+    //   useClass: CacheConfigService
+    // }),
+    // 异步读取配置
+    CacheModule.registerAsync({
+      // useFactory: () => {
+      //   return {
+      //     ttl: 5
+      //   }
+      // }
+      imports: [GlobalModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return {
+          ttl: configService.get('CACHE_TTL')
+        }
+      }
+    }),
     /*----------------------------------------------------------------*/
     /**
      * 动态模块
@@ -108,6 +139,7 @@ import { UsersModule } from './modules/users/users.module'
       ),
       installSubscriptionHandlers: true
     }),
+    // GraphQLModule.forRootAsync({}),
     RecipesModule,
     /*----------------------------------------------------------------*/
     /**

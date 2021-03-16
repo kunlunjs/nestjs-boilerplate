@@ -1,4 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx --no-install devmoji -e --lint
+# npx --no-install devmoji -e --lint
+pnpm husky:prepare-commit-msg
