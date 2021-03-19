@@ -1,10 +1,11 @@
 dependencies:
-  '@nestjs/bull': 0.3.1_b16130b5f0847a9d2bdce6b924088c75
+  '@nestjs/bull': 0.3.1_9287bc1d0ffc3f60454dcea4b0b6d6c9
   '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
   '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
   '@nestjs/event-emitter': 0.0.3_b4a52f4cb857f6b0d732af625cec5557
-  '@nestjs/graphql': 7.9.11_db52aa45b7cd394d307010df9c4f64fa
+  '@nestjs/graphql': 7.10.2_db52aa45b7cd394d307010df9c4f64fa
   '@nestjs/jwt': 7.2.0_@nestjs+common@7.6.14
+  '@nestjs/mongoose': 7.2.4_f77cdfbaa45941d228165b50cd36ee0c
   '@nestjs/passport': 7.1.5_306f55e94da3baef559f140df1e0ed67
   '@nestjs/platform-express': 7.6.14_eb2137b89ad1a94bbdbfd4e770f337ed
   '@nestjs/platform-socket.io': 7.6.14_a89d0273565b382701a0e06cdb28fa79
@@ -14,10 +15,10 @@ dependencies:
   '@nestjs/typeorm': 7.1.5_62880686ceb68107ba0a53f84523b767
   '@nestjs/websockets': 7.6.14_4d439db5b768f7014e5330d87ab78feb
   '@types/mongoose': 5.10.3
-  apollo-server: 2.21.1_graphql@15.5.0
-  apollo-server-express: 2.21.1_graphql@15.5.0
+  apollo-server: 2.21.2_graphql@15.5.0
+  apollo-server-express: 2.21.2_graphql@15.5.0
   apollo-server-plugin-base: 0.10.4_graphql@15.5.0
-  bull: 3.20.1
+  bull: 3.21.0
   cache-manager: 3.4.1
   chalk: 4.1.0
   class-transformer: 0.4.0
@@ -61,7 +62,7 @@ devDependencies:
   '@types/express': 4.17.11
   '@types/express-rate-limit': 5.1.1
   '@types/fs-extra': 9.0.8
-  '@types/jest': 26.0.20
+  '@types/jest': 26.0.21
   '@types/lodash': 4.14.168
   '@types/multer': 1.4.5
   '@types/node': 14.14.35
@@ -81,19 +82,19 @@ devDependencies:
   eslint: 7.22.0
   eslint-config-prettier: 8.1.0_eslint@7.22.0
   eslint-plugin-import: 2.22.1_eslint@7.22.0
-  eslint-plugin-jest: 24.3.1_bd1161c0c7c67f0d46bcad0719e6112c
+  eslint-plugin-jest: 24.3.2_bd1161c0c7c67f0d46bcad0719e6112c
   husky: 5.1.3
   jest: 26.6.3_ts-node@9.1.1
   lint-staged: 10.5.4
   prettier: 2.2.1
   supertest: 6.1.3
-  ts-jest: 26.5.3_jest@26.6.3+typescript@4.2.3
-  ts-loader: 8.0.18_typescript@4.2.3+webpack@5.26.0
+  ts-jest: 26.5.4_jest@26.6.3+typescript@4.2.3
+  ts-loader: 8.0.18_typescript@4.2.3+webpack@5.26.3
   ts-node: 9.1.1_typescript@4.2.3
   tsconfig-paths: 3.9.0
   typescript: 4.2.3
-  webpack: 5.26.0
-  webpack-cli: 4.5.0_webpack@5.26.0
+  webpack: 5.26.3
+  webpack-cli: 4.5.0_webpack@5.26.3
   webpack-node-externals: 2.5.2
 lockfileVersion: 5.2
 packages:
@@ -171,48 +172,45 @@ packages:
     resolution:
       integrity: sha1-TxVv8vcjrVskpwm/l/5nbJdTpUQ=
       tarball: '@angular-devkit/schematics/download/@angular-devkit/schematics-11.2.3.tgz'
-  /@apollo/federation/0.17.0_graphql@15.5.0:
+  /@apollo/federation/0.22.0_graphql@15.5.0:
     dependencies:
-      apollo-graphql: 0.4.5_graphql@15.5.0
-      apollo-server-env: 2.4.5
-      core-js: 3.9.1
+      apollo-graphql: 0.6.1_graphql@15.5.0
       graphql: 15.5.0
       lodash.xorby: 4.7.0
     dev: false
     engines:
-      node: '>=8'
+      node: '>=12.13.0 <15.0'
     optional: true
     peerDependencies:
       graphql: ^14.5.0 || ^15.0.0
     resolution:
-      integrity: sha1-VJw/jI1aM9sopMYo2Kn7VDB1jGI=
-      tarball: '@apollo/federation/download/@apollo/federation-0.17.0.tgz'
-  /@apollo/gateway/0.17.0_graphql@15.5.0:
+      integrity: sha1-MCN7tIPqOmwqt20AM3E+ijhAIfI=
+      tarball: '@apollo/federation/download/@apollo/federation-0.22.0.tgz'
+  /@apollo/gateway/0.24.4_graphql@15.5.0:
     dependencies:
-      '@apollo/federation': 0.17.0_graphql@15.5.0
-      '@types/node-fetch': 2.5.4
-      apollo-engine-reporting-protobuf: 0.5.2
-      apollo-env: 0.6.5
-      apollo-graphql: 0.4.5_graphql@15.5.0
+      '@apollo/federation': 0.22.0_graphql@15.5.0
+      '@apollo/query-planner': 0.0.13_graphql@15.5.0
+      '@types/node-fetch': 2.5.8
+      apollo-graphql: 0.6.1_graphql@15.5.0
+      apollo-reporting-protobuf: 0.6.2
       apollo-server-caching: 0.5.3
-      apollo-server-core: 2.16.1_graphql@15.5.0
-      apollo-server-env: 2.4.5
+      apollo-server-core: 2.21.2_graphql@15.5.0
+      apollo-server-env: 3.0.0
       apollo-server-errors: 2.4.2_graphql@15.5.0
-      apollo-server-types: 0.5.1_graphql@15.5.0
+      apollo-server-types: 0.6.3_graphql@15.5.0
       graphql: 15.5.0
-      graphql-extensions: 0.12.8_graphql@15.5.0
       loglevel: 1.7.1
       make-fetch-happen: 8.0.14
       pretty-format: 26.6.2
     dev: false
     engines:
-      node: '>=12.13.0'
+      node: '>=12.13.0 <15.0'
     optional: true
     peerDependencies:
       graphql: ^14.5.0 || ^15.0.0
     resolution:
-      integrity: sha1-vu3dAB+XVMAPDLrcAxApiTGWVf8=
-      tarball: '@apollo/gateway/download/@apollo/gateway-0.17.0.tgz'
+      integrity: sha1-j1w0NG7WkGp5j3/ZOFVYVd48ucQ=
+      tarball: '@apollo/gateway/download/@apollo/gateway-0.24.4.tgz'
   /@apollo/protobufjs/1.0.5:
     dependencies:
       '@protobufjs/aspromise': 1.1.2
@@ -234,6 +232,26 @@ packages:
     resolution:
       integrity: sha1-p4tyYUfvwHledMjLihGq/G4C93M=
       tarball: '@apollo/protobufjs/download/@apollo/protobufjs-1.0.5.tgz'
+  /@apollo/query-planner-wasm/0.2.3:
+    dev: false
+    optional: true
+    resolution:
+      integrity: sha1-PDH3BxHNBOIUjtl/ag2Ts1O2jdo=
+      tarball: '@apollo/query-planner-wasm/download/@apollo/query-planner-wasm-0.2.3.tgz'
+  /@apollo/query-planner/0.0.13_graphql@15.5.0:
+    dependencies:
+      '@apollo/query-planner-wasm': 0.2.3
+      graphql: 15.5.0
+      pretty-format: 26.6.2
+    dev: false
+    engines:
+      node: '>=12.13.0 <15.0'
+    optional: true
+    peerDependencies:
+      graphql: ^14.5.0 || ^15.0.0
+    resolution:
+      integrity: sha1-t6OhJ8gEI2eg1/PBmkRFN2sNOvE=
+      tarball: '@apollo/query-planner/download/@apollo/query-planner-0.0.13.tgz'
   /@apollographql/apollo-tools/0.4.9:
     dependencies:
       apollo-env: 0.6.6
@@ -244,13 +262,6 @@ packages:
     resolution:
       integrity: sha1-ar7vTEWGrsggj3ElSzKeSKtQwH4=
       tarball: '@apollographql/apollo-tools/download/@apollographql/apollo-tools-0.4.9.tgz'
-  /@apollographql/graphql-playground-html/1.6.26:
-    dependencies:
-      xss: 1.0.8
-    dev: false
-    resolution:
-      integrity: sha1-L3thA5LiqHJyKRL8NCtDz41kHLM=
-      tarball: '@apollographql/graphql-playground-html/download/@apollographql/graphql-playground-html-1.6.26.tgz'
   /@apollographql/graphql-playground-html/1.6.27:
     dependencies:
       xss: 1.0.8
@@ -842,32 +853,21 @@ packages:
     resolution:
       integrity: sha1-mcwKBYTXLx3zi5APsGK6mV85VUc=
       tarball: '@eslint/eslintrc/download/@eslint/eslintrc-0.4.0.tgz'
-  /@graphql-tools/merge/6.2.7_graphql@15.5.0:
+  /@graphql-tools/merge/6.2.10_graphql@15.5.0:
     dependencies:
       '@graphql-tools/schema': 7.1.3_graphql@15.5.0
-      '@graphql-tools/utils': 7.5.0_graphql@15.5.0
+      '@graphql-tools/utils': 7.6.0_graphql@15.5.0
       graphql: 15.5.0
       tslib: 2.1.0
     dev: false
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0
     resolution:
-      integrity: sha1-w4m/pAXY11YqBfeU7eQlSHXmf3U=
-      tarball: '@graphql-tools/merge/download/@graphql-tools/merge-6.2.7.tgz'
-  /@graphql-tools/schema/6.2.4_graphql@15.5.0:
-    dependencies:
-      '@graphql-tools/utils': 6.2.4_graphql@15.5.0
-      graphql: 15.5.0
-      tslib: 2.0.3
-    dev: false
-    peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0
-    resolution:
-      integrity: sha1-zE6fXKsPTsSFAOZmcZ2Z/FBCSB0=
-      tarball: '@graphql-tools/schema/download/@graphql-tools/schema-6.2.4.tgz'
+      integrity: sha1-yts3sb7Xhsuhs8b3KMVHahZOFT0=
+      tarball: '@graphql-tools/merge/download/@graphql-tools/merge-6.2.10.tgz'
   /@graphql-tools/schema/7.1.3_graphql@15.5.0:
     dependencies:
-      '@graphql-tools/utils': 7.5.0_graphql@15.5.0
+      '@graphql-tools/utils': 7.6.0_graphql@15.5.0
       graphql: 15.5.0
       tslib: 2.1.0
     dev: false
@@ -876,19 +876,7 @@ packages:
     resolution:
       integrity: sha1-2BZADaUfusHwCG41VAq2O14w6Fg=
       tarball: '@graphql-tools/schema/download/@graphql-tools/schema-7.1.3.tgz'
-  /@graphql-tools/utils/6.2.4_graphql@15.5.0:
-    dependencies:
-      '@ardatan/aggregate-error': 0.0.6
-      camel-case: 4.1.1
-      graphql: 15.5.0
-      tslib: 2.0.3
-    dev: false
-    peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0
-    resolution:
-      integrity: sha1-OKIxTS5eIprU94zKROEZnhjVWFY=
-      tarball: '@graphql-tools/utils/download/@graphql-tools/utils-6.2.4.tgz'
-  /@graphql-tools/utils/7.5.0_graphql@15.5.0:
+  /@graphql-tools/utils/7.6.0_graphql@15.5.0:
     dependencies:
       '@ardatan/aggregate-error': 0.0.6
       camel-case: 4.1.2
@@ -898,8 +886,8 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0
     resolution:
-      integrity: sha1-hIXULuoPcjdI3KTMCTRPAyvR4vo=
-      tarball: '@graphql-tools/utils/download/@graphql-tools/utils-7.5.0.tgz'
+      integrity: sha1-rFcKK1qbzV1kRplfWLoiYJ4Byn0=
+      tarball: '@graphql-tools/utils/download/@graphql-tools/utils-7.6.0.tgz'
   /@istanbuljs/load-nyc-config/1.1.0:
     dependencies:
       camelcase: 5.3.1
@@ -1108,7 +1096,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.3
       '@types/istanbul-reports': 3.0.0
-      '@types/node': 14.14.32
+      '@types/node': 14.14.35
       '@types/yargs': 15.0.13
       chalk: 4.1.0
     engines:
@@ -1116,11 +1104,11 @@ packages:
     resolution:
       integrity: sha1-vvWlMgMOHYii9abZM/hOlyJu1I4=
       tarball: '@jest/types/download/@jest/types-26.6.2.tgz'
-  /@nestjs/bull/0.3.1_b16130b5f0847a9d2bdce6b924088c75:
+  /@nestjs/bull/0.3.1_9287bc1d0ffc3f60454dcea4b0b6d6c9:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
       '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
-      bull: 3.20.1
+      bull: 3.21.0
     dev: false
     peerDependencies:
       '@nestjs/common': ^6.10.11 || ^7.0.0
@@ -1181,6 +1169,13 @@ packages:
       class-validator: '*'
       reflect-metadata: ^0.1.12
       rxjs: ^6.0.0
+    peerDependenciesMeta:
+      cache-manager:
+        optional: true
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
     resolution:
       integrity: sha1-q9rTYO8QdII0WxEe7udPvvAGIMk=
       tarball: '@nestjs/common/download/@nestjs/common-7.6.14.tgz'
@@ -1206,6 +1201,13 @@ packages:
       '@nestjs/websockets': ^7.0.0
       reflect-metadata: ^0.1.12
       rxjs: ^6.0.0
+    peerDependenciesMeta:
+      '@nestjs/microservices':
+        optional: true
+      '@nestjs/platform-express':
+        optional: true
+      '@nestjs/websockets':
+        optional: true
     requiresBuild: true
     resolution:
       integrity: sha1-s74VUGruM7hHq86ZOnNxQ5spLdk=
@@ -1224,40 +1226,40 @@ packages:
     resolution:
       integrity: sha1-yPiDUVZMDs2H+49wz7qd3dPaEts=
       tarball: '@nestjs/event-emitter/download/@nestjs/event-emitter-0.0.3.tgz'
-  /@nestjs/graphql/7.9.11_db52aa45b7cd394d307010df9c4f64fa:
+  /@nestjs/graphql/7.10.2_db52aa45b7cd394d307010df9c4f64fa:
     dependencies:
-      '@graphql-tools/merge': 6.2.7_graphql@15.5.0
-      '@graphql-tools/schema': 6.2.4_graphql@15.5.0
-      '@graphql-tools/utils': 6.2.4_graphql@15.5.0
+      '@graphql-tools/merge': 6.2.10_graphql@15.5.0
+      '@graphql-tools/schema': 7.1.3_graphql@15.5.0
+      '@graphql-tools/utils': 7.6.0_graphql@15.5.0
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
       '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
-      '@nestjs/mapped-types': 0.3.0_b0da10a434270b058846770c36407d79
-      apollo-env: 0.6.5
-      apollo-server-core: 2.16.1_graphql@15.5.0
+      '@nestjs/mapped-types': 0.4.0_b0da10a434270b058846770c36407d79
+      apollo-env: 0.6.6
       chokidar: 3.5.1
       fast-glob: 3.2.5
       graphql: 15.5.0
-      iterall: 1.2.2
-      lodash: 4.17.20
+      iterall: 1.3.0
+      lodash: 4.17.21
       normalize-path: 3.0.0
       reflect-metadata: 0.1.13
       tslib: 2.1.0
       uuid: 8.3.2
     dev: false
     optionalDependencies:
-      '@apollo/gateway': 0.17.0_graphql@15.5.0
+      '@apollo/gateway': 0.24.4_graphql@15.5.0
       apollo-server-testing: 2.21.1_graphql@15.5.0
-      ts-morph: 9.1.0
+      ts-morph: 10.0.1
     peerDependencies:
       '@nestjs/common': ^7.0.0
       '@nestjs/core': ^7.0.0
+      apollo-server-core: ^2.21.1
       class-transformer: '*'
       class-validator: '*'
       graphql: ^14.1.1 || ^15.0.0
       reflect-metadata: ^0.1.12
     resolution:
-      integrity: sha1-K/r5soAMt+cSOOTWA3bD7fX26Ak=
-      tarball: '@nestjs/graphql/download/@nestjs/graphql-7.9.11.tgz'
+      integrity: sha1-Vyd8mL2iEL/wpYJeDuHMnB/WCPE=
+      tarball: '@nestjs/graphql/download/@nestjs/graphql-7.10.2.tgz'
   /@nestjs/jwt/7.2.0_@nestjs+common@7.6.14:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
@@ -1269,7 +1271,7 @@ packages:
     resolution:
       integrity: sha1-1V0VyGGz4NZ6hSy+YTGxTIUkaFI=
       tarball: '@nestjs/jwt/download/@nestjs/jwt-7.2.0.tgz'
-  /@nestjs/mapped-types/0.3.0_b0da10a434270b058846770c36407d79:
+  /@nestjs/mapped-types/0.4.0_b0da10a434270b058846770c36407d79:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
       class-transformer: 0.4.0
@@ -1278,12 +1280,29 @@ packages:
     dev: false
     peerDependencies:
       '@nestjs/common': ^7.0.8
-      class-transformer: ^0.2.0 || ^0.3.0
+      class-transformer: ^0.2.0 || ^0.3.0 || ^0.4.0
       class-validator: ^0.11.1 || ^0.12.0 || ^0.13.0
       reflect-metadata: ^0.1.12
     resolution:
-      integrity: sha1-Hc8XjBmOlIxUjKgDhQ4uumOZANQ=
-      tarball: '@nestjs/mapped-types/download/@nestjs/mapped-types-0.3.0.tgz'
+      integrity: sha1-NSuaZh1tNoY89IsgV2Fs7xssgC0=
+      tarball: '@nestjs/mapped-types/download/@nestjs/mapped-types-0.4.0.tgz'
+  /@nestjs/mongoose/7.2.4_f77cdfbaa45941d228165b50cd36ee0c:
+    dependencies:
+      '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
+      '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+      mongoose: 5.11.15
+      reflect-metadata: 0.1.13
+      rxjs: 6.6.6
+    dev: false
+    peerDependencies:
+      '@nestjs/common': ^6.0.0 || ^7.0.0
+      '@nestjs/core': ^6.0.0 || ^7.0.0
+      mongoose: ^5.11.15
+      reflect-metadata: ^0.1.12
+      rxjs: ^6.0.0
+    resolution:
+      integrity: sha1-YKUFMqJEJ5cDNENo107NgCrtpKQ=
+      tarball: '@nestjs/mongoose/download/@nestjs/mongoose-7.2.4.tgz'
   /@nestjs/passport/7.1.5_306f55e94da3baef559f140df1e0ed67:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
@@ -1406,6 +1425,11 @@ packages:
       '@nestjs/core': ^7.0.0
       '@nestjs/microservices': ^7.0.0
       '@nestjs/platform-express': ^7.0.0
+    peerDependenciesMeta:
+      '@nestjs/microservices':
+        optional: true
+      '@nestjs/platform-express':
+        optional: true
     resolution:
       integrity: sha1-sQkyUBV6VP5rJ+wWS9vcDSbc2EE=
       tarball: '@nestjs/testing/download/@nestjs/testing-7.6.14.tgz'
@@ -1584,22 +1608,21 @@ packages:
     resolution:
       integrity: sha1-zLkURTYBeaBOf+av94wA/8Hur4I=
       tarball: '@tootallnate/once/download/@tootallnate/once-1.1.2.tgz'
-  /@ts-morph/common/0.7.5:
+  /@ts-morph/common/0.8.1:
     dependencies:
       '@dsherret/to-absolute-glob': 2.0.2
       fast-glob: 3.2.5
       is-negated-glob: 1.0.0
       mkdirp: 1.0.4
       multimatch: 5.0.0
-      typescript: 4.1.5
     dev: false
     optional: true
     resolution:
-      integrity: sha1-2BYDq9S4bQCZ1pI5y7zfmQpd+yU=
-      tarball: '@ts-morph/common/download/@ts-morph/common-0.7.5.tgz'
+      integrity: sha1-e+CgBI65Bss932UGvvBsPNGh47o=
+      tarball: '@ts-morph/common/download/@ts-morph/common-0.8.1.tgz'
   /@types/accepts/1.3.5:
     dependencies:
-      '@types/node': 14.14.32
+      '@types/node': 14.14.35
     dev: false
     resolution:
       integrity: sha1-w0vsEVz8dG4E/loFnfTOfns5FXU=
@@ -1645,7 +1668,7 @@ packages:
   /@types/body-parser/1.19.0:
     dependencies:
       '@types/connect': 3.4.34
-      '@types/node': 14.14.32
+      '@types/node': 14.14.35
     resolution:
       integrity: sha1-BoWzxH6zAG/+0RfN1VFkth+AU48=
       tarball: '@types/body-parser/download/@types/body-parser-1.19.0.tgz'
@@ -1677,7 +1700,7 @@ packages:
       tarball: '@types/compression/download/@types/compression-1.7.0.tgz'
   /@types/connect/3.4.34:
     dependencies:
-      '@types/node': 14.14.32
+      '@types/node': 14.14.35
     resolution:
       integrity: sha1-FwpAIjptZmAG2TyhKK8r6x2bGQE=
       tarball: '@types/connect/download/@types/connect-3.4.34.tgz'
@@ -1696,7 +1719,7 @@ packages:
       '@types/connect': 3.4.34
       '@types/express': 4.17.11
       '@types/keygrip': 1.0.2
-      '@types/node': 14.14.32
+      '@types/node': 14.14.35
     dev: false
     resolution:
       integrity: sha1-cSEsU5GpdtO65X1LCfrCD8a9pQQ=
@@ -1758,7 +1781,7 @@ packages:
       tarball: '@types/express-rate-limit/download/@types/express-rate-limit-5.1.1.tgz'
   /@types/express-serve-static-core/4.17.18:
     dependencies:
-      '@types/node': 14.14.32
+      '@types/node': 14.14.35
       '@types/qs': 6.9.6
       '@types/range-parser': 1.2.3
     resolution:
@@ -1773,19 +1796,9 @@ packages:
     resolution:
       integrity: sha1-3r48qm+OX82pa0e9VOL0DE7llUU=
       tarball: '@types/express/download/@types/express-4.17.11.tgz'
-  /@types/express/4.17.7:
-    dependencies:
-      '@types/body-parser': 1.19.0
-      '@types/express-serve-static-core': 4.17.18
-      '@types/qs': 6.9.6
-      '@types/serve-static': 1.13.9
-    dev: false
-    resolution:
-      integrity: sha1-QgRb5kdWNtmAE2nNRBjvZc2w3Vk=
-      tarball: '@types/express/download/@types/express-4.17.7.tgz'
   /@types/fs-capacitor/2.0.0:
     dependencies:
-      '@types/node': 14.14.32
+      '@types/node': 14.14.35
     dev: false
     resolution:
       integrity: sha1-FxE+JYF/WE9YEA+3oI7tKIuBlW4=
@@ -1804,16 +1817,6 @@ packages:
     resolution:
       integrity: sha1-If+6DZjaQ1DbZIkfkqnl2zzbThU=
       tarball: '@types/graceful-fs/download/@types/graceful-fs-4.1.5.tgz'
-  /@types/graphql-upload/8.0.4:
-    dependencies:
-      '@types/express': 4.17.11
-      '@types/fs-capacitor': 2.0.0
-      '@types/koa': 2.13.1
-      graphql: 15.5.0
-    dev: false
-    resolution:
-      integrity: sha1-I6j/s9L+bg7gfm8W7p2dXplaL08=
-      tarball: '@types/graphql-upload/download/@types/graphql-upload-8.0.4.tgz'
   /@types/http-assert/1.5.1:
     dev: false
     resolution:
@@ -1847,14 +1850,14 @@ packages:
     resolution:
       integrity: sha1-UIsTqjRPpJdiNOdd3cw0klc32CE=
       tarball: '@types/istanbul-reports/download/@types/istanbul-reports-3.0.0.tgz'
-  /@types/jest/26.0.20:
+  /@types/jest/26.0.21:
     dependencies:
       jest-diff: 26.6.2
       pretty-format: 26.6.2
     dev: true
     resolution:
-      integrity: sha1-zS8nAuz2noa1huH1Ijpg5FQFYwc=
-      tarball: '@types/jest/download/@types/jest-26.0.20.tgz'
+      integrity: sha1-OnPCcx5+Tw+66lbOf/jHnPgSvSQ=
+      tarball: '@types/jest/download/@types/jest-26.0.21.tgz'
   /@types/json-schema/7.0.7:
     dev: true
     resolution:
@@ -1892,7 +1895,7 @@ packages:
       '@types/http-errors': 1.8.0
       '@types/keygrip': 1.0.2
       '@types/koa-compose': 3.2.5
-      '@types/node': 14.14.32
+      '@types/node': 14.14.35
     dev: false
     resolution:
       integrity: sha1-4ph3prWtN0SrECT27HW4y/bsRds=
@@ -1945,27 +1948,28 @@ packages:
     resolution:
       integrity: sha1-2wVXViMH6a22ZhqVAMM0zX3dDNk=
       tarball: '@types/multer/download/@types/multer-1.4.5.tgz'
-  /@types/node-fetch/2.5.4:
-    dependencies:
-      '@types/node': 14.14.32
-    dev: false
-    optional: true
-    resolution:
-      integrity: sha1-UkW22IQfw6Ygi4IpERm8EcTgzkQ=
-      tarball: '@types/node-fetch/download/@types/node-fetch-2.5.4.tgz'
   /@types/node-fetch/2.5.7:
     dependencies:
-      '@types/node': 14.14.32
+      '@types/node': 14.14.35
       form-data: 3.0.1
     dev: false
     resolution:
       integrity: sha1-IKKv/6iCqwTUTKeGRJonb59rvzw=
       tarball: '@types/node-fetch/download/@types/node-fetch-2.5.7.tgz'
+  /@types/node-fetch/2.5.8:
+    dependencies:
+      '@types/node': 14.14.35
+      form-data: 3.0.1
+    dev: false
+    optional: true
+    resolution:
+      integrity: sha1-4ZnINdI0x+sIRvZhgBLlWFRO4vs=
+      tarball: '@types/node-fetch/download/@types/node-fetch-2.5.8.tgz'
   /@types/node/10.17.55:
     dev: false
     resolution:
       integrity: sha1-oUfygu3sZ5uJTUaU7bWr61lf7L0=
-      tarball: '@types/node/download/@types/node-10.17.55.tgz?cache=0&sync_timestamp=1615165856975&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-10.17.55.tgz'
+      tarball: '@types/node/download/@types/node-10.17.55.tgz'
   /@types/node/14.14.32:
     resolution:
       integrity: sha1-kMXEqNcru/5TAz8SI0E0MkkYNEg=
@@ -1979,7 +1983,6 @@ packages:
       integrity: sha1-B5NRlPwEkGmhxWwMJ0Jlq+3fiNo=
       tarball: '@types/node/download/@types/node-14.14.34.tgz?cache=0&sync_timestamp=1615552048482&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.34.tgz'
   /@types/node/14.14.35:
-    dev: true
     resolution:
       integrity: sha1-QslTpOKxirkx9yR35wEhcvT/oxM=
       tarball: '@types/node/download/@types/node-14.14.35.tgz'
@@ -2175,6 +2178,7 @@ packages:
       regexpp: 3.1.0
       semver: 7.3.4
       tsutils: 3.21.0_typescript@4.2.3
+      typescript: 4.2.3
     dev: true
     engines:
       node: ^10.12.0 || >=12.0.0
@@ -2182,27 +2186,12 @@ packages:
       '@typescript-eslint/parser': ^4.0.0
       eslint: ^5.0.0 || ^6.0.0 || ^7.0.0
       typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     resolution:
       integrity: sha1-UPvOkyEbW2kIldIOvsb+jbSK8fY=
       tarball: '@typescript-eslint/eslint-plugin/download/@typescript-eslint/eslint-plugin-4.18.0.tgz'
-  /@typescript-eslint/experimental-utils/4.17.0_eslint@7.22.0+typescript@4.2.3:
-    dependencies:
-      '@types/json-schema': 7.0.7
-      '@typescript-eslint/scope-manager': 4.17.0
-      '@typescript-eslint/types': 4.17.0
-      '@typescript-eslint/typescript-estree': 4.17.0_typescript@4.2.3
-      eslint: 7.22.0
-      eslint-scope: 5.1.1
-      eslint-utils: 2.1.0
-    dev: true
-    engines:
-      node: ^10.12.0 || >=12.0.0
-    peerDependencies:
-      eslint: '*'
-      typescript: '*'
-    resolution:
-      integrity: sha1-dixEqqGmo8BbbWOoZI+4m4n4TIA=
-      tarball: '@typescript-eslint/experimental-utils/download/@typescript-eslint/experimental-utils-4.17.0.tgz'
   /@typescript-eslint/experimental-utils/4.18.0_eslint@7.22.0+typescript@4.2.3:
     dependencies:
       '@types/json-schema': 7.0.7
@@ -2228,25 +2217,19 @@ packages:
       '@typescript-eslint/typescript-estree': 4.18.0_typescript@4.2.3
       debug: 4.3.1
       eslint: 7.22.0
+      typescript: 4.2.3
     dev: true
     engines:
       node: ^10.12.0 || >=12.0.0
     peerDependencies:
       eslint: ^5.0.0 || ^6.0.0 || ^7.0.0
       typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     resolution:
       integrity: sha1-ohHtsUpp/FF3BUvsBMlbGFtN3iE=
       tarball: '@typescript-eslint/parser/download/@typescript-eslint/parser-4.18.0.tgz?cache=0&sync_timestamp=1615860720086&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40typescript-eslint%2Fparser%2Fdownload%2F%40typescript-eslint%2Fparser-4.18.0.tgz'
-  /@typescript-eslint/scope-manager/4.17.0:
-    dependencies:
-      '@typescript-eslint/types': 4.17.0
-      '@typescript-eslint/visitor-keys': 4.17.0
-    dev: true
-    engines:
-      node: ^8.10.0 || ^10.13.0 || >=11.10.1
-    resolution:
-      integrity: sha1-9O35Tv87UqhjGA9/iVgb+WPj030=
-      tarball: '@typescript-eslint/scope-manager/download/@typescript-eslint/scope-manager-4.17.0.tgz'
   /@typescript-eslint/scope-manager/4.18.0:
     dependencies:
       '@typescript-eslint/types': 4.18.0
@@ -2257,13 +2240,6 @@ packages:
     resolution:
       integrity: sha1-11tVI0w10v9qyUV1jW2eU76EpCc=
       tarball: '@typescript-eslint/scope-manager/download/@typescript-eslint/scope-manager-4.18.0.tgz'
-  /@typescript-eslint/types/4.17.0:
-    dev: true
-    engines:
-      node: ^8.10.0 || ^10.13.0 || >=11.10.1
-    resolution:
-      integrity: sha1-9X2Px/MbNI25RkmKQwUAg9JfQK0=
-      tarball: '@typescript-eslint/types/download/@typescript-eslint/types-4.17.0.tgz'
   /@typescript-eslint/types/4.18.0:
     dev: true
     engines:
@@ -2271,10 +2247,10 @@ packages:
     resolution:
       integrity: sha1-vr4yP4Hyp+LjIPrJQV5ghWJnWEo=
       tarball: '@typescript-eslint/types/download/@typescript-eslint/types-4.18.0.tgz'
-  /@typescript-eslint/typescript-estree/4.17.0_typescript@4.2.3:
+  /@typescript-eslint/typescript-estree/4.18.0_typescript@4.2.3:
     dependencies:
-      '@typescript-eslint/types': 4.17.0
-      '@typescript-eslint/visitor-keys': 4.17.0
+      '@typescript-eslint/types': 4.18.0
+      '@typescript-eslint/visitor-keys': 4.18.0
       debug: 4.3.1
       globby: 11.0.2
       is-glob: 4.0.1
@@ -2286,36 +2262,12 @@ packages:
       node: ^10.12.0 || >=12.0.0
     peerDependencies:
       typescript: '*'
-    resolution:
-      integrity: sha1-uDXRUoBPCXK4Db2pJHf5Bwpy3tE=
-      tarball: '@typescript-eslint/typescript-estree/download/@typescript-eslint/typescript-estree-4.17.0.tgz'
-  /@typescript-eslint/typescript-estree/4.18.0_typescript@4.2.3:
-    dependencies:
-      '@typescript-eslint/types': 4.18.0
-      '@typescript-eslint/visitor-keys': 4.18.0
-      debug: 4.3.1
-      globby: 11.0.2
-      is-glob: 4.0.1
-      semver: 7.3.4
-      tsutils: 3.21.0_typescript@4.2.3
-    dev: true
-    engines:
-      node: ^10.12.0 || >=12.0.0
-    peerDependencies:
-      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     resolution:
       integrity: sha1-dW0+YdqMFquZGFUyxEhy9M1VOMs=
       tarball: '@typescript-eslint/typescript-estree/download/@typescript-eslint/typescript-estree-4.18.0.tgz'
-  /@typescript-eslint/visitor-keys/4.17.0:
-    dependencies:
-      '@typescript-eslint/types': 4.17.0
-      eslint-visitor-keys: 2.0.0
-    dev: true
-    engines:
-      node: ^8.10.0 || ^10.13.0 || >=11.10.1
-    resolution:
-      integrity: sha1-nDBM/SAofBSjHVcxlacJERhJsU0=
-      tarball: '@typescript-eslint/visitor-keys/download/@typescript-eslint/visitor-keys-4.17.0.tgz'
   /@typescript-eslint/visitor-keys/4.18.0:
     dependencies:
       '@typescript-eslint/types': 4.18.0
@@ -2592,10 +2544,10 @@ packages:
     resolution:
       integrity: sha1-ufOOk2UgN9Tz+ckVhGNa9Bke18E=
       tarball: '@webassemblyjs/wast-printer/download/@webassemblyjs/wast-printer-1.9.1.tgz'
-  /@webpack-cli/configtest/1.0.1_webpack-cli@4.5.0+webpack@5.26.0:
+  /@webpack-cli/configtest/1.0.1_webpack-cli@4.5.0+webpack@5.26.3:
     dependencies:
-      webpack: 5.26.0
-      webpack-cli: 4.5.0_webpack@5.26.0
+      webpack: 5.26.3
+      webpack-cli: 4.5.0_webpack@5.26.3
     dev: true
     peerDependencies:
       webpack: 4.x.x || 5.x.x
@@ -2606,7 +2558,7 @@ packages:
   /@webpack-cli/info/1.2.2_webpack-cli@4.5.0:
     dependencies:
       envinfo: 7.7.4
-      webpack-cli: 4.5.0_webpack@5.26.0
+      webpack-cli: 4.5.0_webpack@5.26.3
     dev: true
     peerDependencies:
       webpack-cli: 4.x.x
@@ -2615,7 +2567,7 @@ packages:
       tarball: '@webpack-cli/info/download/@webpack-cli/info-1.2.2.tgz'
   /@webpack-cli/serve/1.3.0_webpack-cli@4.5.0:
     dependencies:
-      webpack-cli: 4.5.0_webpack@5.26.0
+      webpack-cli: 4.5.0_webpack@5.26.3
     dev: true
     peerDependencies:
       webpack-cli: 4.x.x
@@ -2885,45 +2837,6 @@ packages:
     resolution:
       integrity: sha1-yCTrFFe97loxc87Q415ZRUfmh6A=
       tarball: apollo-datasource/download/apollo-datasource-0.7.3.tgz
-  /apollo-engine-reporting-protobuf/0.5.2:
-    dependencies:
-      '@apollo/protobufjs': 1.0.5
-    dev: false
-    resolution:
-      integrity: sha1-sBgSUIocWDMoqNxgN2m8Y7iJXn4=
-      tarball: apollo-engine-reporting-protobuf/download/apollo-engine-reporting-protobuf-0.5.2.tgz
-  /apollo-engine-reporting/2.3.0_graphql@15.5.0:
-    dependencies:
-      apollo-engine-reporting-protobuf: 0.5.2
-      apollo-graphql: 0.5.0_graphql@15.5.0
-      apollo-server-caching: 0.5.3
-      apollo-server-env: 2.4.5
-      apollo-server-errors: 2.4.2_graphql@15.5.0
-      apollo-server-plugin-base: 0.9.1_graphql@15.5.0
-      apollo-server-types: 0.5.1_graphql@15.5.0
-      async-retry: 1.3.1
-      graphql: 15.5.0
-      uuid: 8.3.2
-    dev: false
-    engines:
-      node: '>=6.0'
-    peerDependencies:
-      graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
-    resolution:
-      integrity: sha1-O7Wfgar2uWftCYiWpKYKBTtO7Vo=
-      tarball: apollo-engine-reporting/download/apollo-engine-reporting-2.3.0.tgz
-  /apollo-env/0.6.5:
-    dependencies:
-      '@types/node-fetch': 2.5.7
-      core-js: 3.9.1
-      node-fetch: 2.6.1
-      sha.js: 2.4.11
-    dev: false
-    engines:
-      node: '>=8'
-    resolution:
-      integrity: sha1-WjbmmdOeI1Y4H3IDSTGHJg/e2fM=
-      tarball: apollo-env/download/apollo-env-0.6.5.tgz
   /apollo-env/0.6.6:
     dependencies:
       '@types/node-fetch': 2.5.7
@@ -2936,33 +2849,6 @@ packages:
     resolution:
       integrity: sha1-14gIBcTpbuPUFCkApAUXagR3lDg=
       tarball: apollo-env/download/apollo-env-0.6.6.tgz
-  /apollo-graphql/0.4.5_graphql@15.5.0:
-    dependencies:
-      apollo-env: 0.6.5
-      graphql: 15.5.0
-      lodash.sortby: 4.7.0
-    dev: false
-    engines:
-      node: '>=6'
-    optional: true
-    peerDependencies:
-      graphql: ^14.2.1
-    resolution:
-      integrity: sha1-k2UpM1AQ+b6eI5YZuC+5BgxwUh0=
-      tarball: apollo-graphql/download/apollo-graphql-0.4.5.tgz
-  /apollo-graphql/0.5.0_graphql@15.5.0:
-    dependencies:
-      apollo-env: 0.6.6
-      graphql: 15.5.0
-      lodash.sortby: 4.7.0
-    dev: false
-    engines:
-      node: '>=6'
-    peerDependencies:
-      graphql: ^14.2.1 || ^15.0.0
-    resolution:
-      integrity: sha1-fpFSCTIRtYNSqmUE2NOexyQdaHI=
-      tarball: apollo-graphql/download/apollo-graphql-0.5.0.tgz
   /apollo-graphql/0.6.1_graphql@15.5.0:
     dependencies:
       apollo-env: 0.6.6
@@ -3005,40 +2891,7 @@ packages:
     resolution:
       integrity: sha1-z0KnetCaRikKJGgQB16qAptTBeE=
       tarball: apollo-server-caching/download/apollo-server-caching-0.5.3.tgz
-  /apollo-server-core/2.16.1_graphql@15.5.0:
-    dependencies:
-      '@apollographql/apollo-tools': 0.4.9
-      '@apollographql/graphql-playground-html': 1.6.26
-      '@types/graphql-upload': 8.0.4
-      '@types/ws': 7.4.0
-      apollo-cache-control: 0.11.6_graphql@15.5.0
-      apollo-datasource: 0.7.3
-      apollo-engine-reporting: 2.3.0_graphql@15.5.0
-      apollo-server-caching: 0.5.3
-      apollo-server-env: 2.4.5
-      apollo-server-errors: 2.4.2_graphql@15.5.0
-      apollo-server-plugin-base: 0.9.1_graphql@15.5.0
-      apollo-server-types: 0.5.1_graphql@15.5.0
-      apollo-tracing: 0.11.4_graphql@15.5.0
-      fast-json-stable-stringify: 2.1.0
-      graphql: 15.5.0
-      graphql-extensions: 0.12.8_graphql@15.5.0
-      graphql-tag: 2.11.0_graphql@15.5.0
-      graphql-tools: 4.0.8_graphql@15.5.0
-      graphql-upload: 8.1.0_graphql@15.5.0
-      loglevel: 1.7.1
-      sha.js: 2.4.11
-      subscriptions-transport-ws: 0.9.18_graphql@15.5.0
-      ws: 6.2.1
-    dev: false
-    engines:
-      node: '>=6'
-    peerDependencies:
-      graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
-    resolution:
-      integrity: sha1-W1uCRaucDLbCNn7BmrhV3qbM6jo=
-      tarball: apollo-server-core/download/apollo-server-core-2.16.1.tgz
-  /apollo-server-core/2.21.1_graphql@15.5.0:
+  /apollo-server-core/2.21.2_graphql@15.5.0:
     dependencies:
       '@apollographql/apollo-tools': 0.4.9
       '@apollographql/graphql-playground-html': 1.6.27
@@ -3072,18 +2925,8 @@ packages:
     peerDependencies:
       graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
     resolution:
-      integrity: sha1-VJTlWOUaZM3WOwCnYu1gDExz7hA=
-      tarball: apollo-server-core/download/apollo-server-core-2.21.1.tgz
-  /apollo-server-env/2.4.5:
-    dependencies:
-      node-fetch: 2.6.1
-      util.promisify: 1.1.1
-    dev: false
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha1-c3MLTwQ5CUoicqnQyqQHnUtmHV8=
-      tarball: apollo-server-env/download/apollo-server-env-2.4.5.tgz
+      integrity: sha1-n0S9y01UZ6Qm8P7NESr8lUedSwc=
+      tarball: apollo-server-core/download/apollo-server-core-2.21.2.tgz
   /apollo-server-env/3.0.0:
     dependencies:
       node-fetch: 2.6.1
@@ -3105,16 +2948,16 @@ packages:
     resolution:
       integrity: sha1-EShzih0U2pifWEIIltcFJHhOq+U=
       tarball: apollo-server-errors/download/apollo-server-errors-2.4.2.tgz
-  /apollo-server-express/2.21.1_graphql@15.5.0:
+  /apollo-server-express/2.21.2_graphql@15.5.0:
     dependencies:
       '@apollographql/graphql-playground-html': 1.6.27
       '@types/accepts': 1.3.5
       '@types/body-parser': 1.19.0
       '@types/cors': 2.8.8
-      '@types/express': 4.17.7
+      '@types/express': 4.17.11
       '@types/express-serve-static-core': 4.17.18
       accepts: 1.3.7
-      apollo-server-core: 2.21.1_graphql@15.5.0
+      apollo-server-core: 2.21.2_graphql@15.5.0
       apollo-server-types: 0.6.3_graphql@15.5.0
       body-parser: 1.19.0
       cors: 2.8.5
@@ -3131,8 +2974,8 @@ packages:
     peerDependencies:
       graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
     resolution:
-      integrity: sha1-sRr1ypUmZ+B5UsDlr4plSQomxwo=
-      tarball: apollo-server-express/download/apollo-server-express-2.21.1.tgz
+      integrity: sha1-ki+N98HQgWRwo9gYjV+Fd6Mx/n4=
+      tarball: apollo-server-express/download/apollo-server-express-2.21.2.tgz
   /apollo-server-plugin-base/0.10.4_graphql@15.5.0:
     dependencies:
       apollo-server-types: 0.6.3_graphql@15.5.0
@@ -3145,21 +2988,9 @@ packages:
     resolution:
       integrity: sha1-+/c/ZPlVN8qfljndfFNete65Xc0=
       tarball: apollo-server-plugin-base/download/apollo-server-plugin-base-0.10.4.tgz
-  /apollo-server-plugin-base/0.9.1_graphql@15.5.0:
-    dependencies:
-      apollo-server-types: 0.5.1_graphql@15.5.0
-      graphql: 15.5.0
-    dev: false
-    engines:
-      node: '>=6'
-    peerDependencies:
-      graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
-    resolution:
-      integrity: sha1-pirpq06JeQ/UzF0SO7YW2jTo5fs=
-      tarball: apollo-server-plugin-base/download/apollo-server-plugin-base-0.9.1.tgz
   /apollo-server-testing/2.21.1_graphql@15.5.0:
     dependencies:
-      apollo-server-core: 2.21.1_graphql@15.5.0
+      apollo-server-core: 2.21.2_graphql@15.5.0
       graphql: 15.5.0
     dev: false
     engines:
@@ -3170,20 +3001,6 @@ packages:
     resolution:
       integrity: sha1-gF0w6XMlwTsDr8uWXCSXtT8mEyo=
       tarball: apollo-server-testing/download/apollo-server-testing-2.21.1.tgz
-  /apollo-server-types/0.5.1_graphql@15.5.0:
-    dependencies:
-      apollo-engine-reporting-protobuf: 0.5.2
-      apollo-server-caching: 0.5.3
-      apollo-server-env: 2.4.5
-      graphql: 15.5.0
-    dev: false
-    engines:
-      node: '>=6'
-    peerDependencies:
-      graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
-    resolution:
-      integrity: sha1-CRwJZSiU1lMtubqHNXREOtq/hbk=
-      tarball: apollo-server-types/download/apollo-server-types-0.5.1.tgz
   /apollo-server-types/0.6.3_graphql@15.5.0:
     dependencies:
       apollo-reporting-protobuf: 0.6.2
@@ -3198,10 +3015,10 @@ packages:
     resolution:
       integrity: sha1-96ol/3FXhjJk0Bp315NKpuEzmeg=
       tarball: apollo-server-types/download/apollo-server-types-0.6.3.tgz
-  /apollo-server/2.21.1_graphql@15.5.0:
+  /apollo-server/2.21.2_graphql@15.5.0:
     dependencies:
-      apollo-server-core: 2.21.1_graphql@15.5.0
-      apollo-server-express: 2.21.1_graphql@15.5.0
+      apollo-server-core: 2.21.2_graphql@15.5.0
+      apollo-server-express: 2.21.2_graphql@15.5.0
       express: 4.17.1
       graphql: 15.5.0
       graphql-subscriptions: 1.2.1_graphql@15.5.0
@@ -3211,21 +3028,8 @@ packages:
     peerDependencies:
       graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
     resolution:
-      integrity: sha1-mVa14OHPh8PwUO+2C9t32oieiH4=
-      tarball: apollo-server/download/apollo-server-2.21.1.tgz
-  /apollo-tracing/0.11.4_graphql@15.5.0:
-    dependencies:
-      apollo-server-env: 2.4.5
-      apollo-server-plugin-base: 0.10.4_graphql@15.5.0
-      graphql: 15.5.0
-    dev: false
-    engines:
-      node: '>=4.0'
-    peerDependencies:
-      graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
-    resolution:
-      integrity: sha1-6VNUcGS8UN+jN8vlaDYnG/0tLvw=
-      tarball: apollo-tracing/download/apollo-tracing-0.11.4.tgz
+      integrity: sha1-fmOkUBwS+tT1kwJz3qyuWRmcddA=
+      tarball: apollo-server/download/apollo-server-2.21.2.tgz
   /apollo-tracing/0.12.2_graphql@15.5.0:
     dependencies:
       apollo-server-env: 3.0.0
@@ -3732,7 +3536,7 @@ packages:
     resolution:
       integrity: sha1-umLnwTEzBTWCGXFghRqPZI6Z7tA=
       tarball: buffer/download/buffer-5.7.1.tgz
-  /bull/3.20.1:
+  /bull/3.21.0:
     dependencies:
       cron-parser: 2.18.0
       debuglog: 1.0.1
@@ -3748,8 +3552,8 @@ packages:
     engines:
       node: '>=10'
     resolution:
-      integrity: sha1-l8QVb0gAFWW688BLgSZ6VgT0B1Q=
-      tarball: bull/download/bull-3.20.1.tgz
+      integrity: sha1-YKtkpYRppImp1LYtVDrCBG/9PEQ=
+      tarball: bull/download/bull-3.21.0.tgz
   /busboy/0.2.14:
     dependencies:
       dicer: 0.2.5
@@ -3849,14 +3653,6 @@ packages:
     resolution:
       integrity: sha1-s2MKvYlDQy9Us/BRkjjjPNffL3M=
       tarball: callsites/download/callsites-3.1.0.tgz
-  /camel-case/4.1.1:
-    dependencies:
-      pascal-case: 3.1.2
-      tslib: 1.14.1
-    dev: false
-    resolution:
-      integrity: sha1-H8QchU8A4vfQE53+uhVC1olv5Uc=
-      tarball: camel-case/download/camel-case-4.1.1.tgz
   /camel-case/4.1.2:
     dependencies:
       pascal-case: 3.1.2
@@ -4611,6 +4407,11 @@ packages:
       ms: 2.1.2
     engines:
       node: '>=6.0'
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     resolution:
       integrity: sha1-8NIpxQXgxtjEmsVT0bE9wYP2su4=
       tarball: debug/download/debug-4.3.1.tgz
@@ -5136,10 +4937,10 @@ packages:
     resolution:
       integrity: sha1-CJbH5qDPRBCaLZe5WQPCu2iddwI=
       tarball: eslint-plugin-import/download/eslint-plugin-import-2.22.1.tgz
-  /eslint-plugin-jest/24.3.1_bd1161c0c7c67f0d46bcad0719e6112c:
+  /eslint-plugin-jest/24.3.2_bd1161c0c7c67f0d46bcad0719e6112c:
     dependencies:
       '@typescript-eslint/eslint-plugin': 4.18.0_ef0f217f6395606fd8bbe7b0291eff7e
-      '@typescript-eslint/experimental-utils': 4.17.0_eslint@7.22.0+typescript@4.2.3
+      '@typescript-eslint/experimental-utils': 4.18.0_eslint@7.22.0+typescript@4.2.3
       eslint: 7.22.0
     dev: true
     engines:
@@ -5149,8 +4950,8 @@ packages:
       eslint: '>=5'
       typescript: '*'
     resolution:
-      integrity: sha1-yN8DeEe4M5eUC+9/vCzBaKtGa8w=
-      tarball: eslint-plugin-jest/download/eslint-plugin-jest-24.3.1.tgz?cache=0&sync_timestamp=1615705774787&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint-plugin-jest%2Fdownload%2Feslint-plugin-jest-24.3.1.tgz
+      integrity: sha1-MKiy3qYnjQ2h1vudbNUwqvWAUKE=
+      tarball: eslint-plugin-jest/download/eslint-plugin-jest-24.3.2.tgz
   /eslint-scope/5.1.1:
     dependencies:
       esrecurse: 4.3.0
@@ -5813,8 +5614,6 @@ packages:
     engines:
       node: ^8.16.0 || ^10.6.0 || >=11.0.0
     optional: true
-    os:
-      - darwin
     resolution:
       integrity: sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=
       tarball: fsevents/download/fsevents-2.3.2.tgz
@@ -6060,21 +5859,6 @@ packages:
     resolution:
       integrity: sha1-5/ufDUNAj7CHi6ZrUizocbr+nTA=
       tarball: graphql-tools/download/graphql-tools-4.0.8.tgz
-  /graphql-upload/8.1.0_graphql@15.5.0:
-    dependencies:
-      busboy: 0.3.1
-      fs-capacitor: 2.0.4
-      graphql: 15.5.0
-      http-errors: 1.8.0
-      object-path: 0.11.5
-    dev: false
-    engines:
-      node: '>=8.5'
-    peerDependencies:
-      graphql: 0.13.1 - 14
-    resolution:
-      integrity: sha1-bQq2YttWd6aL+x8shwqyVEwUk5o=
-      tarball: graphql-upload/download/graphql-upload-8.1.0.tgz
   /graphql/15.5.0:
     dev: false
     engines:
@@ -6140,7 +5924,7 @@ packages:
   /has-bigints/1.0.0:
     resolution:
       integrity: sha1-2bIQCCQZXjmgw0PBJ/OJ1mpeJ9w=
-      tarball: has-bigints/download/has-bigints-1.0.0.tgz?cache=0&sync_timestamp=1614658716887&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fhas-bigints%2Fdownload%2Fhas-bigints-1.0.0.tgz
+      tarball: has-bigints/download/has-bigints-1.0.0.tgz
   /has-binary2/1.0.3:
     dependencies:
       isarray: 2.0.1
@@ -6471,7 +6255,7 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
-      tarball: inherits/download/inherits-2.0.3.tgz
+      tarball: inherits/download/inherits-2.0.3.tgz?cache=0&sync_timestamp=1610086112340&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Finherits%2Fdownload%2Finherits-2.0.3.tgz
   /inherits/2.0.4:
     resolution:
       integrity: sha1-D6LGT5MpF8NDOg3tVTY6rjdBa3w=
@@ -6533,7 +6317,7 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha1-9htlYzolyT9D/M68rKwvQ0LkGPk=
-      tarball: ioredis/download/ioredis-4.23.0.tgz
+      tarball: ioredis/download/ioredis-4.23.0.tgz?cache=0&sync_timestamp=1615772780214&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fioredis%2Fdownload%2Fioredis-4.23.0.tgz
   /ip/1.1.5:
     dev: false
     optional: true
@@ -7010,11 +6794,6 @@ packages:
     resolution:
       integrity: sha1-1ZMhDlAAaDdQywn8BkTktuJ/1Ts=
       tarball: istanbul-reports/download/istanbul-reports-3.0.2.tgz
-  /iterall/1.2.2:
-    dev: false
-    resolution:
-      integrity: sha1-ktcN64Ao4MOf8xZP2/TYsIgTDNc=
-      tarball: iterall/download/iterall-1.2.2.tgz
   /iterall/1.3.0:
     dev: false
     resolution:
@@ -7417,7 +7196,7 @@ packages:
   /jest-util/26.6.2:
     dependencies:
       '@jest/types': 26.6.2
-      '@types/node': 14.14.32
+      '@types/node': 14.14.35
       chalk: 4.1.0
       graceful-fs: 4.2.6
       is-ci: 2.0.0
@@ -7921,11 +7700,6 @@ packages:
     resolution:
       integrity: sha1-nBmm+fBjputT3QPBtocXmYAUY9c=
       tarball: lodash.xorby/download/lodash.xorby-4.7.0.tgz
-  /lodash/4.17.20:
-    dev: false
-    resolution:
-      integrity: sha1-tEqbYpe8tpjxxRo1RaKzs2jVnFI=
-      tarball: lodash/download/lodash-4.17.20.tgz
   /lodash/4.17.21:
     resolution:
       integrity: sha1-Z5WRxWTDv/quhFTPCz3zcMPWkRw=
@@ -8188,7 +7962,7 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-Ymd0in95lZTePLyM3pHe80lmHO4=
-      tarball: mime-db/download/mime-db-1.46.0.tgz
+      tarball: mime-db/download/mime-db-1.46.0.tgz?cache=0&sync_timestamp=1613202309082&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmime-db%2Fdownload%2Fmime-db-1.46.0.tgz
   /mime-types/2.1.29:
     dependencies:
       mime-db: 1.46.0
@@ -10863,7 +10637,7 @@ packages:
     resolution:
       integrity: sha1-fv+t7gb37PoJPbvT6asj9fPthnM=
       tarball: terser-webpack-plugin/download/terser-webpack-plugin-5.1.1.tgz
-  /terser-webpack-plugin/5.1.1_webpack@5.26.0:
+  /terser-webpack-plugin/5.1.1_webpack@5.26.3:
     dependencies:
       jest-worker: 26.6.2
       p-limit: 3.1.0
@@ -10871,7 +10645,7 @@ packages:
       serialize-javascript: 5.0.1
       source-map: 0.6.1
       terser: 5.6.0
-      webpack: 5.26.0
+      webpack: 5.26.3
     dev: true
     engines:
       node: '>= 10.13.0'
@@ -11082,7 +10856,7 @@ packages:
     resolution:
       integrity: sha1-l6UjUYaI+TqvrQGw6A64A+sqvYY=
       tarball: ts-invariant/download/ts-invariant-0.4.4.tgz
-  /ts-jest/26.5.3_jest@26.6.3+typescript@4.2.3:
+  /ts-jest/26.5.4_jest@26.6.3+typescript@4.2.3:
     dependencies:
       bs-logger: 0.2.6
       buffer-from: 1.1.1
@@ -11104,9 +10878,9 @@ packages:
       jest: '>=26 <27'
       typescript: '>=3.8 <5.0'
     resolution:
-      integrity: sha1-pu4AulR747CYd1UN9AoUZdApVVQ=
-      tarball: ts-jest/download/ts-jest-26.5.3.tgz
-  /ts-loader/8.0.18_typescript@4.2.3+webpack@5.26.0:
+      integrity: sha1-IH9MEUgSqcbVdG3U0c34mer8loY=
+      tarball: ts-jest/download/ts-jest-26.5.4.tgz
+  /ts-loader/8.0.18_typescript@4.2.3+webpack@5.26.3:
     dependencies:
       chalk: 4.1.0
       enhanced-resolve: 4.5.0
@@ -11114,7 +10888,7 @@ packages:
       micromatch: 4.0.2
       semver: 7.3.4
       typescript: 4.2.3
-      webpack: 5.26.0
+      webpack: 5.26.3
     dev: true
     engines:
       node: '>=10.0.0'
@@ -11124,16 +10898,16 @@ packages:
     resolution:
       integrity: sha1-sjhcvoHDStn5l5FRKc3eOtkqYeo=
       tarball: ts-loader/download/ts-loader-8.0.18.tgz
-  /ts-morph/9.1.0:
+  /ts-morph/10.0.1:
     dependencies:
       '@dsherret/to-absolute-glob': 2.0.2
-      '@ts-morph/common': 0.7.5
+      '@ts-morph/common': 0.8.1
       code-block-writer: 10.1.1
     dev: false
     optional: true
     resolution:
-      integrity: sha1-ENIIg4fHHzxnT4JJKjzsHjU48N0=
-      tarball: ts-morph/download/ts-morph-9.1.0.tgz
+      integrity: sha1-WmIMxO+F4+bRYZieaQ9E0KD3I7A=
+      tarball: ts-morph/download/ts-morph-10.0.1.tgz
   /ts-node/9.1.1_typescript@4.2.3:
     dependencies:
       arg: 4.1.3
@@ -11314,6 +11088,7 @@ packages:
       integrity: sha1-grihsjMiT4HHOPU7A4A4bM82CRc=
       tarball: typeorm/download/typeorm-0.2.31.tgz
   /typescript/4.1.5:
+    dev: true
     engines:
       node: '>=4.2.0'
     hasBin: true
@@ -11584,10 +11359,10 @@ packages:
     resolution:
       integrity: sha1-kRG01+qArNQPUnDWZmIa+ni2lRQ=
       tarball: webidl-conversions/download/webidl-conversions-6.1.0.tgz
-  /webpack-cli/4.5.0_webpack@5.26.0:
+  /webpack-cli/4.5.0_webpack@5.26.3:
     dependencies:
       '@discoveryjs/json-ext': 0.5.2
-      '@webpack-cli/configtest': 1.0.1_webpack-cli@4.5.0+webpack@5.26.0
+      '@webpack-cli/configtest': 1.0.1_webpack-cli@4.5.0+webpack@5.26.3
       '@webpack-cli/info': 1.2.2_webpack-cli@4.5.0
       '@webpack-cli/serve': 1.3.0_webpack-cli@4.5.0
       colorette: 1.2.2
@@ -11599,7 +11374,7 @@ packages:
       interpret: 2.2.0
       rechoir: 0.7.0
       v8-compile-cache: 2.3.0
-      webpack: 5.26.0
+      webpack: 5.26.3
       webpack-merge: 5.7.3
     dev: true
     engines:
@@ -11676,7 +11451,7 @@ packages:
       tapable: 2.2.0
       terser-webpack-plugin: 5.1.1_webpack@5.11.0
       watchpack: 2.1.1
-      webpack-cli: 4.5.0_webpack@5.26.0
+      webpack-cli: 4.5.0_webpack@5.26.3
       webpack-sources: 2.2.0
     dev: true
     engines:
@@ -11690,7 +11465,7 @@ packages:
     resolution:
       integrity: sha1-FkerwGBEHYbQHYg1uPD8Ha4v528=
       tarball: webpack/download/webpack-5.11.0.tgz?cache=0&sync_timestamp=1614198862328&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.11.0.tgz
-  /webpack/5.26.0:
+  /webpack/5.26.3:
     dependencies:
       '@types/eslint-scope': 3.7.0
       '@types/estree': 0.0.46
@@ -11712,7 +11487,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.0.0
       tapable: 2.2.0
-      terser-webpack-plugin: 5.1.1_webpack@5.26.0
+      terser-webpack-plugin: 5.1.1_webpack@5.26.3
       watchpack: 2.1.1
       webpack-sources: 2.2.0
     dev: true
@@ -11720,8 +11495,8 @@ packages:
       node: '>=10.13.0'
     hasBin: true
     resolution:
-      integrity: sha1-JphB7XtcZSIiGqJ/fvztoEyJFtc=
-      tarball: webpack/download/webpack-5.26.0.tgz?cache=0&sync_timestamp=1615824813399&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.26.0.tgz
+      integrity: sha1-uv1DmrrAj7uCZX7IVdA4dDtyWrg=
+      tarball: webpack/download/webpack-5.26.3.tgz?cache=0&sync_timestamp=1615989302289&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.26.3.tgz
   /whatwg-encoding/1.0.5:
     dependencies:
       iconv-lite: 0.4.24
@@ -12039,8 +11814,9 @@ specifiers:
   '@nestjs/common': ^7.6.14
   '@nestjs/core': ^7.6.14
   '@nestjs/event-emitter': ^0.0.3
-  '@nestjs/graphql': ^7.9.11
+  '@nestjs/graphql': ^7.10.2
   '@nestjs/jwt': ^7.2.0
+  '@nestjs/mongoose': ^7.2.4
   '@nestjs/passport': ^7.1.5
   '@nestjs/platform-express': ^7.6.14
   '@nestjs/platform-socket.io': ^7.6.14
@@ -12058,7 +11834,7 @@ specifiers:
   '@types/express': ^4.17.11
   '@types/express-rate-limit': ^5.1.1
   '@types/fs-extra': ^9.0.8
-  '@types/jest': ^26.0.20
+  '@types/jest': ^26.0.21
   '@types/lodash': ^4.14.168
   '@types/mongoose': ^5.10.3
   '@types/multer': ^1.4.5
@@ -12074,10 +11850,10 @@ specifiers:
   '@types/ws': ^7.4.0
   '@typescript-eslint/eslint-plugin': ^4.18.0
   '@typescript-eslint/parser': ^4.18.0
-  apollo-server: ^2.21.1
-  apollo-server-express: ^2.21.1
+  apollo-server: ^2.21.2
+  apollo-server-express: ^2.21.2
   apollo-server-plugin-base: ^0.10.4
-  bull: ^3.20.1
+  bull: ^3.21.0
   cache-manager: ^3.4.1
   chalk: ^4.1.0
   class-transformer: ^0.4.0
@@ -12090,7 +11866,7 @@ specifiers:
   eslint: ^7.22.0
   eslint-config-prettier: ^8.1.0
   eslint-plugin-import: ^2.22.1
-  eslint-plugin-jest: ^24.3.1
+  eslint-plugin-jest: ^24.3.2
   express-rate-limit: ^5.2.6
   fs-extra: ^9.1.0
   graphql: ^15.5.0
@@ -12117,13 +11893,13 @@ specifiers:
   rxjs: ^6.6.6
   socket.io-redis: ^6.1.0
   supertest: ^6.1.3
-  ts-jest: ^26.5.3
+  ts-jest: ^26.5.4
   ts-loader: ^8.0.18
   ts-node: ^9.1.1
   tsconfig-paths: ^3.9.0
   typeorm: ^0.2.31
   typescript: ^4.2.3
-  webpack: ^5.26.0
+  webpack: ^5.26.3
   webpack-cli: ^4.5.0
   webpack-node-externals: ^2.5.2
   ws: ^7.4.4

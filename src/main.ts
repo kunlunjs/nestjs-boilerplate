@@ -7,6 +7,10 @@ import * as compression from 'compression'
 import * as helmet from 'helmet'
 import { AppModule } from './app.module'
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor'
+import { HttpExceptionFilter } from './common/filters/http-exception.filter'
+import { RolesGuard } from './common/guards/roles.guards'
+import { AllExceptionsFilter } from './common/filters/all-exceptions.filter'
+import { AppService } from './app.service'
 
 export const GLOBAL_PREFIX = 'api'
 
@@ -21,11 +25,11 @@ async function bootstrap() {
    * 会在 module 加载完，controller 加载前初始化
    */
   app.useGlobalInterceptors(new LoggingInterceptor(bootstrap.name))
-  // TODO useGlobalFilters
   /**
    * 全局过滤器
+   *
    */
-  // app.useGlobalFilters()
+  app.useGlobalFilters(new HttpExceptionFilter(), new AllExceptionsFilter())
   // TODO useGlobalGuards
   /**
    * 全局守卫
@@ -69,6 +73,12 @@ async function bootstrap() {
    * CSRF 保护
    * https://docs.nestjs.com/security/csrf
    */
+
+  // TODO 什么场景下会用到
+  /**
+   * context
+   */
+  // const appService = app.get(AppService)
 
   await app.listen(3000)
   console.log(`🚀 Application is running on: ${await app.getUrl()}`)

@@ -31,6 +31,8 @@ export interface EnvConfig {
   DB_LOGGER: Pick<BaseConnectionOptions, 'logger'>
   DB_SSL: boolean // Pick<PostgresConnectionCredentialsOptions, 'ssl'>
   TIMEZONE: string
+  DB_MONGODB_RETRY_DELAY: number
+  DB_MONGODB_RETRY_ATTEMPTS: number
 
   // REDIS
   REDIS_HOST: string

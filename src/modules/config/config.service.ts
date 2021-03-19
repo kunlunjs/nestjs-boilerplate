@@ -1,7 +1,7 @@
 import * as path from 'path'
-import { readFileSync } from 'fs-extra'
+import { existsSync, readFileSync } from 'fs-extra'
 import * as dotenv from 'dotenv'
-import { Inject, Injectable } from '@nestjs/common'
+import { Inject, Injectable, ServiceUnavailableException } from '@nestjs/common'
 import { CONFIG_OPTIONS } from './constants'
 import {
   ConfigModuleOptions,
@@ -17,7 +17,17 @@ export class ConfigService {
 
   constructor() {
     const envPath = `${process.env.NODE_ENV || 'development'}.env`
-    const envFile = path.resolve(process.cwd(), './config', envPath)
+    const rootEnvFile = path.resolve(process.cwd(), envPath)
+    const configEnvFile = path.resolve(process.cwd(), './config', envPath)
+    let envFile
+    // 优先从根目录查找配置文件，其次是 config 目录
+    if (existsSync(rootEnvFile)) {
+      envFile = rootEnvFile
+    } else if (existsSync(configEnvFile)) {
+      envFile = configEnvFile
+    } else {
+      throw new ServiceUnavailableException('Missing configuration file')
+    }
     this.envConfig = (dotenv.parse(readFileSync(envFile)) as any) as EnvConfig
   }
 

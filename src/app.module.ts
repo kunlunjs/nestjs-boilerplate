@@ -6,6 +6,7 @@ import { ScheduleModule } from '@nestjs/schedule'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { GraphQLModule } from '@nestjs/graphql'
+import { MongooseModule } from '@nestjs/mongoose'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { EventEmitModule } from './modules/eventemit/eventemit.module'
@@ -24,6 +25,7 @@ import { ConfigModule } from './modules/config/config.module'
 import { ConfigService } from './modules/config/config.service'
 import { CacheConfigService } from './modules/cache/cache-config.service'
 import { GlobalModule } from './global.module'
+import { MongooseCatsModule } from './modules/mongoose/cats.module'
 
 @Module({
   imports: [
@@ -52,10 +54,16 @@ import { GlobalModule } from './global.module'
       imports: [GlobalModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
+        const {
+          REDIS_HOST,
+          REDIS_PORT,
+          REDIS_PASSWORD
+        } = await configService.getAll()
         return {
           redis: {
-            host: configService.get('REDIS_HOST'),
-            port: configService.get('REDIS_PORT')
+            host: REDIS_HOST,
+            port: REDIS_PORT,
+            password: REDIS_PASSWORD
           }
         }
       }
@@ -74,7 +82,6 @@ import { GlobalModule } from './global.module'
       exclude: ['/api*']
     }),
     // TODO 理解 ServeStaticModule 异步配置
-    // ServeStaticModule.forRootAsync({})
     // 异步读取配置
     // ServeStaticModule.forRootAsync({})
     /*----------------------------------------------------------------*/
@@ -111,20 +118,71 @@ import { GlobalModule } from './global.module'
     DynamicConfigModule.register({ folder: './config' }),
     /*----------------------------------------------------------------*/
     // typeorm 数据库模块
-    TypeOrmModule.forRoot({
-      type: 'mongodb',
-      host: '42.193.185.71',
-      port: 27017,
-      // database: 'nestjs',
-      username: 'super',
-      password: 'zaixiyuzhonghuhan',
-      entities: [TypeOrmMongoDBEntity],
-      synchronize: true,
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+    // 同步配置
+    // TypeOrmModule.forRoot({
+    //   type: 'mongodb',
+    //   host: '47.111.100.233',
+    //   port: 27017,
+    //   // database: 'nestjs',
+    //   username: 'super',
+    //   password: 'mongodb.2021_turing-fe',
+    //   entities: [TypeOrmMongoDBEntity],
+    //   synchronize: true,
+    //   useNewUrlParser: true,
+    //   useUnifiedTopology: true
+    // }),
+    // 异步配置
+    // TypeOrmModule.forRootAsync({
+    //   inject: [ConfigService],
+    //   imports: [GlobalModule],
+    //   useFactory: async (configService: ConfigService) => {
+    //     const config = await configService.getAll()
+    //     return {
+    //       type: config.DB_TYPE,
+    //       host: config.DB_HOST,
+    //       port: config.DB_PORT,
+    //       // database: 'nestjs',
+    //       username: config.DB_USERNAME,
+    //       password: config.DB_PASSWORD,
+    //       entities: [TypeOrmMongoDBEntity],
+    //       synchronize: true,
+    //       useNewUrlParser: true,
+    //       useUnifiedTopology: true
+    //     }
+    //   }
+    // }),
+    // 使用 TypeOrm 操作 MongoDB
+    // TypeOrmMongoDBModule,
+    /*----------------------------------------------------------------*/
+    // 使用 Mongoose 操作 MongoDB
+    // MongooseModule.forRoot(
+    //   'mongodb://root:mongodb.2021_turing-fe@47.111.100.233:27017/nestjs',
+    //   {
+    //     useNewUrlParser: true,
+    //     useUnifiedTopology: true
+    //   }
+    // ),
+    MongooseModule.forRootAsync({
+      imports: [GlobalModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        const {
+          DB_HOST,
+          DB_PORT,
+          DB_USERNAME,
+          DB_PASSWORD,
+          DB_DATABASE,
+          DB_MONGODB_RETRY_DELAY,
+          DB_MONGODB_RETRY_ATTEMPTS
+        } = configService.getAll()
+        return {
+          uri: `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}`
+          // retryDelay: DB_MONGODB_RETRY_DELAY,
+          // retryAttempts: DB_MONGODB_RETRY_ATTEMPTS
+        }
+      }
     }),
-    // TypeOrmModule.forRootAsync({}),
-    TypeOrmMongoDBModule,
+    MongooseCatsModule,
     /*----------------------------------------------------------------*/
     /**
      * GraphQL code first
