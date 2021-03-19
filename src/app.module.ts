@@ -1,6 +1,12 @@
 import * as path from 'path'
 import { BullModule } from '@nestjs/bull'
-import { Module, CacheModule } from '@nestjs/common'
+import {
+  Module,
+  CacheModule,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod
+} from '@nestjs/common'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { ScheduleModule } from '@nestjs/schedule'
 import { ServeStaticModule } from '@nestjs/serve-static'
@@ -26,6 +32,8 @@ import { ConfigService } from './modules/config/config.service'
 import { CacheConfigService } from './modules/cache/cache-config.service'
 import { GlobalModule } from './global.module'
 import { MongooseCatsModule } from './modules/mongoose/cats.module'
+import { LoggerMiddleware } from './common/middlewares/logger.middleware'
+import { CatsController } from './modules/mongoose/cats.controller'
 
 @Module({
   imports: [
@@ -232,4 +240,30 @@ import { MongooseCatsModule } from './modules/mongoose/cats.module'
   controllers: [AppController],
   providers: [AppService]
 })
-export class AppModule {}
+// export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      // 支持多中间件
+      // .apply(cors(), helmet(), logger)
+      .exclude(
+        { path: 'cats', method: RequestMethod.GET },
+        { path: 'cats', method: RequestMethod.POST },
+        'cats/(.*)'
+      )
+      // 不需要带 GLOBAL_PREFIX
+      // .forRoutes('mongoose/cats')
+      .forRoutes({
+        path: 'mongoose/cats',
+        method: RequestMethod.ALL
+      })
+    // 支持通配符
+    // .forRoutes({
+    //   path: 'ab*cd',
+    //   method: RequestMethod.GET
+    // })
+    // 可传入多个控制器，以逗号分隔
+    // .forRoutes(CatsController)
+  }
+}

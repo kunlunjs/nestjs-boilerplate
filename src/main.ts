@@ -11,6 +11,7 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter'
 import { RolesGuard } from './common/guards/roles.guards'
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter'
 import { AppService } from './app.service'
+import { logger } from './common/middlewares/logger.middleware'
 
 export const GLOBAL_PREFIX = 'api'
 
@@ -20,6 +21,10 @@ async function bootstrap() {
   app.enableCors()
   // 设置路由全局前缀
   app.setGlobalPrefix(GLOBAL_PREFIX)
+  /**
+   * 全局中间件
+   */
+  // app.use(logger)
   /**
    * 全局拦截器
    * 会在 module 加载完，controller 加载前初始化

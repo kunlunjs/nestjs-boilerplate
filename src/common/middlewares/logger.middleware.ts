@@ -8,3 +8,12 @@ export class LoggerMiddleware implements NestMiddleware {
     next()
   }
 }
+
+/**
+ * 功能型中间件
+ * consumer.apply(logger).forRoutes(...)
+ */
+export function logger(req: Request, res: Response, next: NextFunction) {
+  console.log('Request...')
+  next()
+}

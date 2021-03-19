@@ -2,6 +2,8 @@
 
 [API 文档](http://nestjs-doc.exceptionfound.com/globals.html)
 
+Node.js 并不遵循请求/响应多线程无状态模型(Multi-Threaded Stateless Model) ，在这种模型中，每个请求都由一个单独的线程处理。因此，使用单例实例对于我们的应用程序是完全安全的。
+
 作为 Node.js 基础脚手架模板，以后所有前端部门基于 Nest 的项目都要基于此脚手架，需要完成的每个功能特性（最小可用） example 都要可以用，全部特性包含如下：
 
 1. [80% ] 厘清 Nest 核心概念和流程（module、service、provider、middleware、pipe、guard、exception filter、interceptor、custom decorator 等），输出文档 docs/

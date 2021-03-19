@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common'
+import {
+  Injectable,
+  OnApplicationBootstrap,
+  OnApplicationShutdown,
+  OnModuleInit
+} from '@nestjs/common'
 import { DynamicConfigService } from './modules/dynamic/dynamic-config.service'
 
 @Injectable()
