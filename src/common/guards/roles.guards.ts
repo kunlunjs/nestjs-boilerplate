@@ -11,16 +11,16 @@ export class RolesGuard implements CanActivate {
   canActivate(
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
-    // 1. 获取控制器上@Roles('admin')的注入的元数据 roles => ['admin']
+    // 方法 1. 获取控制器上@Roles('admin')的注入的元数据 roles => ['admin']
     // const roles = this.reflector.get<string[]>('roles', context.getClass())
 
-    // 1. 获取方法上@Roles('admin')的注入的元数据 roles => ['admin']
+    // 方法 2. 获取方法上@Roles('admin')的注入的元数据 roles => ['admin']
     // const roles = this.reflector.get<string[]>('role', context.getHandler())
     // if (!roles) {
     //   return true
     // }
 
-    // 2. 方法上@Roles('admin')定义的元数据合并控制器上@Public('user')的 => ['user', 'admin']
+    // 方法 3. 方法上@Roles('admin')定义的元数据合并控制器上@Public('user')的 => ['user', 'admin']
     // const roles = this.reflector.getAllAndMerge<Role[]>(ROLES_KEY, [
     //   // 返回即将被调用的处理程序的引用
     //   context.getHandler(),
@@ -28,7 +28,7 @@ export class RolesGuard implements CanActivate {
     //   context.getClass()
     // ])
 
-    // 3. 方法上@Roles('admin')定义的元数据覆盖控制器上@Roles('user')的 => ['admin']
+    // 方法 4. 方法上@Roles('admin')定义的元数据覆盖控制器上@Roles('user')的 => ['admin']
     const roles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
       context.getHandler(),
       context.getClass()

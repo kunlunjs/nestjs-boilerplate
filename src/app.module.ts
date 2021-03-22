@@ -13,6 +13,7 @@ import { ServeStaticModule } from '@nestjs/serve-static'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { GraphQLModule } from '@nestjs/graphql'
 import { MongooseModule } from '@nestjs/mongoose'
+import { ThrottlerModule } from '@nestjs/throttler'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { EventEmitModule } from './modules/eventemit/eventemit.module'
@@ -34,6 +35,8 @@ import { GlobalModule } from './global.module'
 import { MongooseCatsModule } from './modules/mongoose/cats.module'
 import { LoggerMiddleware } from './common/middlewares/logger.middleware'
 import { CatsController } from './modules/mongoose/cats.controller'
+import { ThrottlerConfigService } from './modules/throttler/throttler-config.service'
+import { CalsModule } from './modules/cals/cals.module'
 
 @Module({
   imports: [
@@ -62,16 +65,12 @@ import { CatsController } from './modules/mongoose/cats.controller'
       imports: [GlobalModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
-        const {
-          REDIS_HOST,
-          REDIS_PORT,
-          REDIS_PASSWORD
-        } = await configService.getAll()
+        const config = await configService.getAll()
         return {
           redis: {
-            host: REDIS_HOST,
-            port: REDIS_PORT,
-            password: REDIS_PASSWORD
+            host: config.REDIS_HOST,
+            port: config.REDIS_PORT,
+            password: config.REDIS_PASSWORD
           }
         }
       }
@@ -232,9 +231,31 @@ import { CatsController } from './modules/mongoose/cats.controller'
      * 速率限制
      * https://docs.nestjs.com/security/rate-limiting
      */
-    /* ----------------------------业务模块---------------------------- */
+    // ThrottlerModule.forRoot({
+    //   ttl: 60,
+    //   limit: 10
+    // }),
+    // ThrottlerModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   useClass: ThrottlerConfigService
+    // }),
+    ThrottlerModule.forRootAsync({
+      inject: [ConfigService],
+      imports: [GlobalModule],
+      useFactory: async (configService: ConfigService) => {
+        const config = configService.getAll()
+        return {
+          ttl: config.THROTTLE_TTL,
+          limit: config.THROTTLE_LIMIT
+        }
+      }
+    }),
+    /* ----------------------------cals 模块---------------------------- */
+    CalsModule,
+    /* ----------------------------授权模块---------------------------- */
     // 登录授权验证
-    AuthModule,
+    AuthModule, // 可以包含全局路由保护 APP_GUARD
+    /* ----------------------------业务模块---------------------------- */
     UsersModule
   ],
   controllers: [AppController],
@@ -243,21 +264,22 @@ import { CatsController } from './modules/mongoose/cats.controller'
 // export class AppModule {}
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware)
-      // 支持多中间件
-      // .apply(cors(), helmet(), logger)
-      .exclude(
-        { path: 'cats', method: RequestMethod.GET },
-        { path: 'cats', method: RequestMethod.POST },
-        'cats/(.*)'
-      )
-      // 不需要带 GLOBAL_PREFIX
-      // .forRoutes('mongoose/cats')
-      .forRoutes({
-        path: 'mongoose/cats',
-        method: RequestMethod.ALL
-      })
+    // consumer
+    //   .apply(LoggerMiddleware)
+    // 支持多中间件
+    // .apply(cors(), helmet(), logger)
+    //   .exclude(
+    //     { path: 'cats', method: RequestMethod.GET },
+    //     { path: 'cats', method: RequestMethod.POST },
+    //     'cats/(.*)'
+    // )
+    // .forRoutes('*')
+    // 不需要带 GLOBAL_PREFIX
+    // .forRoutes('mongoose/cats')
+    // .forRoutes({
+    //   path: 'mongoose/cats',
+    //   method: RequestMethod.ALL
+    // })
     // 支持通配符
     // .forRoutes({
     //   path: 'ab*cd',

@@ -29,6 +29,11 @@ import { RoleEntity } from './entities/role.entity'
 import { LocalAuthGuard } from './common/guards/local-auth.guard'
 import { AuthService } from './modules/auth/auth.service'
 import { Public } from './common/decorators/public.decorator'
+import { PoliciesGuard } from './common/guards/policies.guard'
+import { CheckPolicies } from './common/decorators/check-policies.decorator'
+import { Action } from './common/enum/action.enum'
+import { AppAbility, Article } from './modules/cals/cals-ability.factory'
+import { ReadArticlePolicyHandler } from './modules/cals/policy-handler'
 
 type File = Express.Multer.File
 
@@ -94,6 +99,20 @@ export class AppController {
   @Public()
   @Get('public')
   async public() {
+    return []
+  }
+
+  /* -------------------------------------------------------- */
+  /**
+   * 演示基于 @cals/ability 的权限处理
+   */
+  @Public()
+  @Get('cals')
+  @UseGuards(PoliciesGuard)
+  // @CheckPolicies((ability: AppAbility) => ability.can(Action.Read, Article))
+  // 等效于
+  @CheckPolicies(new ReadArticlePolicyHandler())
+  async cals() {
     return []
   }
 

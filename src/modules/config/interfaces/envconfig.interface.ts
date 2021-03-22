@@ -39,6 +39,10 @@ export interface EnvConfig {
   REDIS_PORT: number
   REDIS_PASSWORD: string
 
+  // 限流
+  THROTTLE_TTL: number
+  THROTTLE_LIMIT: number
+
   FALLBACK_LANGUAGE: string
 
   S3_BUCKET_NAME: string

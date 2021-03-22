@@ -13,6 +13,9 @@ import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'
   imports: [
     UsersModule,
     PassportModule,
+    // PassportModule.register({
+    //   session: true
+    // }),
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: {
@@ -24,12 +27,12 @@ import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard'
   providers: [
     AuthService,
     LocalStrategy,
-    JwtStrategy
+    JwtStrategy,
     // 全局路由保护
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: JwtAuthGuard
-    // }
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard
+    }
   ],
   exports: [AuthService]
 })

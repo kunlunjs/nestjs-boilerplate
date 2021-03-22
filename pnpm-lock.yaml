@@ -1,4 +1,5 @@
 dependencies:
+  '@casl/ability': 5.2.2
   '@nestjs/bull': 0.3.1_9287bc1d0ffc3f60454dcea4b0b6d6c9
   '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
   '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
@@ -12,6 +13,7 @@ dependencies:
   '@nestjs/platform-ws': 7.6.14_a89d0273565b382701a0e06cdb28fa79
   '@nestjs/schedule': 0.4.3_966ed74870af11f5cedae56d1914c51e
   '@nestjs/serve-static': 2.1.4_eb2137b89ad1a94bbdbfd4e770f337ed
+  '@nestjs/throttler': 1.1.1_b205c8cc2275fd0d863b87b99738cc6a
   '@nestjs/typeorm': 7.1.5_62880686ceb68107ba0a53f84523b767
   '@nestjs/websockets': 7.6.14_4d439db5b768f7014e5330d87ab78feb
   '@types/mongoose': 5.10.3
@@ -93,7 +95,7 @@ devDependencies:
   ts-node: 9.1.1_typescript@4.2.3
   tsconfig-paths: 3.9.0
   typescript: 4.2.3
-  webpack: 5.26.3
+  webpack: 5.26.3_webpack-cli@4.5.0
   webpack-cli: 4.5.0_webpack@5.26.3
   webpack-node-externals: 2.5.2
 lockfileVersion: 5.2
@@ -636,6 +638,13 @@ packages:
     resolution:
       integrity: sha1-daLotRy3WKdVPWgEpZMteqznXDk=
       tarball: '@bcoe/v8-coverage/download/@bcoe/v8-coverage-0.2.3.tgz'
+  /@casl/ability/5.2.2:
+    dependencies:
+      '@ucast/mongo2js': 1.3.2
+    dev: false
+    resolution:
+      integrity: sha1-hYKq/zR9u/IpNdW3UY89KjNKRcY=
+      tarball: '@casl/ability/download/@casl/ability-5.2.2.tgz'
   /@cnakazawa/watch/1.0.4:
     dependencies:
       exec-sh: 0.3.4
@@ -1433,6 +1442,20 @@ packages:
     resolution:
       integrity: sha1-sQkyUBV6VP5rJ+wWS9vcDSbc2EE=
       tarball: '@nestjs/testing/download/@nestjs/testing-7.6.14.tgz'
+  /@nestjs/throttler/1.1.1_b205c8cc2275fd0d863b87b99738cc6a:
+    dependencies:
+      '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
+      '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+      md5: 2.3.0
+      reflect-metadata: 0.1.13
+    dev: false
+    peerDependencies:
+      '@nestjs/common': ^7.0.0
+      '@nestjs/core': ^7.0.0
+      reflect-metadata: ^0.1.13
+    resolution:
+      integrity: sha1-V3ROODrAU0kUcWy1d4PF68YC2mQ=
+      tarball: '@nestjs/throttler/download/@nestjs/throttler-1.1.1.tgz'
   /@nestjs/typeorm/7.1.5_62880686ceb68107ba0a53f84523b767:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
@@ -2278,6 +2301,34 @@ packages:
     resolution:
       integrity: sha1-Tm/ioXXuM0GDGKApYQhFqB4v97Y=
       tarball: '@typescript-eslint/visitor-keys/download/@typescript-eslint/visitor-keys-4.18.0.tgz'
+  /@ucast/core/1.8.2:
+    dev: false
+    resolution:
+      integrity: sha1-N/QllIYbA8Z1DAfKD7MrCnXHTsw=
+      tarball: '@ucast/core/download/@ucast/core-1.8.2.tgz'
+  /@ucast/js/3.0.1:
+    dependencies:
+      '@ucast/core': 1.8.2
+    dev: false
+    resolution:
+      integrity: sha1-Z55NF3ccVc+ks0Kr4zpOXe0yxTA=
+      tarball: '@ucast/js/download/@ucast/js-3.0.1.tgz'
+  /@ucast/mongo/2.4.1:
+    dependencies:
+      '@ucast/core': 1.8.2
+    dev: false
+    resolution:
+      integrity: sha1-2hi53JYhKDE/OZs6d+ga99/Cw8M=
+      tarball: '@ucast/mongo/download/@ucast/mongo-2.4.1.tgz'
+  /@ucast/mongo2js/1.3.2:
+    dependencies:
+      '@ucast/core': 1.8.2
+      '@ucast/js': 3.0.1
+      '@ucast/mongo': 2.4.1
+    dev: false
+    resolution:
+      integrity: sha1-4tTx4vexgapY/4gwwg55nGmXobE=
+      tarball: '@ucast/mongo2js/download/@ucast/mongo2js-1.3.2.tgz'
   /@webassemblyjs/ast/1.11.0:
     dependencies:
       '@webassemblyjs/helper-numbers': 1.11.0
@@ -2546,7 +2597,7 @@ packages:
       tarball: '@webassemblyjs/wast-printer/download/@webassemblyjs/wast-printer-1.9.1.tgz'
   /@webpack-cli/configtest/1.0.1_webpack-cli@4.5.0+webpack@5.26.3:
     dependencies:
-      webpack: 5.26.3
+      webpack: 5.26.3_webpack-cli@4.5.0
       webpack-cli: 4.5.0_webpack@5.26.3
     dev: true
     peerDependencies:
@@ -3760,6 +3811,11 @@ packages:
     resolution:
       integrity: sha1-kAlISfCTfy7twkJdDSip5fDLrZ4=
       tarball: chardet/download/chardet-0.7.0.tgz
+  /charenc/0.0.2:
+    dev: false
+    resolution:
+      integrity: sha1-wKHS86cJLgN3S/qD8UwPxXkKhmc=
+      tarball: charenc/download/charenc-0.0.2.tgz
   /chokidar/3.5.1:
     dependencies:
       anymatch: 3.1.1
@@ -4311,6 +4367,11 @@ packages:
     resolution:
       integrity: sha1-9zqFudXUHQRVUcF34ogtSshXKKY=
       tarball: cross-spawn/download/cross-spawn-7.0.3.tgz
+  /crypt/0.0.2:
+    dev: false
+    resolution:
+      integrity: sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=
+      tarball: crypt/download/crypt-0.0.2.tgz
   /cssfilter/0.0.10:
     dev: false
     resolution:
@@ -4949,6 +5010,9 @@ packages:
       '@typescript-eslint/eslint-plugin': '>= 4'
       eslint: '>=5'
       typescript: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/eslint-plugin':
+        optional: true
     resolution:
       integrity: sha1-MKiy3qYnjQ2h1vudbNUwqvWAUKE=
       tarball: eslint-plugin-jest/download/eslint-plugin-jest-24.3.2.tgz
@@ -6386,7 +6450,6 @@ packages:
       integrity: sha1-4qqtOjqPyjTCj27uE1sVbtJYf/A=
       tarball: is-boolean-object/download/is-boolean-object-1.1.0.tgz
   /is-buffer/1.1.6:
-    dev: true
     resolution:
       integrity: sha1-76ouqdqg16suoTqXsritUf776L4=
       tarball: is-buffer/download/is-buffer-1.1.6.tgz
@@ -7854,6 +7917,15 @@ packages:
     resolution:
       integrity: sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
       tarball: map-visit/download/map-visit-1.0.0.tgz
+  /md5/2.3.0:
+    dependencies:
+      charenc: 0.0.2
+      crypt: 0.0.2
+      is-buffer: 1.1.6
+    dev: false
+    resolution:
+      integrity: sha1-w9qaaq46MLRreww0m4exENw72k8=
+      tarball: md5/download/md5-2.3.0.tgz
   /media-typer/0.3.0:
     dev: false
     engines:
@@ -10645,7 +10717,7 @@ packages:
       serialize-javascript: 5.0.1
       source-map: 0.6.1
       terser: 5.6.0
-      webpack: 5.26.3
+      webpack: 5.26.3_webpack-cli@4.5.0
     dev: true
     engines:
       node: '>= 10.13.0'
@@ -10888,7 +10960,7 @@ packages:
       micromatch: 4.0.2
       semver: 7.3.4
       typescript: 4.2.3
-      webpack: 5.26.3
+      webpack: 5.26.3_webpack-cli@4.5.0
     dev: true
     engines:
       node: '>=10.0.0'
@@ -11374,7 +11446,7 @@ packages:
       interpret: 2.2.0
       rechoir: 0.7.0
       v8-compile-cache: 2.3.0
-      webpack: 5.26.3
+      webpack: 5.26.3_webpack-cli@4.5.0
       webpack-merge: 5.7.3
     dev: true
     engines:
@@ -11465,7 +11537,7 @@ packages:
     resolution:
       integrity: sha1-FkerwGBEHYbQHYg1uPD8Ha4v528=
       tarball: webpack/download/webpack-5.11.0.tgz?cache=0&sync_timestamp=1614198862328&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.11.0.tgz
-  /webpack/5.26.3:
+  /webpack/5.26.3_webpack-cli@4.5.0:
     dependencies:
       '@types/eslint-scope': 3.7.0
       '@types/estree': 0.0.46
@@ -11489,11 +11561,17 @@ packages:
       tapable: 2.2.0
       terser-webpack-plugin: 5.1.1_webpack@5.26.3
       watchpack: 2.1.1
+      webpack-cli: 4.5.0_webpack@5.26.3
       webpack-sources: 2.2.0
     dev: true
     engines:
       node: '>=10.13.0'
     hasBin: true
+    peerDependencies:
+      webpack-cli: '*'
+    peerDependenciesMeta:
+      webpack-cli:
+        optional: true
     resolution:
       integrity: sha1-uv1DmrrAj7uCZX7IVdA4dDtyWrg=
       tarball: webpack/download/webpack-5.26.3.tgz?cache=0&sync_timestamp=1615989302289&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack%2Fdownload%2Fwebpack-5.26.3.tgz
@@ -11807,6 +11885,7 @@ packages:
       integrity: sha1-lkFcUS2OP/2SCv04iWBOMLnqrBU=
       tarball: zen-observable/download/zen-observable-0.8.15.tgz
 specifiers:
+  '@casl/ability': ^5.2.2
   '@commitlint/cli': ^12.0.1
   '@commitlint/config-conventional': ^12.0.1
   '@nestjs/bull': ^0.3.1
@@ -11825,6 +11904,7 @@ specifiers:
   '@nestjs/schematics': ^7.3.0
   '@nestjs/serve-static': ^2.1.4
   '@nestjs/testing': ^7.6.14
+  '@nestjs/throttler': ^1.1.1
   '@nestjs/typeorm': ^7.1.5
   '@nestjs/websockets': ^7.6.14
   '@types/bull': ^3.15.0
