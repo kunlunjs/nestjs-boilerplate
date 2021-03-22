@@ -2,10 +2,11 @@ dependencies:
   '@casl/ability': 5.2.2
   '@nestjs/bull': 0.3.1_9287bc1d0ffc3f60454dcea4b0b6d6c9
   '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
-  '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+  '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
   '@nestjs/event-emitter': 0.0.3_b4a52f4cb857f6b0d732af625cec5557
   '@nestjs/graphql': 7.10.2_db52aa45b7cd394d307010df9c4f64fa
   '@nestjs/jwt': 7.2.0_@nestjs+common@7.6.14
+  '@nestjs/microservices': 7.6.14_1709f7ba9c5f2df80af837645a7bbc92
   '@nestjs/mongoose': 7.2.4_f77cdfbaa45941d228165b50cd36ee0c
   '@nestjs/passport': 7.1.5_306f55e94da3baef559f140df1e0ed67
   '@nestjs/platform-express': 7.6.14_eb2137b89ad1a94bbdbfd4e770f337ed
@@ -13,6 +14,7 @@ dependencies:
   '@nestjs/platform-ws': 7.6.14_a89d0273565b382701a0e06cdb28fa79
   '@nestjs/schedule': 0.4.3_966ed74870af11f5cedae56d1914c51e
   '@nestjs/serve-static': 2.1.4_eb2137b89ad1a94bbdbfd4e770f337ed
+  '@nestjs/swagger': 4.8.0_2961e24a5bf8c0675a2d83dd4b27fe64
   '@nestjs/throttler': 1.1.1_b205c8cc2275fd0d863b87b99738cc6a
   '@nestjs/typeorm': 7.1.5_62880686ceb68107ba0a53f84523b767
   '@nestjs/websockets': 7.6.14_4d439db5b768f7014e5330d87ab78feb
@@ -35,6 +37,7 @@ dependencies:
   graphql-subscriptions: 1.2.1_graphql@15.5.0
   hbs: 4.1.1
   helmet: 4.4.1
+  jsonwebtoken: 8.5.1
   lodash: 4.17.21
   log4js: 6.3.0
   mongodb: 3.6.3
@@ -49,6 +52,7 @@ dependencies:
   rimraf: 3.0.2
   rxjs: 6.6.6
   socket.io-redis: 6.1.0
+  swagger-ui-express: 4.1.6
   typeorm: 0.2.31
   ws: 7.4.4
 devDependencies:
@@ -56,7 +60,7 @@ devDependencies:
   '@commitlint/config-conventional': 12.0.1
   '@nestjs/cli': 7.5.6_webpack-cli@4.5.0
   '@nestjs/schematics': 7.3.0_typescript@4.2.3
-  '@nestjs/testing': 7.6.14_8297f2fc97d68beb9ead68b9fd5284dd
+  '@nestjs/testing': 7.6.14_20faa52830b03789f9b76f741cc4c61d
   '@types/bull': 3.15.0
   '@types/cache-manager': 3.4.0
   '@types/compression': 1.7.0
@@ -1116,7 +1120,7 @@ packages:
   /@nestjs/bull/0.3.1_9287bc1d0ffc3f60454dcea4b0b6d6c9:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
-      '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+      '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
       bull: 3.21.0
     dev: false
     peerDependencies:
@@ -1188,9 +1192,10 @@ packages:
     resolution:
       integrity: sha1-q9rTYO8QdII0WxEe7udPvvAGIMk=
       tarball: '@nestjs/common/download/@nestjs/common-7.6.14.tgz'
-  /@nestjs/core/7.6.14_82fb382d914ed082e5e00347c3493e1f:
+  /@nestjs/core/7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
+      '@nestjs/microservices': 7.6.14_1709f7ba9c5f2df80af837645a7bbc92
       '@nestjs/platform-express': 7.6.14_eb2137b89ad1a94bbdbfd4e770f337ed
       '@nestjs/websockets': 7.6.14_4d439db5b768f7014e5330d87ab78feb
       '@nuxtjs/opencollective': 0.3.2
@@ -1241,7 +1246,7 @@ packages:
       '@graphql-tools/schema': 7.1.3_graphql@15.5.0
       '@graphql-tools/utils': 7.6.0_graphql@15.5.0
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
-      '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+      '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
       '@nestjs/mapped-types': 0.4.0_b0da10a434270b058846770c36407d79
       apollo-env: 0.6.6
       chokidar: 3.5.1
@@ -1295,10 +1300,59 @@ packages:
     resolution:
       integrity: sha1-NSuaZh1tNoY89IsgV2Fs7xssgC0=
       tarball: '@nestjs/mapped-types/download/@nestjs/mapped-types-0.4.0.tgz'
+  /@nestjs/microservices/7.6.14_1709f7ba9c5f2df80af837645a7bbc92:
+    dependencies:
+      '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
+      '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
+      '@nestjs/websockets': 7.6.14_4d439db5b768f7014e5330d87ab78feb
+      cache-manager: 3.4.1
+      iterare: 1.2.1
+      json-socket: 0.3.0
+      redis: 3.0.2
+      reflect-metadata: 0.1.13
+      rxjs: 6.6.6
+      tslib: 2.1.0
+    dev: false
+    peerDependencies:
+      '@nestjs/common': ^7.0.0
+      '@nestjs/core': ^7.0.0
+      '@nestjs/websockets': ^7.0.0
+      amqp-connection-manager: '*'
+      amqplib: '*'
+      cache-manager: '*'
+      grpc: '*'
+      kafkajs: '*'
+      mqtt: '*'
+      nats: '*'
+      redis: '*'
+      reflect-metadata: ^0.1.12
+      rxjs: ^6.0.0
+    peerDependenciesMeta:
+      '@nestjs/websockets':
+        optional: true
+      amqp-connection-manager:
+        optional: true
+      amqplib:
+        optional: true
+      cache-manager:
+        optional: true
+      grpc:
+        optional: true
+      kafkajs:
+        optional: true
+      mqtt:
+        optional: true
+      nats:
+        optional: true
+      redis:
+        optional: true
+    resolution:
+      integrity: sha1-83SSQCcL6PeeYEeFbg9+KGPmEmk=
+      tarball: '@nestjs/microservices/download/@nestjs/microservices-7.6.14.tgz'
   /@nestjs/mongoose/7.2.4_f77cdfbaa45941d228165b50cd36ee0c:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
-      '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+      '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
       mongoose: 5.11.15
       reflect-metadata: 0.1.13
       rxjs: 6.6.6
@@ -1326,7 +1380,7 @@ packages:
   /@nestjs/platform-express/7.6.14_eb2137b89ad1a94bbdbfd4e770f337ed:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
-      '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+      '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
       body-parser: 1.19.0
       cors: 2.8.5
       express: 4.17.1
@@ -1412,7 +1466,7 @@ packages:
   /@nestjs/serve-static/2.1.4_eb2137b89ad1a94bbdbfd4e770f337ed:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
-      '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+      '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
       path-to-regexp: 0.1.7
     dev: false
     peerDependencies:
@@ -1421,10 +1475,37 @@ packages:
     resolution:
       integrity: sha1-0l92kbDLGdPxLRYRKd0Uad/ciA0=
       tarball: '@nestjs/serve-static/download/@nestjs/serve-static-2.1.4.tgz'
-  /@nestjs/testing/7.6.14_8297f2fc97d68beb9ead68b9fd5284dd:
+  /@nestjs/swagger/4.8.0_2961e24a5bf8c0675a2d83dd4b27fe64:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
-      '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+      '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
+      '@nestjs/mapped-types': 0.4.0_b0da10a434270b058846770c36407d79
+      lodash: 4.17.21
+      path-to-regexp: 3.2.0
+      reflect-metadata: 0.1.13
+      swagger-ui-express: 4.1.6
+    dev: false
+    peerDependencies:
+      '@nestjs/common': ^6.8.0 || ^7.0.0
+      '@nestjs/core': ^6.8.0 || ^7.0.0
+      class-transformer: '*'
+      class-validator: '*'
+      fastify-swagger: '*'
+      reflect-metadata: ^0.1.12
+      swagger-ui-express: '*'
+    peerDependenciesMeta:
+      fastify-swagger:
+        optional: true
+      swagger-ui-express:
+        optional: true
+    resolution:
+      integrity: sha1-fr/rDVngwn/0C+tCnXMRt1LA3KQ=
+      tarball: '@nestjs/swagger/download/@nestjs/swagger-4.8.0.tgz'
+  /@nestjs/testing/7.6.14_20faa52830b03789f9b76f741cc4c61d:
+    dependencies:
+      '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
+      '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
+      '@nestjs/microservices': 7.6.14_1709f7ba9c5f2df80af837645a7bbc92
       '@nestjs/platform-express': 7.6.14_eb2137b89ad1a94bbdbfd4e770f337ed
       optional: 0.1.4
       tslib: 2.1.0
@@ -1445,7 +1526,7 @@ packages:
   /@nestjs/throttler/1.1.1_b205c8cc2275fd0d863b87b99738cc6a:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
-      '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+      '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
       md5: 2.3.0
       reflect-metadata: 0.1.13
     dev: false
@@ -1459,7 +1540,7 @@ packages:
   /@nestjs/typeorm/7.1.5_62880686ceb68107ba0a53f84523b767:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
-      '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+      '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
       reflect-metadata: 0.1.13
       rxjs: 6.6.6
       typeorm: 0.2.31
@@ -1477,7 +1558,7 @@ packages:
   /@nestjs/websockets/7.6.14_4d439db5b768f7014e5330d87ab78feb:
     dependencies:
       '@nestjs/common': 7.6.14_48bc85425fe4bb51ad1938b03b8f369f
-      '@nestjs/core': 7.6.14_82fb382d914ed082e5e00347c3493e1f
+      '@nestjs/core': 7.6.14_1d1b67e59b1c26ff44fb93b70b51dd26
       iterare: 1.2.1
       reflect-metadata: 0.1.13
       rxjs: 6.6.6
@@ -7414,6 +7495,11 @@ packages:
     resolution:
       integrity: sha1-tIDIkuWaLwWVTOcnvT8qTogvnhM=
       tarball: json-schema/download/json-schema-0.2.3.tgz
+  /json-socket/0.3.0:
+    dev: false
+    resolution:
+      integrity: sha1-9LlTxoW7jovQtyQ49SCNmgeZrgc=
+      tarball: json-socket/download/json-socket-0.3.0.tgz
   /json-stable-stringify-without-jsonify/1.0.1:
     dev: true
     resolution:
@@ -10622,6 +10708,22 @@ packages:
     resolution:
       integrity: sha1-9mPfJSr183xdSbvX7u+p4Lnlnkc=
       tarball: supports-hyperlinks/download/supports-hyperlinks-2.1.0.tgz
+  /swagger-ui-dist/3.45.1:
+    dev: false
+    resolution:
+      integrity: sha1-PAtxjLXpRAVlANkqRaBNIHIHNYI=
+      tarball: swagger-ui-dist/download/swagger-ui-dist-3.45.1.tgz
+  /swagger-ui-express/4.1.6:
+    dependencies:
+      swagger-ui-dist: 3.45.1
+    dev: false
+    engines:
+      node: '>= v0.10.32'
+    peerDependencies:
+      express: '>=4.0.0'
+    resolution:
+      integrity: sha1-aCKUrz1ccPdKH6TWqbUDqe5V6oI=
+      tarball: swagger-ui-express/download/swagger-ui-express-4.1.6.tgz
   /symbol-observable/1.2.0:
     dev: false
     engines:
@@ -11895,6 +11997,7 @@ specifiers:
   '@nestjs/event-emitter': ^0.0.3
   '@nestjs/graphql': ^7.10.2
   '@nestjs/jwt': ^7.2.0
+  '@nestjs/microservices': ^7.6.14
   '@nestjs/mongoose': ^7.2.4
   '@nestjs/passport': ^7.1.5
   '@nestjs/platform-express': ^7.6.14
@@ -11903,6 +12006,7 @@ specifiers:
   '@nestjs/schedule': ^0.4.3
   '@nestjs/schematics': ^7.3.0
   '@nestjs/serve-static': ^2.1.4
+  '@nestjs/swagger': ^4.8.0
   '@nestjs/testing': ^7.6.14
   '@nestjs/throttler': ^1.1.1
   '@nestjs/typeorm': ^7.1.5
@@ -11956,6 +12060,7 @@ specifiers:
   helmet: ^4.4.1
   husky: ^5.1.3
   jest: ^26.6.3
+  jsonwebtoken: ^8.5.1
   lint-staged: ^10.5.4
   lodash: ^4.17.21
   log4js: ^6.3.0
@@ -11973,6 +12078,7 @@ specifiers:
   rxjs: ^6.6.6
   socket.io-redis: ^6.1.0
   supertest: ^6.1.3
+  swagger-ui-express: ^4.1.6
   ts-jest: ^26.5.4
   ts-loader: ^8.0.18
   ts-node: ^9.1.1

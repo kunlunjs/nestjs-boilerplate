@@ -4,34 +4,29 @@
 nestjs example 集合
 
 #### 软件架构
-软件架构说明
 
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+`nvm install 15.11.0`
+`nvm use 15.11.0`
+`npm i -g pnpm` 使用 pnpm 作为包管理器
+`pnpm i -g @nestjs/cli`
+`pnpm i -g typescript`
+`pnpm i -g nvm` 管理 NodeJS 版本
+`pnpm i -g nrm` 管理 npm 源
+`pnpm i -g pm2` pm2 作为守护进程工具
+`pnpm i` 安装本地依赖
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+`pnpm start:nodemon` 启动开发环境
+`pnpm start:prod` 启动生产环境
 
 #### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
 
 
 #### 特技
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+nestconfig.json 用于指定服务启动的入口文件及格式，可以缺失（默认src/main.ts）
+`nest info` 输出当前操作系统及安装的 nest 相关信息

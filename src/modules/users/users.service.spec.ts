@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { User, UsersService } from '../users/users.service'
+import { UserEntity, UsersService } from '../users/users.service'
 
 describe('UserService', () => {
   let service: UsersService
@@ -21,7 +21,7 @@ describe('UserService', () => {
     ${'john'} | ${{ userId: 1, username: 'john', password: 'changeme' }}
   `(
     'should call findOne for $name and return $returnVal',
-    async ({ name, returnVal }: { name: string; returnVal: User }) => {
+    async ({ name, returnVal }: { name: string; returnVal: UserEntity }) => {
       expect(await service.findOne(name)).toEqual(returnVal)
     }
   )
