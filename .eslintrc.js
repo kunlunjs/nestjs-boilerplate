@@ -5,7 +5,12 @@ module.exports = {
     // project: './tsconfig.json',
     sourceType: 'module'
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  root: true,
+  env: {
+    es6: true,
+    node: true,
+    jest: true
+  },
   extends: [
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
@@ -14,11 +19,9 @@ module.exports = {
     // deprecated https://github.com/prettier/eslint-config-prettier/blob/main/CHANGELOG.md
     // 'prettier/@typescript-eslint'
   ],
-  root: true,
-  env: {
-    es6: true,
-    node: true,
-    jest: true
+  plugins: ['@typescript-eslint/eslint-plugin', 'simple-import-sort', 'import'],
+  settings: {
+    'import/parsers': { '@typescript-eslint/parser': ['.ts'] }
   },
   rules: {
     '@typescript-eslint/ban-ts-comment': 0,

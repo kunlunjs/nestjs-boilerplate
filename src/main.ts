@@ -3,11 +3,11 @@ import { NestFactory } from '@nestjs/core'
 import { ValidationPipe } from '@nestjs/common'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { WsAdapter } from '@nestjs/platform-ws'
-import * as compression from 'compression'
-import * as helmet from 'helmet'
+import compression from 'compression'
 import { AppModule } from './app.module'
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor'
 import { HttpExceptionFilter } from './common/filters/http-exception.filter'
+import helmet from 'helmet'
 import { RolesGuard } from './common/guards/roles.guards'
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter'
 import { AppService } from './app.service'
@@ -66,7 +66,7 @@ async function bootstrap() {
    */
   app.use(
     helmet({
-      // 开启这个选项会导致
+      // 不开启这个选项会导致
       // Refused to execute inline script because it violates the following Content Security Policy directive: "script-src 'self'".
       // Either the 'unsafe-inline' keyword, a hash('sha256-KaTA/04nO8gX81h3eJkbac/8o94DAESlPH7wRbp8adU='),
       // or a nonce('nonce-...') is required to enable inline execution.

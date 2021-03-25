@@ -13,7 +13,7 @@ export class DateScalar implements CustomScalar<number, Date> {
     return value.getTime() // value sent to the client
   }
 
-  parseLiteral(ast: ValueNode): Date {
+  parseLiteral(ast: ValueNode): Date | null {
     if (ast.kind === Kind.INT) {
       return new Date(ast.value)
     }

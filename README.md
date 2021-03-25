@@ -38,3 +38,7 @@ nestconfig.json 用于指定服务启动的入口文件及格式，可以缺失�
 完善 Swagger
 丰富 Mock 扩展
 nodemon 不能正确识别 tsconfig.json 中 paths 配置的 @ 
+tsconfig.json 排序
+上传文件
+国际化i18
+common/providers/

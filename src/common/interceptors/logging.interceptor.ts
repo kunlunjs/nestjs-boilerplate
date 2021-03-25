@@ -6,23 +6,32 @@ import {
 } from '@nestjs/common'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
+import { log } from '@/utils/log'
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
   entrance: string
   constructor(entrance?: string) {
-    // console.log('LoggingInerceptor entrance: ', entrance)
     if (entrance) {
       this.entrance = entrance
     }
   }
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const endpoint = this.entrance ? ` ${this.entrance}` : ''
-    console.log(`Before${endpoint}...`)
+    // const endpoint = this.entrance ? ` ${this.entrance}` : ''
+    const request = context.switchToHttp().getRequest()
+    const { method, originalUrl: url, headers, body } = request
     const now = Date.now()
     return next
       .handle()
-      .pipe(tap(() => console.log(`After${endpoint}...${Date.now() - now}ms`)))
+      .pipe(
+        tap(() =>
+          log(
+            `${method} ${url} ${JSON.stringify(headers)} ${
+              /POST|PUT/.test(method) ? JSON.stringify(body) : ''
+            } ${Date.now() - now}ms`
+          )
+        )
+      )
   }
 }
