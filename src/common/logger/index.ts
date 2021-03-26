@@ -2,15 +2,16 @@ import path from 'path'
 import fs from 'fs-extra'
 import log4js from 'log4js'
 
-const LOG_DIR_NAME = '../../../logs'
+const LOG_DIR_NAME = 'logs'
 
-fs.ensureDirSync(path.join(__dirname, LOG_DIR_NAME))
+fs.ensureDirSync(path.join(process.cwd(), LOG_DIR_NAME))
+
 void ['request', 'response', 'error'].forEach(t => {
-  fs.ensureDirSync(path.join(__dirname, LOG_DIR_NAME, t))
+  fs.ensureDirSync(path.join(process.cwd(), LOG_DIR_NAME, t))
 })
 
-const resolvePath = (dir, filename) =>
-  path.join(__dirname, LOG_DIR_NAME, dir, filename)
+const resolvePath = (dir: string, filename = `${dir}.log`) =>
+  path.join(process.cwd(), LOG_DIR_NAME, dir, filename)
 
 const commonCinfig = {
   type: 'dateFile',
@@ -22,17 +23,17 @@ log4js.configure({
   appenders: {
     request: {
       ...commonCinfig,
-      filename: resolvePath('request', 'request.log'),
+      filename: resolvePath('request'),
       category: 'request'
     },
     response: {
       ...commonCinfig,
-      filename: resolvePath('response', 'response.log'),
+      filename: resolvePath('response'),
       category: 'response'
     },
     error: {
       ...commonCinfig,
-      filename: resolvePath('error', 'error.log'),
+      filename: resolvePath('error'),
       category: 'error'
     }
   },
@@ -43,6 +44,6 @@ log4js.configure({
   }
 } as any)
 
-export const reqLogger = log4js.getLogger('request')
-export const resLogger = log4js.getLogger('response')
-export const errLogger = log4js.getLogger('error')
+export const requestLogger = log4js.getLogger('request')
+export const responseLogger = log4js.getLogger('response')
+export const errorLogger = log4js.getLogger('error')

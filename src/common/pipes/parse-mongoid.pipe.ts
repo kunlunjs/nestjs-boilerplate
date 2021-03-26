@@ -4,14 +4,16 @@ import {
   Injectable,
   PipeTransform
 } from '@nestjs/common'
+import mongoose from 'mongoose'
+
+const isMongoIdReg = /^[a-fA-F0-9]{24}$/
 
 @Injectable()
-export class ParseIntPipe implements PipeTransform<string> {
+export class ParseMongoIdPipe implements PipeTransform<string> {
   async transform(value: string, metadata: ArgumentMetadata) {
-    const val = parseInt(value, 10)
-    if (isNaN(val)) {
+    if (typeof value !== 'string' || !mongoose.isValidObjectId(value)) {
       throw new BadRequestException('Validation field')
     }
-    return val
+    return value
   }
 }

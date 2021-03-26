@@ -1,12 +1,17 @@
 import { Global, HttpModule, Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
-import { ConfigModule } from './modules/config/config.module'
-import { ConfigService } from './modules/config/config.service'
-// import { HttpConfigService } from './modules/http/http-config.service'
+import { ConfigModule } from '../modules/config/config.module'
+import { ConfigService } from '../modules/config/config.service'
+import { EnvService } from './services/env.service'
+import { GeneratorService } from './services/generator.service'
+import { ValidatorService } from './services/validator.service'
+// import { HttpConfigService } from './service/http-config.service'
+
+const providers = [EnvService, GeneratorService, ValidatorService]
 
 @Global()
 @Module({
-  providers: [ConfigService],
+  providers: [ConfigService, ...providers],
   imports: [
     /**
      * HttpModule
@@ -51,6 +56,6 @@ import { ConfigService } from './modules/config/config.service'
       }
     })
   ],
-  exports: [ConfigService, HttpModule, JwtModule]
+  exports: [ConfigService, HttpModule, JwtModule, ...providers]
 })
-export class GlobalModule {}
+export class SharedModule {}

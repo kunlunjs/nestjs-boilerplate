@@ -5,7 +5,7 @@ import { GraphQLDefinitionsFactory } from '@nestjs/graphql'
 const definitionsFactory = new GraphQLDefinitionsFactory()
 definitionsFactory.generate({
   typePaths: [path.join(__dirname, './**/*.graphql')],
-  path: path.join(__dirname, ',/graphql.schema.ts'),
+  path: path.join(__dirname, './graphql.schema.ts'),
   // 默认生成 interface
   outputAs: 'class' // 生成 abstract class
   // watch: true

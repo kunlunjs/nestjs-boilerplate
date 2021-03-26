@@ -18,4 +18,7 @@ export class WebSocketEventsGateway {
     console.log(`Receive websocket event[events]: `, data)
     return from([1, 2, 3]).pipe(map(item => ({ event: 'events', data: item })))
   }
+
+  // TODO WebSockets 中使用缓存
+  // https://docs.nestjs.com/techniques/caching#websockets-and-microservices
 }

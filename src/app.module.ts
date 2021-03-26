@@ -5,7 +5,8 @@ import {
   CacheModule,
   NestModule,
   MiddlewareConsumer,
-  RequestMethod
+  RequestMethod,
+  CacheInterceptor
 } from '@nestjs/common'
 import { EventEmitterModule } from '@nestjs/event-emitter'
 import { ScheduleModule } from '@nestjs/schedule'
@@ -14,6 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { GraphQLModule } from '@nestjs/graphql'
 import { MongooseModule } from '@nestjs/mongoose'
 import { ThrottlerModule } from '@nestjs/throttler'
+import * as redisStore from 'cache-manager-redis-store'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { EventEmitModule } from './modules/eventemit/eventemit.module'
@@ -31,15 +33,25 @@ import { UsersModule } from './modules/users/users.module'
 import { ConfigModule } from './modules/config/config.module'
 import { ConfigService } from './modules/config/config.service'
 import { CacheConfigService } from './modules/cache/cache-config.service'
-import { GlobalModule } from './global.module'
+import { SharedModule } from './shared/shared.module'
 import { MongooseCatsModule } from './modules/mongoose/cats.module'
 import { LoggerMiddleware } from './common/middlewares/logger.middleware'
 import { CatsController } from './modules/mongoose/cats.controller'
 import { ThrottlerConfigService } from './modules/throttler/throttler-config.service'
 import { CalsModule } from './modules/cals/cals.module'
+import { MicroserviceModule } from './modules/microservices/microservice.module'
+import { ServerSentEventModule } from './modules/sse/sse.module'
+import { MVCModule } from './modules/mvc/mvc.module'
+import { CacheManagerModule } from './modules/cache/cache.module'
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
+import { JwtAuthGuard } from './common/guards'
 
 @Module({
   imports: [
+    /**
+     * 微服务模块
+     */
+    MicroserviceModule,
     /**
      * 发布订阅事件
      */
@@ -57,12 +69,13 @@ import { CalsModule } from './modules/cals/cals.module'
      */
     // BullModule.forRoot({
     //   redis: {
-    //     host: '42.193.185.71',
-    //     port: 6379
+    //     host: '47.111.100.233',
+    //     port: 6379,
+    //     password: 'redis.2021_turing-fe'
     //   }
     // }),
     BullModule.forRootAsync({
-      imports: [GlobalModule],
+      imports: [SharedModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         const config = await configService.getAll()
@@ -85,8 +98,11 @@ import { CalsModule } from './modules/cals/cals.module'
      */
     // 同步读取配置
     ServeStaticModule.forRoot({
-      rootPath: path.join(__dirname, '../client'),
-      exclude: ['/api*']
+      rootPath: path.join(process.cwd(), './client'),
+      exclude: ['/api*'],
+      serveStaticOptions: {
+        index: false
+      }
     }),
     // TODO 理解 ServeStaticModule 异步配置
     // 异步读取配置
@@ -109,18 +125,28 @@ import { CalsModule } from './modules/cals/cals.module'
       //     ttl: 5
       //   }
       // }
-      imports: [GlobalModule],
+      imports: [SharedModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         return {
+          // 过期时间(s)，null 为永不过期
           ttl: configService.get('CACHE_TTL')
+          // max: 10 // maximum number of items in cache
         }
+        // 支持 redis 作为缓存存储器
+        // return {
+        //   store: redisStore,
+        //   host: configService.get('REDIS_HOST'),
+        //   port: configService.get('REDIS_PORT')
+        // }
       }
     }),
+    CacheManagerModule,
     /*----------------------------------------------------------------*/
     /**
      * 动态模块
      * 指定根目录下的配置目录
+     * 比较与 ConfigModule 的差异
      */
     DynamicConfigModule.register({ folder: './config' }),
     /*----------------------------------------------------------------*/
@@ -141,7 +167,7 @@ import { CalsModule } from './modules/cals/cals.module'
     // 异步配置
     // TypeOrmModule.forRootAsync({
     //   inject: [ConfigService],
-    //   imports: [GlobalModule],
+    //   imports: [SharedModule],
     //   useFactory: async (configService: ConfigService) => {
     //     const config = await configService.getAll()
     //     return {
@@ -170,7 +196,7 @@ import { CalsModule } from './modules/cals/cals.module'
     //   }
     // ),
     MongooseModule.forRootAsync({
-      imports: [GlobalModule],
+      imports: [SharedModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         const {
@@ -178,9 +204,9 @@ import { CalsModule } from './modules/cals/cals.module'
           DB_PORT,
           DB_USERNAME,
           DB_PASSWORD,
-          DB_DATABASE,
-          DB_MONGODB_RETRY_DELAY,
-          DB_MONGODB_RETRY_ATTEMPTS
+          DB_DATABASE
+          // DB_MONGODB_RETRY_DELAY,
+          // DB_MONGODB_RETRY_ATTEMPTS
         } = configService.getAll()
         return {
           uri: `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}`
@@ -226,6 +252,7 @@ import { CalsModule } from './modules/cals/cals.module'
     // SocketIOEventsModule,
     WebSocketEventsModule,
 
+    /*----------------------------------------------------------------*/
     // TODO 速率限制
     /**
      * 速率限制
@@ -241,7 +268,7 @@ import { CalsModule } from './modules/cals/cals.module'
     // }),
     ThrottlerModule.forRootAsync({
       inject: [ConfigService],
-      imports: [GlobalModule],
+      imports: [SharedModule],
       useFactory: async (configService: ConfigService) => {
         const config = configService.getAll()
         return {
@@ -250,7 +277,11 @@ import { CalsModule } from './modules/cals/cals.module'
         }
       }
     }),
-    /* ----------------------------cals 模块---------------------------- */
+    /* ---------------------------- MVC 模块 ------------- */
+    MVCModule,
+    /* ---------------------------- Server Sent Events 模块 ------------- */
+    ServerSentEventModule,
+    /* ---------------------------- cals 模块---------------------------- */
     CalsModule,
     /* ----------------------------授权模块---------------------------- */
     // 登录授权验证
@@ -259,7 +290,27 @@ import { CalsModule } from './modules/cals/cals.module'
     UsersModule
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [
+    AppService,
+    /**
+     * 全局路由 Authorization
+     * 可以写在子模块中，如 modules/auth/auth.module.ts 中
+     * 使用 @Public() 放过
+     */
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard
+    },
+    /**
+     * 将缓存处理绑定到全局端点，配合 CacheModule.registerAsync(...)
+     * 全局缓存在 CacheKey 下
+     * 可以通过 @CacheKey('name') 和 @CacheTTL(20) 在方法上来重写缓存设置
+     */
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor
+    }
+  ]
 })
 // export class AppModule {}
 export class AppModule implements NestModule {

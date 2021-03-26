@@ -6,7 +6,7 @@ import {
   ExtractSubjectType,
   InferSubjects
 } from '@casl/ability'
-import { Action } from '../../common/enum/action.enum'
+import { Action } from '@/common/constants/action.enum'
 
 export class User {
   id: string

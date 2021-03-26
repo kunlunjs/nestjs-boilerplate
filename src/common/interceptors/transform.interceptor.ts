@@ -1,14 +1,14 @@
 import {
-  CallHandler,
-  ExecutionContext,
   Injectable,
-  NestInterceptor
+  NestInterceptor,
+  CallHandler,
+  ExecutionContext
 } from '@nestjs/common'
-import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { reqLogger, resLogger } from '../logger'
+import { Observable } from 'rxjs'
+import { requestLogger, responseLogger } from '../logger'
 
-export interface Response<T> {
+interface Response<T> {
   data: T
 }
 
@@ -21,19 +21,32 @@ export class TransformInterceptor<T>
   ): Observable<Response<T>> {
     const ctx = context.switchToHttp()
     const request = ctx.getRequest()
-    const { method, originalUrl: url } = request
-    reqLogger.info(`${method} ${url}`, request.headers)
+    const { method, originalUrl: url, body } = request
+    requestLogger.info(
+      `${method} ${url}`,
+      JSON.stringify(request.headers),
+      /POST|PUT/.test(method) ? JSON.stringify(body) : ''
+    )
+    const now = new Date().getTime()
 
     return next.handle().pipe(
       map(data => {
-        const res = ctx.getResponse()
-        const status = res.statusCode
-        const result = {
+        const response = ctx.getResponse()
+
+        const status = response.statusCode
+        const res = {
+          data,
           status,
-          data
+          message: null,
+          success: true
         }
-        resLogger.info(`${method} ${url}`, result)
-        return result
+        // if (typeof data === 'string' && typeof data['nModified'] === 'number') {
+        //   data = {}
+        // }
+        responseLogger.info(
+          `${method} ${url} ${status} ${new Date().getTime() - now}ms`
+        )
+        return res
       })
     )
   }

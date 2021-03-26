@@ -41,10 +41,12 @@ export class AllExceptionsFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR
     response.status(status).json({
+      data: null,
       status,
-      path: request.url,
-      method: request.method,
-      timestamp: new Date().toISOString()
+      message:
+        exception instanceof Error ? exception.name : 'Internal server error',
+      error:
+        exception instanceof Error ? exception.stack : 'Internal server error'
     })
   }
 }

@@ -1,5 +1,5 @@
-import { Action } from '../../common/enum/action.enum'
-import { IPolicyHandler } from '../../common/guards/policies.guard'
+import { Action } from '@/common/constants/action.enum'
+import { IPolicyHandler } from '@/common/guards/policies.guard'
 import { AppAbility, Article } from './cals-ability.factory'
 
 /**
