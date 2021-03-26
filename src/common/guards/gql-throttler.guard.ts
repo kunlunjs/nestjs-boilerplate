@@ -2,7 +2,7 @@ import { ExecutionContext, Injectable } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { ThrottlerGuard } from '@nestjs/throttler'
 
-// TODO
+// TODO GraphQL 限流
 @Injectable()
 export class GqlThrottlerGuard extends ThrottlerGuard {
   getRequestResponse(context: ExecutionContext) {

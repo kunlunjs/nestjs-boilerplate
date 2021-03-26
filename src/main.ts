@@ -1,19 +1,30 @@
 import * as path from 'path'
 import { NestFactory } from '@nestjs/core'
-import { ValidationPipe } from '@nestjs/common'
-import { NestExpressApplication } from '@nestjs/platform-express'
+import {
+  HttpStatus,
+  UnprocessableEntityException,
+  ValidationPipe
+} from '@nestjs/common'
 import { WsAdapter } from '@nestjs/platform-ws'
+import { NestExpressApplication } from '@nestjs/platform-express'
+import helmet from 'helmet'
 import compression from 'compression'
+import { log } from '@/utils/log'
 import { AppModule } from './app.module'
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor'
 import { HttpExceptionFilter } from './common/filters/http-exception.filter'
-import helmet from 'helmet'
 import { RolesGuard } from './common/guards/roles.guards'
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter'
 import { AppService } from './app.service'
 import { logger } from './common/middlewares/logger.middleware'
+import { SharedModule } from './shared/shared.module'
+import { EnvService } from './shared/services/env.service'
+import { setupSwagger } from './setup-swagger'
+import { Transport } from '@nestjs/microservices'
 
 export const GLOBAL_PREFIX = 'api'
+
+const PORT = parseInt(process.env['PORT'] as string, 10) || 3000
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
@@ -43,15 +54,28 @@ async function bootstrap() {
   /**
    * 全局管道，依赖 class-validator
    */
-  app.useGlobalPipes(new ValidationPipe())
-  // WebSocket 服务
-  app.useWebSocketAdapter(new WsAdapter(app))
+  app.useGlobalPipes(
+    new ValidationPipe(
+      // TODO 理解 ValidationPipe 选项
+      {
+        whitelist: true,
+        transform: true,
+        dismissDefaultMessages: true,
+        errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+        exceptionFactory: errors => new UnprocessableEntityException(errors)
+      }
+    )
+  )
 
   /**
    * 配置渲染模板位置和引擎
    */
-  app.useStaticAssets(path.join(__dirname, '../public'))
-  app.setBaseViewsDir(path.join(__dirname, '../views'))
+  app.useStaticAssets(path.join(process.cwd(), './public'), {
+    prefix: 'static',
+    // 禁止默认使用（找不到请求对应的静态文件） public/index.html
+    index: false
+  })
+  app.setBaseViewsDir(path.join(process.cwd(), './pages'))
   app.setViewEngine('hbs')
 
   /**
@@ -79,14 +103,42 @@ async function bootstrap() {
    * https://docs.nestjs.com/security/csrf
    */
 
-  // TODO 什么场景下会用到
+  // TODO 获取 Service 实例
   /**
    * context
    */
   // const appService = app.get(AppService)
 
-  await app.listen(3000)
-  console.log(`🚀 Application is running on: ${await app.getUrl()}`)
+  // 获取模块内 service
+  const envService = app.select(SharedModule).get(EnvService)
+
+  /**
+   * WebSocket 服务
+   */
+  app.useWebSocketAdapter(new WsAdapter(app))
+
+  /**
+   * 微服务
+   */
+  app.connectMicroservice({
+    transport: Transport.TCP,
+    options: {
+      port: envService.getNumber('TRANSPORT_PORT'),
+      retryDelay: envService.getNumber('TRANSPORT_RETRY_DELAY') || 3000,
+      retryAttempts: envService.getNumber('TRANSPORT_RETRY_ATTEMPTS') || 5
+    }
+  })
+  await app.startAllMicroservicesAsync()
+
+  /**
+   * Swagger 文档
+   */
+  if (['development', 'staging'].includes(envService.nodeEnv)) {
+    setupSwagger(app)
+  }
+
+  await app.listen(PORT)
+  log(`🚀 Application is running on: ${await app.getUrl()}`)
 }
 
 bootstrap()

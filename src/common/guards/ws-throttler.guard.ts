@@ -11,7 +11,8 @@ export class WsThrottlerGuard extends ThrottlerGuard {
     const client = context.switchToWs().getClient()
     const ip = client.conn.remoteAddress()
     const key = this.generateKey(context, ip)
-    // TODO https://docs.nestjs.com/security/rate-limiting#rate-limiting
+    // TODO socket 限流
+    // https://docs.nestjs.com/security/rate-limiting#rate-limiting
     // const ttls = await this.storageService.getRecord(key)
     return true
   }

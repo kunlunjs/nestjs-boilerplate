@@ -1,7 +1,7 @@
 import { Configuration } from 'webpack'
 import nodeExternals from 'webpack-node-externals'
 
-// TODO
+// TODO 存在问题
 // nest build --watch --webpack --webpackPath webpack-hmr.config.ts 暂不可用，待解决
 // Error  Cannot use import statement outside a module
 export default function config(

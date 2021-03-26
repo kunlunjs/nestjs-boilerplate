@@ -9,14 +9,14 @@ import {
 export class HttpExceptionFilter implements ExceptionFilter<HttpException> {
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
-    const request = ctx.getRequest()
+    // const request = ctx.getRequest()
     const response = ctx.getResponse()
     const status = exception.getStatus()
     response.status(status).json({
+      data: null,
       status,
-      path: request.url,
-      method: request.method,
-      timestamp: new Date().toISOString()
+      message: exception.name,
+      error: exception.stack
     })
   }
 }
