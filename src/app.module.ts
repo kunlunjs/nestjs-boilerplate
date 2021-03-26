@@ -134,6 +134,7 @@ import { JwtAuthGuard } from './common/guards'
           // max: 10 // maximum number of items in cache
         }
         // 支持 redis 作为缓存存储器
+        // https://github.com/BryanDonovan/node-cache-manager#store-engines
         // return {
         //   store: redisStore,
         //   host: configService.get('REDIS_HOST'),
