@@ -1,9 +1,59 @@
-version: "3"
+version: "3.1"
 
 services: 
-  mongodb:
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    ports: 
+      - 6379:6379
+  mongodb1:
+    container_name: mongo1
     image: mongo:latest
     environment: 
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=1qaz2wsx
       - MONGODB_DATABASE="nestjs"
     ports: 
       - 27017:27017
+  mongodb2:
+    container_name: mongo2
+    image: mongo:latest
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=1qaz2wsx
+      - MONGODB_DATABASE="nestjs"
+    ports: 
+      - 27018:27017
+  mysql1:
+    container_name: mysql1
+    image: mysql:latest
+    restart: always
+    environment:
+      # 默认用户名 root
+      MYSQL_ROOT_PASSWORD: 1qaz2wsx
+      MYSQL_DATABASE: test1
+    ports: 
+      - 3306:3306
+  mysql2:
+    container_name: mysql2
+    image: mysql:latest
+    restart: always
+    environment:
+      # 默认用户名 root
+      MYSQL_ROOT_PASSWORD: 1qaz2wsx
+      MYSQL_DATABASE: test2
+    ports: 
+      - "3307:3306"
+  posrgres:
+    container_name: posrgres
+    image: postgres:latest
+    restart: always
+    environment:
+      # 默认用户名 postgres
+      POSTGRES_PASSWORD: 1qaz2wsx
+      POSTGRES_DB: test
+    ports: 
+      - 5432:5432
+    
+      

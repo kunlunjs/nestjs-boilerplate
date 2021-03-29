@@ -54,17 +54,25 @@ nestconfig.json 用于指定服务启动的入口文件及格式，可以缺失�
 
 1. 如何使用 NestJS 创建一个 RESTful API 接口
 2. 项目目录结构及代码规范
-3. 为请求增加校验（Pipe）
-4. 异常处理（Filter）
-5. 统一响应 JSON 结构（Interceptor）
-6. 如何增加“请求 ——> 响应”日志
-7. 缓存的使用
-7. 如何统一配置环境变量、数据库配置等
-8. 理解 Module
-9. 理解 Service
-10. 理解 Provider
-11. 理解 Guard
-8. 如何对接 MongoDB
-9. 如何对接 PostgreSQL
-10. 如何对接 MySQL
-11. 如何做国际化
+3. 用为请求增加校验（Pipe）
+4. 请求校验高级篇（一）：自定义校验函数
+5. 请求校验高级篇（二）：自定义校验返回
+6. 异常处理（Filter）
+7. 统一响应 JSON 结构（Interceptor）
+8. 如何增加“请求 ——> 响应”日志
+9. 缓存的使用
+10. 如何统一配置环境变量、数据库配置等
+11. 理解 Module
+12. 理解 Service
+13. 理解 Provider
+14. 理解 Guard
+15. 如何生成 Swagger 文档
+16. 国际化
+17. 如何对接 MongoDB
+18. 如何对接 PostgreSQL
+19. 如何对接 MySQL
+20. 如何开发 GraphQL 接口
+21. GraphQL 高级篇
+22. MVC
+23. 静态文件服务
+24. 如何在 NestJS 使用 Socket

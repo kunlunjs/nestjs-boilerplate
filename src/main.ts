@@ -6,7 +6,7 @@ import {
   ValidationPipe
 } from '@nestjs/common'
 import { WsAdapter } from '@nestjs/platform-ws'
-import { Transport } from '@nestjs/microservices'
+import { MicroserviceOptions, Transport } from '@nestjs/microservices'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import helmet from 'helmet'
 import compression from 'compression'
@@ -20,6 +20,7 @@ import { logger } from './common/middlewares'
 import { SharedModule } from './shared/shared.module'
 import { EnvService } from './shared/services'
 import { setupSwagger } from './setup-swagger'
+import { grpcClientOptions } from './grpc-client.options'
 
 export const GLOBAL_PREFIX = 'api'
 
@@ -115,12 +116,15 @@ async function bootstrap() {
   /**
    * 微服务
    */
-  app.connectMicroservice({
+  // 连接 modules/gprc
+  app.connectMicroservice<MicroserviceOptions>(grpcClientOptions)
+  // 连接 modules/microservices
+  app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.TCP,
     options: {
       port: envService.getNumber('TRANSPORT_PORT'),
-      retryDelay: envService.getNumber('TRANSPORT_RETRY_DELAY') || 3000,
-      retryAttempts: envService.getNumber('TRANSPORT_RETRY_ATTEMPTS') || 5
+      retryDelay: 3000,
+      retryAttempts: 5
     }
   })
   await app.startAllMicroservicesAsync()

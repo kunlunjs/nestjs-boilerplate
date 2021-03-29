@@ -10,7 +10,7 @@ import { RedisClient } from 'redis'
 const pubClient = new RedisClient({
   host: '47.111.100.233',
   port: 6379,
-  password: 'redis.2021_turing-fe'
+  password: '***'
 })
 const subClient = pubClient.duplicate()
 

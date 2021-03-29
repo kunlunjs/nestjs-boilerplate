@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { TypeOrmMongoDBEntity } from './mongodb.entity'
+import { TypeOrmMongoEntity } from './mongodb.entity'
 
 @Injectable()
-export class TypeOrmMongoDBService {
+export class TypeOrmMongoService {
   constructor(
-    @InjectRepository(TypeOrmMongoDBEntity)
-    private jsonRepository: Repository<TypeOrmMongoDBEntity>
+    @InjectRepository(TypeOrmMongoEntity)
+    private jsonRepository: Repository<TypeOrmMongoEntity>
   ) {}
 
-  async findAll(): Promise<TypeOrmMongoDBEntity[]> {
+  async findAll(): Promise<TypeOrmMongoEntity[]> {
     return this.jsonRepository.find()
   }
 
-  async findOne(id: string): Promise<TypeOrmMongoDBEntity> {
+  async findOne(id: string): Promise<TypeOrmMongoEntity | undefined> {
     return this.jsonRepository.findOne(id)
   }
 }

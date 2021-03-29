@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
-import { EventEmitController } from './eventemit.controller'
-import { EventEmitService } from './eventemit.service'
+import { EventEmitController } from './event-emit.controller'
+import { EventEmitService } from './event-emit.service'
 import { EventEmitCreatedListener } from './listeners/eventemit-created.listener'
 
 @Module({
