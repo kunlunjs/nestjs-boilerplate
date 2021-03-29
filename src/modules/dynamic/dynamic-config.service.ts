@@ -10,7 +10,7 @@ export class DynamicConfigService {
   private readonly envConfig: EnvConfig
 
   constructor(@Inject(DYNAMIC_CONFIG_OPTIONS) options: DynamicConfigOptions) {
-    const filePath = `${process.env['NODE_ENV'] || 'development'}.env`
+    const filePath = `.env.${process.env['NODE_ENV'] || 'development'}`
     const envFile = path.resolve(process.cwd(), options.folder, filePath)
     this.envConfig = dotenv.parse(fs.readFileSync(envFile))
   }

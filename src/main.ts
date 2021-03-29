@@ -85,15 +85,15 @@ async function bootstrap() {
    * 安全
    * https://docs.nestjs.com/security/helmet
    */
-  app.use(
-    helmet({
-      // 不开启这个选项会导致
-      // Refused to execute inline script because it violates the following Content Security Policy directive: "script-src 'self'".
-      // Either the 'unsafe-inline' keyword, a hash('sha256-KaTA/04nO8gX81h3eJkbac/8o94DAESlPH7wRbp8adU='),
-      // or a nonce('nonce-...') is required to enable inline execution.
-      contentSecurityPolicy: false
-    })
-  )
+  // app.use(
+  //   helmet({
+  //     // 不开启这个选项会导致
+  //     // Refused to execute inline script because it violates the following Content Security Policy directive: "script-src 'self'".
+  //     // Either the 'unsafe-inline' keyword, a hash('sha256-KaTA/04nO8gX81h3eJkbac/8o94DAESlPH7wRbp8adU='),
+  //     // or a nonce('nonce-...') is required to enable inline execution.
+  //     contentSecurityPolicy: false
+  //   })
+  // )
 
   /**
    * CSRF 保护

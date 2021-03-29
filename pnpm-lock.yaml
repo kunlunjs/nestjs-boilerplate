@@ -58,11 +58,13 @@ dependencies:
   multer: 1.4.2
   mysql2: 2.2.5
   nestjs-i18n: 8.0.11_a5e284bf185e3b13e505d42d771fb371
-  next: 10.0.9_webpack@5.28.0
+  next: 10.0.9_019eae00de588ef83897567bac9ed775
   passport: 0.4.1
   passport-jwt: 4.0.0
   passport-local: 1.0.0
   pg: 8.5.1
+  react: 17.0.2
+  react-dom: 17.0.2_react@17.0.2
   redis: 3.0.2
   reflect-metadata: 0.1.13
   request-context: 2.0.0
@@ -97,6 +99,8 @@ devDependencies:
   '@types/node': 14.14.35
   '@types/passport-jwt': 3.0.5
   '@types/passport-local': 1.0.33
+  '@types/react': 17.0.3
+  '@types/react-dom': 17.0.3
   '@types/redis': 2.8.28
   '@types/sequelize': 4.28.9
   '@types/socket.io': 2.1.13
@@ -1719,7 +1723,7 @@ packages:
     resolution:
       integrity: sha1-DCFELdc+wxrjCsVgvFxf3OBoqY8=
       tarball: '@next/polyfill-module/download/@next/polyfill-module-10.0.9.tgz'
-  /@next/react-dev-overlay/10.0.9:
+  /@next/react-dev-overlay/10.0.9_react-dom@17.0.2+react@17.0.2:
     dependencies:
       '@babel/code-frame': 7.12.11
       anser: 1.4.9
@@ -1728,6 +1732,8 @@ packages:
       css.escape: 1.5.1
       data-uri-to-buffer: 3.0.1
       platform: 1.3.6
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
       shell-quote: 1.7.2
       source-map: 0.8.0-beta.0
       stacktrace-parser: 0.1.10
@@ -2387,6 +2393,11 @@ packages:
     resolution:
       integrity: sha1-4igMid3L7vNACZ1paNjIa6FV/fY=
       tarball: '@types/prettier/download/@types/prettier-2.2.2.tgz'
+  /@types/prop-types/15.7.3:
+    dev: true
+    resolution:
+      integrity: sha1-KrDV2i5YFflLC51LldHl8kOrLKc=
+      tarball: '@types/prop-types/download/@types/prop-types-15.7.3.tgz'
   /@types/qs/6.9.6:
     resolution:
       integrity: sha1-35w8izGiR+wxXmmWVmvjFx30s7E=
@@ -2395,6 +2406,22 @@ packages:
     resolution:
       integrity: sha1-fuMwunyq+5gJC+zoal7kQRWQTCw=
       tarball: '@types/range-parser/download/@types/range-parser-1.2.3.tgz'
+  /@types/react-dom/17.0.3:
+    dependencies:
+      '@types/react': 17.0.3
+    dev: true
+    resolution:
+      integrity: sha1-f983uK+dbUAScTeGW7P/+IcdfuE=
+      tarball: '@types/react-dom/download/@types/react-dom-17.0.3.tgz?cache=0&sync_timestamp=1616462733800&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact-dom%2Fdownload%2F%40types%2Freact-dom-17.0.3.tgz'
+  /@types/react/17.0.3:
+    dependencies:
+      '@types/prop-types': 15.7.3
+      '@types/scheduler': 0.16.1
+      csstype: 3.0.7
+    dev: true
+    resolution:
+      integrity: sha1-um4hU2hQGsOCaVHu8pBFdMJizHk=
+      tarball: '@types/react/download/@types/react-17.0.3.tgz'
   /@types/readable-stream/2.3.9:
     dependencies:
       '@types/node': 14.14.35
@@ -2410,6 +2437,11 @@ packages:
     resolution:
       integrity: sha1-WGKytkqn98vHba/X5vBpkrUsVeM=
       tarball: '@types/redis/download/@types/redis-2.8.28.tgz'
+  /@types/scheduler/0.16.1:
+    dev: true
+    resolution:
+      integrity: sha1-GIRSBehv8AOFF6q3oYpiprn3EnU=
+      tarball: '@types/scheduler/download/@types/scheduler-0.16.1.tgz'
   /@types/sequelize/4.28.9:
     dependencies:
       '@types/bluebird': 3.5.33
@@ -5294,6 +5326,11 @@ packages:
     resolution:
       integrity: sha1-/2ZaDdvcMYZLCWR/NBY0Q9kLCFI=
       tarball: cssstyle/download/cssstyle-2.3.0.tgz
+  /csstype/3.0.7:
+    dev: true
+    resolution:
+      integrity: sha1-Kl+3XhAV6E3RVpL3HomhRQKQlQs=
+      tarball: csstype/download/csstype-3.0.7.tgz
   /dargs/7.0.0:
     dev: true
     engines:
@@ -9845,13 +9882,13 @@ packages:
     resolution:
       integrity: sha1-n+g1nqIVSWVg8nD1erwp524jH1c=
       tarball: nestjs-i18n/download/nestjs-i18n-8.0.11.tgz
-  /next/10.0.9_webpack@5.28.0:
+  /next/10.0.9_019eae00de588ef83897567bac9ed775:
     dependencies:
       '@babel/runtime': 7.12.5
       '@hapi/accept': 5.0.1
       '@next/env': 10.0.9
       '@next/polyfill-module': 10.0.9
-      '@next/react-dev-overlay': 10.0.9
+      '@next/react-dev-overlay': 10.0.9_react-dom@17.0.2+react@17.0.2
       '@next/react-refresh-utils': 10.0.9_da5214c4177c2a6fccced5b19dd125b5
       '@opentelemetry/api': 0.14.0
       ast-types: 0.13.2
@@ -9877,11 +9914,13 @@ packages:
       process: 0.11.10
       prop-types: 15.7.2
       raw-body: 2.4.1
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
       react-is: 16.13.1
       react-refresh: 0.8.3
       stream-browserify: 3.0.0
-      styled-jsx: 3.3.2
-      use-subscription: 1.5.1
+      styled-jsx: 3.3.2_react@17.0.2
+      use-subscription: 1.5.1_react@17.0.2
       vm-browserify: 1.1.2
       watchpack: 2.1.1
     dev: false
@@ -11273,6 +11312,18 @@ packages:
     resolution:
       integrity: sha1-zZJL9SAKB1uDwYjNa54hG3/A0+0=
       tarball: rc/download/rc-1.2.8.tgz
+  /react-dom/17.0.2_react@17.0.2:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react: 17.0.2
+      scheduler: 0.20.2
+    dev: false
+    peerDependencies:
+      react: 17.0.2
+    resolution:
+      integrity: sha1-7P+2hF462Nv83EmPDQqTlzZQLCM=
+      tarball: react-dom/download/react-dom-17.0.2.tgz
   /react-is/16.13.1:
     dev: false
     resolution:
@@ -11289,6 +11340,16 @@ packages:
     resolution:
       integrity: sha1-ch1GV2ctQAxePHXQY8SoX7LV1o8=
       tarball: react-refresh/download/react-refresh-0.8.3.tgz
+  /react/17.0.2:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-0LXMUW0p6z7uOD91tihkz7aAADc=
+      tarball: react/download/react-17.0.2.tgz?cache=0&sync_timestamp=1616782836680&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact%2Fdownload%2Freact-17.0.2.tgz
   /read-pkg-up/2.0.0:
     dependencies:
       find-up: 2.1.0
@@ -11818,6 +11879,14 @@ packages:
     resolution:
       integrity: sha1-7rq5U/o7dgjb6U5drbFciI+maW0=
       tarball: saxes/download/saxes-5.0.1.tgz
+  /scheduler/0.20.2:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+    dev: false
+    resolution:
+      integrity: sha1-S67jlDbjSqk7SHS93L8P6Li1DpE=
+      tarball: scheduler/download/scheduler-0.20.2.tgz
   /schema-utils/2.7.0:
     dependencies:
       '@types/json-schema': 7.0.7
@@ -12735,12 +12804,13 @@ packages:
     resolution:
       integrity: sha1-yDkVf2FcELoPSuNQZ9rZlZ7so0Y=
       tarball: strtok3/download/strtok3-6.0.8.tgz
-  /styled-jsx/3.3.2:
+  /styled-jsx/3.3.2_react@17.0.2:
     dependencies:
       '@babel/types': 7.8.3
       babel-plugin-syntax-jsx: 6.18.0
       convert-source-map: 1.7.0
       loader-utils: 1.2.3
+      react: 17.0.2
       source-map: 0.7.3
       string-hash: 1.1.3
       stylis: 3.5.4
@@ -13657,9 +13727,10 @@ packages:
     resolution:
       integrity: sha1-ODjpfPxgUh63PFJajlW/3Z4uKPE=
       tarball: url/download/url-0.11.0.tgz
-  /use-subscription/1.5.1:
+  /use-subscription/1.5.1_react@17.0.2:
     dependencies:
       object-assign: 4.1.1
+      react: 17.0.2
     dev: false
     peerDependencies:
       react: ^16.8.0 || ^17.0.0
@@ -14421,6 +14492,8 @@ specifiers:
   '@types/node': ^14.14.35
   '@types/passport-jwt': ^3.0.5
   '@types/passport-local': ^1.0.33
+  '@types/react': ^17.0.3
+  '@types/react-dom': ^17.0.3
   '@types/redis': ^2.8.28
   '@types/sequelize': ^4.28.9
   '@types/socket.io': ^2.1.13
@@ -14485,6 +14558,8 @@ specifiers:
   passport-local: ^1.0.0
   pg: ^8.5.1
   prettier: ^2.2.1
+  react: ^17.0.2
+  react-dom: ^17.0.2
   redis: ^3.0.2
   reflect-metadata: ^0.1.13
   request-context: ^2.0.0

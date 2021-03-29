@@ -5,13 +5,13 @@ import NextServer from 'next/dist/next-server/server/next-server'
 
 @Injectable()
 export class NextJSService implements OnModuleInit {
-  private server //: NextServer
+  private server
 
   async onModuleInit(): Promise<void> {
     try {
       this.server = next({
         dev: true,
-        dir: path.join(process.cwd(), './client/next')
+        dir: path.join(process.cwd(), './client/nextjs')
       })
       await this.server.prepare()
     } catch (e) {

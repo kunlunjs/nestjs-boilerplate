@@ -48,6 +48,7 @@ import { JwtAuthGuard } from './common/guards'
 import { HealthModule } from './modules/health/health.module'
 import { GRPCHeroModule } from './modules/grpc/grpc-hero.module'
 import { DogModule } from './modules/health-dog/dog.module'
+import { NextJSModule } from './modules/nextjs/nextjs.module'
 
 @Module({
   imports: [
@@ -108,7 +109,6 @@ import { DogModule } from './modules/health-dog/dog.module'
         index: false
       }
     }),
-    // TODO 理解 ServeStaticModule 异步配置
     // 异步读取配置
     // ServeStaticModule.forRootAsync({})
     /*----------------------------------------------------------------*/
@@ -153,10 +153,12 @@ import { DogModule } from './modules/health-dog/dog.module'
      * 指定根目录下的配置目录
      * 比较与 ConfigModule 的差异
      */
-    DynamicConfigModule.register({ folder: './config' }),
+    // DynamicConfigModule.register({ folder: './config' }),
     /*----------------------------------------------------------------*/
     // typeorm 数据库模块
     // 同步配置
+    // 默认从项目根目录/ormconfig.json 读取配置
+    // TypeOrmModule.forRoot(),
     // TypeOrmModule.forRoot({
     //   type: 'mongodb',
     //   host: '47.111.100.233',
@@ -295,6 +297,8 @@ import { DogModule } from './modules/health-dog/dog.module'
     AuthModule, // 可以包含全局路由保护 APP_GUARD
     /* ----------------------------业务模块---------------------------- */
     UsersModule,
+    /* ----------------------------NextJS模块---------------------------- */
+    NextJSModule,
     /* ----------------------------健康检查---------------------------- */
     HealthModule,
     DogModule

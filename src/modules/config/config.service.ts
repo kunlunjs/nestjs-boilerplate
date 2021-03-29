@@ -16,7 +16,7 @@ export class ConfigService {
   private readonly envConfig: EnvConfig
 
   constructor() {
-    const envPath = `${process.env['NODE_ENV'] || 'development'}.env`
+    const envPath = `.env.${process.env['NODE_ENV'] || 'development'}`
     const rootEnvFile = path.resolve(process.cwd(), envPath)
     const configEnvFile = path.resolve(process.cwd(), './config', envPath)
     let envFile
