@@ -49,3 +49,22 @@ nestconfig.json 用于指定服务启动的入口文件及格式，可以缺失�
 - 丰富 Mock 扩展
 - 上传文件
 - 国际化i18
+
+## 教程
+
+1. 如何使用 NestJS 创建一个 RESTful API 接口
+2. 项目目录结构及代码规范
+3. 为请求增加校验（Pipe）
+4. 异常处理（Filter）
+5. 统一响应 JSON 结构（Interceptor）
+6. 如何增加“请求 ——> 响应”日志
+7. 缓存的使用
+7. 如何统一配置环境变量、数据库配置等
+8. 理解 Module
+9. 理解 Service
+10. 理解 Provider
+11. 理解 Guard
+8. 如何对接 MongoDB
+9. 如何对接 PostgreSQL
+10. 如何对接 MySQL
+11. 如何做国际化
