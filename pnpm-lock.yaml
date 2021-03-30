@@ -1,9 +1,11 @@
 dependencies:
   '@casl/ability': 5.2.2
+  '@elastic/elasticsearch': 7.12.0
   '@grpc/proto-loader': 0.5.6
   '@nestjs/bull': 0.3.1_5de19ff56995a2ae072e33f95124c076
   '@nestjs/common': 7.6.15_48bc85425fe4bb51ad1938b03b8f369f
   '@nestjs/core': 7.6.15_8bb137c183fdadd37ec8cf430603b262
+  '@nestjs/elasticsearch': 7.1.0_174c91f8be2f16276c1d3219705dedc5
   '@nestjs/event-emitter': 0.0.3_479652e3cd3a889b8e48548e9230d4c3
   '@nestjs/graphql': 7.10.3_1bcbbedd4232d3194f960d0cf44b8d27
   '@nestjs/jwt': 7.2.0_@nestjs+common@7.6.15
@@ -130,6 +132,7 @@ devDependencies:
   ts-node: 9.1.1_typescript@4.2.3
   tsconfig-paths: 3.9.0
   typescript: 4.2.3
+  utility-types: 3.10.0
   webpack: 5.28.0_webpack-cli@4.5.0
   webpack-cli: 4.5.0_webpack@5.28.0
   webpack-node-externals: 2.5.2
@@ -902,6 +905,19 @@ packages:
     resolution:
       integrity: sha1-H2R13IvZdM6gei2vOGSzF7HdMyw=
       tarball: '@dsherret/to-absolute-glob/download/@dsherret/to-absolute-glob-2.0.2.tgz'
+  /@elastic/elasticsearch/7.12.0:
+    dependencies:
+      debug: 4.3.1
+      hpagent: 0.1.1
+      ms: 2.1.3
+      pump: 3.0.0
+      secure-json-parse: 2.3.2
+    dev: false
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha1-27UaKEH2RLZwpW2MFYmehgkohW8=
+      tarball: '@elastic/elasticsearch/download/@elastic/elasticsearch-7.12.0.tgz'
   /@eslint/eslintrc/0.4.0:
     dependencies:
       ajv: 6.12.6
@@ -1325,6 +1341,19 @@ packages:
     resolution:
       integrity: sha1-38xaeATBDQf4Hd5RSAS0hLkJ0Io=
       tarball: '@nestjs/core/download/@nestjs/core-7.6.15.tgz'
+  /@nestjs/elasticsearch/7.1.0_174c91f8be2f16276c1d3219705dedc5:
+    dependencies:
+      '@elastic/elasticsearch': 7.12.0
+      '@nestjs/common': 7.6.15_48bc85425fe4bb51ad1938b03b8f369f
+      rxjs: 6.6.6
+    dev: false
+    peerDependencies:
+      '@elastic/elasticsearch': ^7.4.0
+      '@nestjs/common': ^6.0.0 || ^7.0.0
+      rxjs: ^6.2.1
+    resolution:
+      integrity: sha1-unehHUGbmqVCJSqDtkkO+MRY/tQ=
+      tarball: '@nestjs/elasticsearch/download/@nestjs/elasticsearch-7.1.0.tgz'
   /@nestjs/event-emitter/0.0.3_479652e3cd3a889b8e48548e9230d4c3:
     dependencies:
       '@nestjs/common': 7.6.15_48bc85425fe4bb51ad1938b03b8f369f
@@ -7313,6 +7342,11 @@ packages:
     resolution:
       integrity: sha1-bjXUzIevLF+Bbky5zjULqHo/Nw0=
       tarball: hosted-git-info/download/hosted-git-info-3.0.8.tgz
+  /hpagent/0.1.1:
+    dev: false
+    resolution:
+      integrity: sha1-ZvZ/FuXHqLWaBo5AwmWMLHSa1eI=
+      tarball: hpagent/download/hpagent-0.1.1.tgz
   /html-encoding-sniffer/2.0.1:
     dependencies:
       whatwg-encoding: 1.0.5
@@ -11909,6 +11943,11 @@ packages:
     resolution:
       integrity: sha1-Z1AvaqK2ai1AMrQnmilEl4oJE+8=
       tarball: schema-utils/download/schema-utils-3.0.0.tgz
+  /secure-json-parse/2.3.2:
+    dev: false
+    resolution:
+      integrity: sha1-AoTJUlxvJNOHdPE3J63f+AY0wuk=
+      tarball: secure-json-parse/download/secure-json-parse-2.3.2.tgz
   /semver-compare/1.0.0:
     dev: true
     resolution:
@@ -13773,6 +13812,13 @@ packages:
     resolution:
       integrity: sha1-MjZzNyDsZLsn9uJvQhqqLhtYjWE=
       tarball: util/download/util-0.11.1.tgz
+  /utility-types/3.10.0:
+    dev: true
+    engines:
+      node: '>= 4'
+    resolution:
+      integrity: sha1-6kFI+adBAV8F7XT9YV4dIOa+2Cs=
+      tarball: utility-types/download/utility-types-3.10.0.tgz
   /utils-merge/1.0.1:
     dev: false
     engines:
@@ -14453,11 +14499,13 @@ specifiers:
   '@casl/ability': ^5.2.2
   '@commitlint/cli': ^12.0.1
   '@commitlint/config-conventional': ^12.0.1
+  '@elastic/elasticsearch': ^7.12.0
   '@grpc/proto-loader': ^0.5.6
   '@nestjs/bull': ^0.3.1
   '@nestjs/cli': ^7.5.6
   '@nestjs/common': ^7.6.15
   '@nestjs/core': ^7.6.15
+  '@nestjs/elasticsearch': ^7.1.0
   '@nestjs/event-emitter': ^0.0.3
   '@nestjs/graphql': ^7.10.3
   '@nestjs/jwt': ^7.2.0
@@ -14578,6 +14626,7 @@ specifiers:
   typeorm: ^0.2.31
   typeorm-transactional-cls-hooked: ^0.1.20
   typescript: ^4.2.3
+  utility-types: ^3.10.0
   uuid: ^8.3.2
   webpack: ^5.28.0
   webpack-cli: ^4.5.0

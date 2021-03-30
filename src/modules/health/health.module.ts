@@ -16,26 +16,26 @@ import { HealthController } from './health.controller'
     // TypeOrmModule.forRoot(/* 默认加载 ormconfig.json */)
     // 多数据库连接
     TypeOrmModule.forRootAsync({
-      name: 'mysql1',
+      name: 'mysql-rs01',
       useFactory: () => ({
         type: 'mysql',
         host: 'localhost',
         port: 3306,
         username: 'root',
         password: '1qaz2wsx',
-        database: 'test1',
+        database: 'nestjs',
         synchronize: true
       })
     }),
     TypeOrmModule.forRootAsync({
-      name: 'mysql2',
+      name: 'mysql-rs02',
       useFactory: () => ({
         type: 'mysql',
         host: 'localhost',
         port: 3307,
         username: 'root',
         password: '1qaz2wsx',
-        database: 'test2',
+        database: 'nestjs',
         synchronize: true
       })
     }),
@@ -45,7 +45,7 @@ import { HealthController } from './health.controller'
       port: 5432,
       username: 'postgres',
       password: '1qaz2wsx',
-      database: 'test',
+      database: 'nestjs',
       // autoLoadModels: true,
       synchronize: true
     })

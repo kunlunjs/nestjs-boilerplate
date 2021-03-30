@@ -27,11 +27,11 @@ export class HealthController {
     private sequelize: SequelizeHealthIndicator,
     private microservice: MicroserviceHealthIndicator,
     /**
-     * 多数据库连接，mysql1 mysql2 要和 ./health.module.ts TypeOrmModule.forRootAsync({name: 'mysql1'}) 一致
+     * 多数据库连接，mysql1 mysql2 要和 ./health.module.ts TypeOrmModule.forRootAsync({name: 'mysql-rs01'}) 一致
      */
-    @InjectConnection('mysql1')
+    @InjectConnection('mysql-rs01')
     private mysql1: Connection,
-    @InjectConnection('mysql2')
+    @InjectConnection('mysql-rs02')
     private mysql2: Connection
   ) {}
 

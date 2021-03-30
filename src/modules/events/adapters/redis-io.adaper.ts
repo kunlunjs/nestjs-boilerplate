@@ -8,9 +8,8 @@ import { RedisClient } from 'redis'
  * https://github.com/socketio/socket.io-redis
  */
 const pubClient = new RedisClient({
-  host: '47.111.100.233',
-  port: 6379,
-  password: '***'
+  host: 'localhost',
+  port: 6379
 })
 const subClient = pubClient.duplicate()
 

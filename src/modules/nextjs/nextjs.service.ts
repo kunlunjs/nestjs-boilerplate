@@ -11,7 +11,7 @@ export class NextJSService implements OnModuleInit {
     try {
       this.server = next({
         dev: true,
-        dir: path.join(process.cwd(), './client/nextjs')
+        dir: path.join(process.cwd(), './nextjs')
       })
       await this.server.prepare()
     } catch (e) {

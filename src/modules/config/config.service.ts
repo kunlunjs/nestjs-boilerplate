@@ -2,6 +2,7 @@ import * as path from 'path'
 import { existsSync, readFileSync } from 'fs-extra'
 import * as dotenv from 'dotenv'
 import { Inject, Injectable, ServiceUnavailableException } from '@nestjs/common'
+import { PickByValue } from 'utility-types'
 import { CONFIG_OPTIONS } from './constants'
 import {
   ConfigModuleOptions,
@@ -11,10 +12,27 @@ import {
 } from './interfaces'
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 
+// TODO
+// 环境变量是 number 类型的 key
+type NumberKeys<T extends keyof PickByValue<EnvConfig, number>> = T
+
+const numKeys = [
+  'PORT',
+  'JWT_EXPIRATION_TIME',
+  'HTTP_TIMEOUT',
+  'HTTP_MAX_REDIRECTS',
+  'MONGO_PORT',
+  'MONGO_RETRY_DELAY',
+  'MONGO_RETRY_ATTEMPTS',
+  'MYSQL_PORT',
+  'POSTGRESQL_PORT',
+  'CACHE_TTL',
+  'REDIS_PORT',
+  'THROTTLE_LIMIT'
+]
 @Injectable()
 export class ConfigService {
   private readonly envConfig: EnvConfig
-
   constructor() {
     const envPath = `.env.${process.env['NODE_ENV'] || 'development'}`
     const rootEnvFile = path.resolve(process.cwd(), envPath)
@@ -33,9 +51,7 @@ export class ConfigService {
 
   get<T extends EnvConfigKeys>(key: T): EnvConfigValueType<T> {
     const config = this.envConfig[key]
-    if (
-      ['APP_PORT', 'JWT_EXPIRATION_TIME', 'DB_PORT', 'REDIS_PORT'].includes(key)
-    ) {
+    if (numKeys.includes(key)) {
       return +config as EnvConfigValueType<T>
     }
     if (['DB_SSL'].includes(key)) {
@@ -49,20 +65,14 @@ export class ConfigService {
   }
 
   getAll(): EnvConfig {
-    const configs = this.envConfig
-    return {
-      ...configs,
-      APP_PORT: +configs.APP_PORT,
-      DB_PORT: +configs.DB_PORT,
-      // DB_SSL:
-      //   configs.DB_SSL === 'false'
-      //     ? false
-      //     : configs.DB_SSL === 'true'
-      //     ? true
-      //     : configs.DB_SSL,
-      REDIS_PORT: +configs.REDIS_PORT,
-      JWT_EXPIRATION_TIME: +configs.JWT_EXPIRATION_TIME
-    }
+    return Object.keys(this.envConfig).reduce((acc, cur) => {
+      if (numKeys.includes(cur)) {
+        acc[cur] = +this.envConfig[cur]
+      } else {
+        acc[cur] = this.envConfig[cur]
+      }
+      return acc
+    }, {}) as EnvConfig
   }
 
   isEnv(env: string): boolean {

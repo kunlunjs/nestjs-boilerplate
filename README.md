@@ -18,6 +18,9 @@ pnpm i -g nvm # 管理 NodeJS 版本
 pnpm i -g nrm # 管理 npm 源
 pnpm i -g pm2 pm2 # 作为守护进程工具
 pnpm i #安装本地依赖
+
+# 安装数据库
+docker-compose up -d
 ```
 
 #### 使用说明
@@ -31,6 +34,49 @@ git rm -r --cached config/development.env
 git add .
 git commit -m "feat: 撤销已提交的敏感文件"
 git push
+
+# 安装相关数据库
+docker-compose up -d 
+# 查看是否运行成功
+docker ps 
+# 或 
+docker container ls
+# 进入容器内部打开 bash
+docker exec -it <container-name> bash
+# 进入数据库 repl
+mongo -u <username> --authenticationDatabase <database-name>
+# 创建数据库
+use nestjs
+```
+
+为 MongoDB `nestjs` 数据库创建用户
+
+```js
+db.createUser(
+   {
+     user: "root",
+     pwd: "1qaz2wsx",
+     
+     roles: [{"role":"dbAdmin","db":"nestjs"}],
+    /* All built-in Roles 
+     Database User Roles: read|readWrite
+     Database Admin Roles: dbAdmin|dbOwner|userAdmin
+     Cluster Admin Roles: clusterAdmin|clusterManager|clusterMonitor|hostManager
+     Backup and Restoration Roles: backup|restore
+     All-Database Roles: readAnyDatabase|readWriteAnyDatabase|userAdminAnyDatabase|dbAdminAnyDatabase
+     Superuser Roles: root 
+    */
+    
+    // authenticationRestrictions: [ {
+    //     clientSource: ["192.168.0.0"],
+    //     serverAddress: ["xxx.xxx.xxx.xxx"]
+    //  } ],
+
+    //mechanisms: [ "<SCRAM-SHA-1|SCRAM-SHA-256>", ... ], 
+
+    //passwordDigestor: "<server|client>"
+   }
+)
 ```
 
 #### 参与贡献

@@ -74,9 +74,8 @@ import { NextJSModule } from './modules/nextjs/nextjs.module'
      */
     // BullModule.forRoot({
     //   redis: {
-    //     host: '47.111.100.233',
-    //     port: 6379,
-    //     password: ''
+    //     host: 'localhost',
+    //     port: 6379
     //   }
     // }),
     BullModule.forRootAsync({
@@ -87,8 +86,7 @@ import { NextJSModule } from './modules/nextjs/nextjs.module'
         return {
           redis: {
             host: config.REDIS_HOST,
-            port: config.REDIS_PORT,
-            password: config.REDIS_PASSWORD
+            port: config.REDIS_PORT
           }
         }
       }
@@ -141,8 +139,7 @@ import { NextJSModule } from './modules/nextjs/nextjs.module'
         // https://github.com/BryanDonovan/node-cache-manager#store-engines
         // return {
         //   store: redisStore,
-        //   host: configService.get('REDIS_HOST'),
-        //   port: configService.get('REDIS_PORT')
+        //   host: configService.get('REDIS_HOST')
         // }
       }
     }),
@@ -161,10 +158,10 @@ import { NextJSModule } from './modules/nextjs/nextjs.module'
     // TypeOrmModule.forRoot(),
     // TypeOrmModule.forRoot({
     //   type: 'mongodb',
-    //   host: '47.111.100.233',
+    //   host: 'localhost',
     //   port: 27017,
-    //   // database: 'nestjs',
-    //   username: 'super',
+    //   database: 'nestjs',
+    //   username: 'root',
     //   password: '',
     //   entities: [TypeOrmMongoEntity],
     //   synchronize: true,
@@ -196,7 +193,7 @@ import { NextJSModule } from './modules/nextjs/nextjs.module'
     /*----------------------------------------------------------------*/
     // 使用 Mongoose 操作 MongoDB
     // MongooseModule.forRoot(
-    //   'mongodb://root:***@47.111.100.233:27017/nestjs',
+    //   'mongodb://root:1qaz2wsx@localhost:27017/nestjs',
     //   {
     //     useNewUrlParser: true,
     //     useUnifiedTopology: true
@@ -207,18 +204,18 @@ import { NextJSModule } from './modules/nextjs/nextjs.module'
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         const {
-          DB_HOST,
-          DB_PORT,
-          DB_USERNAME,
-          DB_PASSWORD,
-          DB_DATABASE
-          // DB_MONGODB_RETRY_DELAY,
-          // DB_MONGODB_RETRY_ATTEMPTS
+          MONGO_HOST: HOST,
+          MONGO_PORT: PORT,
+          MONGO_USERNAME: NAME,
+          MONGO_PASSWORD: PW,
+          MONGO_DATABASE: DB
+          // MONGO_RETRY_DELAY: DELAY,
+          // MONGO_RETRY_ATTEMPTS: ATTEMPTS
         } = configService.getAll()
         return {
-          uri: `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}`
-          // retryDelay: DB_MONGODB_RETRY_DELAY,
-          // retryAttempts: DB_MONGODB_RETRY_ATTEMPTS
+          uri: `mongodb://${NAME}:${PW}@${HOST}:${PORT}/${DB}`
+          // retryDelay: DELAY,
+          // retryAttempts: ATTEMPTS
         }
       }
     }),

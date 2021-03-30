@@ -7,7 +7,7 @@ import { Public } from '@/common/decorators'
 export class NextJSController {
   constructor(private nextjsService: NextJSService) {}
 
-  // TODO
+  // /api/nextjs/nextjs -> nextjs/pages/index.tsx
   @Public()
   @Get('*')
   static(@Req() req: Request, @Res() res: Response) {

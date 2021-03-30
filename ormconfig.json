@@ -4,7 +4,7 @@
   "port": 3306,
   "username": "root",
   "password": "1qaz2wsx",
-  "database": "test1",
+  "database": "nestjs",
   "entities": ["src/**/mysql.entity{.ts,.js}"],
   "synchronize": true
 }
