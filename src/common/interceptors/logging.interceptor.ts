@@ -22,16 +22,16 @@ export class LoggingInterceptor implements NestInterceptor {
     const request = context.switchToHttp().getRequest()
     const { method, originalUrl: url, headers, body } = request
     const now = Date.now()
-    return next
-      .handle()
-      .pipe(
-        tap(() =>
+    return next.handle().pipe(
+      tap(() => {
+        if (url.indexOf('/nextjs') === -1) {
           log(
             `${method} ${url} ${JSON.stringify(headers)} ${
               /POST|PUT/.test(method) ? JSON.stringify(body) : ''
             } ${Date.now() - now}ms`
           )
-        )
-      )
+        }
+      })
+    )
   }
 }

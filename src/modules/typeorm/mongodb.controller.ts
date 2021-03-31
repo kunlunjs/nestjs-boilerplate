@@ -1,18 +1,18 @@
 import { Controller, Get, Param } from '@nestjs/common'
-import { TypeOrmMongoDBEntity } from './mongodb.entity'
-import { TypeOrmMongoDBService } from './mongodb.service'
+import { TypeOrmMongoEntity } from './mongodb.entity'
+import { TypeOrmMongoService } from './mongodb.service'
 
-@Controller('typeorm')
-export class TypeOrmMongoDBController {
-  constructor(private readonly jsonService: TypeOrmMongoDBService) {}
+@Controller('typeorm-mongo')
+export class TypeOrmMongoController {
+  constructor(private readonly jsonService: TypeOrmMongoService) {}
 
   @Get('list')
-  findAll(): Promise<TypeOrmMongoDBEntity[]> {
+  findAll(): Promise<TypeOrmMongoEntity[]> {
     return this.jsonService.findAll()
   }
 
   @Get(':id')
-  findOne(@Param() id: string): Promise<TypeOrmMongoDBEntity> {
+  findOne(@Param() id: string): Promise<TypeOrmMongoEntity | undefined> {
     return this.jsonService.findOne(id)
   }
 }

@@ -1,9 +1,150 @@
-version: "3"
+version: "3.1"
 
 services: 
-  mongodb:
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    ports: 
+      - 6379:6379
+  mongodb-rs01:
     image: mongo:latest
+    container_name: mongo-rs01
+    hostname: mongodb
+    env_file:
+      - .env
     environment: 
-      - MONGODB_DATABASE="nestjs"
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+    volumes: 
+      # 使用 js 脚本穿件用户
+      # - ./docker/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro # ro 表示只读
+      # 使用 sh 创建用户
+      - ./.docker/mongodb/initdb.d/:/docker-entrypoint-initdb.d/
+      # 数据卷
+      - ./docker/data/mongod:/data/db
+      # 日志
+      - ./docker/logs/mongod:/var/log/mongodb
+      # 配置文件
+      - ./docker/mongodb/mongod-rs01.conf:/etc/mongod.conf
     ports: 
       - 27017:27017
+    # entrypoint: ["mongod", "--config", "/etc/mongod.conf"]
+    command: ["-f", "/etc/mongod.conf"]
+  mongodb-rs02:
+    image: mongo:latest
+    container_name: mongo-rs02
+    hostname: mongodb
+    env_file:
+      - .env
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+    volumes: 
+      - ./.docker/mongodb/initdb.d/:/docker-entrypoint-initdb.d/
+      - ./docker/data/mongod:/data/db
+      - ./docker/logs/mongod:/var/log/mongodb
+      - ./docker/mongodb/mongod-rs02.conf:/etc/mongod.conf
+    ports: 
+      - 27018:27017
+    command: ["-f", "/etc/mongod.conf"]
+  mysql-rs01:
+    container_name: mysql-rs01
+    image: mysql:latest
+    restart: always
+    environment:
+      # 默认用户名 root
+      MYSQL_ROOT_PASSWORD: 1qaz2wsx
+      MYSQL_DATABASE: nestjs
+    ports: 
+      - 3306:3306
+  mysql-rs02:
+    container_name: mysql-rs02
+    image: mysql:latest
+    restart: always
+    environment:
+      # 默认用户名 root
+      MYSQL_ROOT_PASSWORD: 1qaz2wsx
+      MYSQL_DATABASE: nestjs
+    ports: 
+      - "3307:3306"
+  posrgres:
+    container_name: posrgres
+    image: postgres:latest
+    restart: always
+    environment:
+      # 默认用户名 postgres
+      POSTGRES_PASSWORD: 1qaz2wsx
+      POSTGRES_DB: nestjs
+    ports: 
+      - 5432:5432
+#   es01:
+#     image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+#     container_name: es01
+#     environment: 
+#       - node.name=es01
+#       - cluster.name=es-docker-cluster
+#       - discovery.seed_hosts=es02,es03
+#       - cluster.initial_master_nodes=es01,es02,es03
+#       - bootstrap.memory_lock=true
+#       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#     ulimits: 
+#       memlock:
+#         soft: -1
+#         hard: -1
+#     volumes: 
+#       - data01:/usr/share/elasticsearch/data
+#     ports: 
+#       - 9200:9200
+#     networks: 
+#       - elastic
+#   es02:
+#     image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+#     container_name: es02
+#     environment:
+#       - node.name=es02
+#       - cluster.name=es-docker-cluster
+#       - discovery.seed_hosts=es01,es03
+#       - cluster.initial_master_nodes=es01,es02,es03
+#       - bootstrap.memory_lock=true
+#       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#     ulimits:
+#       memlock:
+#         soft: -1
+#         hard: -1
+#     volumes:
+#       - data02:/usr/share/elasticsearch/data
+#     networks:
+#       - elastic
+#   es03:
+#     image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+#     container_name: es03
+#     environment:
+#       - node.name=es03
+#       - cluster.name=es-docker-cluster
+#       - discovery.seed_hosts=es01,es02
+#       - cluster.initial_master_nodes=es01,es02,es03
+#       - bootstrap.memory_lock=true
+#       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#     ulimits:
+#       memlock:
+#         soft: -1
+#         hard: -1
+#     volumes:
+#       - data03:/usr/share/elasticsearch/data
+#     networks:
+#       - elastic
+# volumes:
+#   data01:
+#     driver: local
+#   data02:
+#     driver: local
+#   data03:
+#     driver: local
+
+# networks:
+#   elastic:
+#     driver: bridge
+      

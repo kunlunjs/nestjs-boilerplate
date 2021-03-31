@@ -1,7 +1,7 @@
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm'
 
 @Entity()
-export class TypeOrmMongoDBEntity {
+export class TypeOrmMongoEntity {
   @ObjectIdColumn()
   id: ObjectID
 

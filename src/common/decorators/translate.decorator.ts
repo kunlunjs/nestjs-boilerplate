@@ -1,8 +1,8 @@
-import { ITranlationDecorator } from '@/types/translation-decorator.interface'
+import { ITranslationDecorator } from '@/types/ITranslationDecorator'
 
 export const TRANSLATION_DECORATOR_KEY = 'custom:translate'
 
-export function Translate(data: ITranlationDecorator): PropertyDecorator {
+export function Translate(data: ITranslationDecorator): PropertyDecorator {
   return ((target, key) => {
     Reflect.defineMetadata(TRANSLATION_DECORATOR_KEY, data, target, key)
   }) as PropertyDecorator

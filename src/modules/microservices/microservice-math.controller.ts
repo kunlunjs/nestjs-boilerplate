@@ -6,9 +6,10 @@ import {
   Transport
 } from '@nestjs/microservices'
 import { Observable } from 'rxjs'
+import { Public } from '@/common/decorators'
 
-@Controller('microservice')
-export class MicroserviceController {
+@Controller('microservice-math')
+export class MicroserviceMathController {
   @Client({
     transport: Transport.TCP,
     options: {
@@ -17,6 +18,8 @@ export class MicroserviceController {
   })
   client: ClientProxy
 
+  // GET /api/microservice-math/sum
+  @Public()
   @Get('sum')
   call(): Observable<number> {
     const pattern = { cmd: 'sum' }

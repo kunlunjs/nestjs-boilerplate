@@ -14,11 +14,11 @@ import { TypeOrmMongoDBModule } from './modules/typeorm/mongodb.module'
     // typeorm 数据库模块
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      host: '42.193.185.71',
+      host: 'localhost',
       port: 27017,
-      // database: 'nestjs',
-      username: 'super',
-      password: 'zaixiyuzhonghuhan',
+      database: 'nestjs',
+      username: 'root',
+      password: '1qaz2wsx',
       entities: [TypeOrmMongoDBEntity],
       synchronize: true,
       useNewUrlParser: true,

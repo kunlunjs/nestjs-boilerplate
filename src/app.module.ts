@@ -18,11 +18,11 @@ import { ThrottlerModule } from '@nestjs/throttler'
 import * as redisStore from 'cache-manager-redis-store'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { EventEmitModule } from './modules/eventemit/eventemit.module'
+import { EventEmitModule } from './modules/event-emit/event-emit.module'
 import { QueueModule } from './modules/queues/queue.module'
 import { SchedulingService } from './modules/scheduling/scheduling.service'
-import { TypeOrmMongoDBEntity } from './modules/typeorm/mongodb.entity'
-import { TypeOrmMongoDBModule } from './modules/typeorm/mongodb.module'
+import { TypeOrmMongoEntity } from './modules/typeorm/mongodb.entity'
+import { TypeOrmMongoModule } from './modules/typeorm/mongodb.module'
 import { RecipesModule } from './modules/graphql-code-first/recipes.module'
 import { CatsModule } from './modules/graphql-schema-first/cats/cats.module'
 import { SocketIOEventsModule } from './modules/events/socket.io-events.module'
@@ -39,19 +39,24 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware'
 import { CatsController } from './modules/mongoose/cats.controller'
 import { ThrottlerConfigService } from './modules/throttler/throttler-config.service'
 import { CalsModule } from './modules/cals/cals.module'
-import { MicroserviceModule } from './modules/microservices/microservice.module'
-import { ServerSentEventModule } from './modules/sse/sse.module'
+import { MicroserviceMathModule } from './modules/microservices/microservice-math.module'
+import { ServerSentEventModule } from './modules/server-sent-event/sse.module'
 import { MVCModule } from './modules/mvc/mvc.module'
 import { CacheManagerModule } from './modules/cache/cache.module'
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { JwtAuthGuard } from './common/guards'
+import { HealthModule } from './modules/health/health.module'
+import { GRPCHeroModule } from './modules/grpc/grpc-hero.module'
+import { DogModule } from './modules/health-dog/dog.module'
+import { NextJSModule } from './modules/nextjs/nextjs.module'
 
 @Module({
   imports: [
     /**
      * 微服务模块
      */
-    MicroserviceModule,
+    MicroserviceMathModule,
+    GRPCHeroModule,
     /**
      * 发布订阅事件
      */
@@ -69,9 +74,8 @@ import { JwtAuthGuard } from './common/guards'
      */
     // BullModule.forRoot({
     //   redis: {
-    //     host: '47.111.100.233',
-    //     port: 6379,
-    //     password: 'redis.2021_turing-fe'
+    //     host: 'localhost',
+    //     port: 6379
     //   }
     // }),
     BullModule.forRootAsync({
@@ -82,8 +86,7 @@ import { JwtAuthGuard } from './common/guards'
         return {
           redis: {
             host: config.REDIS_HOST,
-            port: config.REDIS_PORT,
-            password: config.REDIS_PASSWORD
+            port: config.REDIS_PORT
           }
         }
       }
@@ -104,7 +107,6 @@ import { JwtAuthGuard } from './common/guards'
         index: false
       }
     }),
-    // TODO 理解 ServeStaticModule 异步配置
     // 异步读取配置
     // ServeStaticModule.forRootAsync({})
     /*----------------------------------------------------------------*/
@@ -137,8 +139,7 @@ import { JwtAuthGuard } from './common/guards'
         // https://github.com/BryanDonovan/node-cache-manager#store-engines
         // return {
         //   store: redisStore,
-        //   host: configService.get('REDIS_HOST'),
-        //   port: configService.get('REDIS_PORT')
+        //   host: configService.get('REDIS_HOST')
         // }
       }
     }),
@@ -149,18 +150,20 @@ import { JwtAuthGuard } from './common/guards'
      * 指定根目录下的配置目录
      * 比较与 ConfigModule 的差异
      */
-    DynamicConfigModule.register({ folder: './config' }),
+    // DynamicConfigModule.register({ folder: './config' }),
     /*----------------------------------------------------------------*/
     // typeorm 数据库模块
     // 同步配置
+    // 默认从项目根目录/ormconfig.json 读取配置
+    // TypeOrmModule.forRoot(),
     // TypeOrmModule.forRoot({
     //   type: 'mongodb',
-    //   host: '47.111.100.233',
+    //   host: 'localhost',
     //   port: 27017,
-    //   // database: 'nestjs',
-    //   username: 'super',
-    //   password: 'mongodb.2021_turing-fe',
-    //   entities: [TypeOrmMongoDBEntity],
+    //   database: 'nestjs',
+    //   username: 'root',
+    //   password: '',
+    //   entities: [TypeOrmMongoEntity],
     //   synchronize: true,
     //   useNewUrlParser: true,
     //   useUnifiedTopology: true
@@ -178,7 +181,7 @@ import { JwtAuthGuard } from './common/guards'
     //       // database: 'nestjs',
     //       username: config.DB_USERNAME,
     //       password: config.DB_PASSWORD,
-    //       entities: [TypeOrmMongoDBEntity],
+    //       entities: [TypeOrmMongoEntity],
     //       synchronize: true,
     //       useNewUrlParser: true,
     //       useUnifiedTopology: true
@@ -186,11 +189,11 @@ import { JwtAuthGuard } from './common/guards'
     //   }
     // }),
     // 使用 TypeOrm 操作 MongoDB
-    // TypeOrmMongoDBModule,
+    // TypeOrmMongoModule,
     /*----------------------------------------------------------------*/
     // 使用 Mongoose 操作 MongoDB
     // MongooseModule.forRoot(
-    //   'mongodb://root:mongodb.2021_turing-fe@47.111.100.233:27017/nestjs',
+    //   'mongodb://root:1qaz2wsx@localhost:27017/nestjs',
     //   {
     //     useNewUrlParser: true,
     //     useUnifiedTopology: true
@@ -201,22 +204,24 @@ import { JwtAuthGuard } from './common/guards'
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         const {
-          DB_HOST,
-          DB_PORT,
-          DB_USERNAME,
-          DB_PASSWORD,
-          DB_DATABASE
-          // DB_MONGODB_RETRY_DELAY,
-          // DB_MONGODB_RETRY_ATTEMPTS
+          MONGO_HOST: HOST,
+          MONGO_PORT: PORT,
+          MONGO_USERNAME: NAME,
+          MONGO_PASSWORD: PW,
+          MONGO_DATABASE: DB
+          // MONGO_RETRY_DELAY: DELAY,
+          // MONGO_RETRY_ATTEMPTS: ATTEMPTS
         } = configService.getAll()
         return {
-          uri: `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}`
-          // retryDelay: DB_MONGODB_RETRY_DELAY,
-          // retryAttempts: DB_MONGODB_RETRY_ATTEMPTS
+          uri: `mongodb://${NAME}:${PW}@${HOST}:${PORT}/${DB}`
+          // retryDelay: DELAY,
+          // retryAttempts: ATTEMPTS
         }
       }
     }),
     MongooseCatsModule,
+    /*----------------------------------------------------------------*/
+    // HealthModule,
     /*----------------------------------------------------------------*/
     /**
      * GraphQL code first
@@ -288,7 +293,12 @@ import { JwtAuthGuard } from './common/guards'
     // 登录授权验证
     AuthModule, // 可以包含全局路由保护 APP_GUARD
     /* ----------------------------业务模块---------------------------- */
-    UsersModule
+    UsersModule,
+    /* ----------------------------NextJS模块---------------------------- */
+    NextJSModule,
+    /* ----------------------------健康检查---------------------------- */
+    HealthModule,
+    DogModule
   ],
   controllers: [AppController],
   providers: [

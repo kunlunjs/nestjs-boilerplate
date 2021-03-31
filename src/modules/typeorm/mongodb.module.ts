@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { TypeOrmMongoDBController } from './mongodb.controller'
-import { TypeOrmMongoDBEntity } from './mongodb.entity'
-import { TypeOrmMongoDBService } from './mongodb.service'
+import { TypeOrmMongoController } from './mongodb.controller'
+import { TypeOrmMongoEntity } from './mongodb.entity'
+import { TypeOrmMongoService } from './mongodb.service'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TypeOrmMongoDBEntity])],
-  providers: [TypeOrmMongoDBService],
-  controllers: [TypeOrmMongoDBController]
+  imports: [TypeOrmModule.forFeature([TypeOrmMongoEntity])],
+  providers: [TypeOrmMongoService],
+  controllers: [TypeOrmMongoController]
 })
-export class TypeOrmMongoDBModule {}
+export class TypeOrmMongoModule {}

@@ -6,21 +6,21 @@ import {
   ValidationPipe
 } from '@nestjs/common'
 import { WsAdapter } from '@nestjs/platform-ws'
+import { MicroserviceOptions, Transport } from '@nestjs/microservices'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import helmet from 'helmet'
 import compression from 'compression'
 import { log } from '@/utils/log'
 import { AppModule } from './app.module'
-import { LoggingInterceptor } from './common/interceptors/logging.interceptor'
-import { HttpExceptionFilter } from './common/filters/http-exception.filter'
-import { RolesGuard } from './common/guards/roles.guards'
-import { AllExceptionsFilter } from './common/filters/all-exceptions.filter'
+import { LoggingInterceptor } from './common/interceptors'
+import { HttpExceptionFilter, AllExceptionsFilter } from './common/filters'
+import { RolesGuard } from './common/guards'
 import { AppService } from './app.service'
-import { logger } from './common/middlewares/logger.middleware'
+import { logger } from './common/middlewares'
 import { SharedModule } from './shared/shared.module'
-import { EnvService } from './shared/services/env.service'
+import { EnvService } from './shared/services'
 import { setupSwagger } from './setup-swagger'
-import { Transport } from '@nestjs/microservices'
+import { grpcClientOptions } from './grpc-client.options'
 
 export const GLOBAL_PREFIX = 'api'
 
@@ -46,35 +46,32 @@ async function bootstrap() {
    *
    */
   app.useGlobalFilters(new HttpExceptionFilter(), new AllExceptionsFilter())
-  // TODO useGlobalGuards
+
   /**
    * 全局守卫
    */
   // app.useGlobalGuards()
+
   /**
    * 全局管道，依赖 class-validator
    */
   app.useGlobalPipes(
-    new ValidationPipe(
-      // TODO 理解 ValidationPipe 选项
-      {
-        whitelist: true,
-        transform: true,
-        dismissDefaultMessages: true,
-        errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
-        exceptionFactory: errors => new UnprocessableEntityException(errors)
-      }
-    )
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      dismissDefaultMessages: true,
+      // 默认校验错误 HTTP Code
+      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+      // 默认校验错误 HTTP Exception
+      exceptionFactory: errors => new UnprocessableEntityException(errors)
+    })
   )
 
   /**
    * 配置渲染模板位置和引擎
+   * 第二个参数支持更多选项配置
    */
-  app.useStaticAssets(path.join(process.cwd(), './public'), {
-    prefix: 'static',
-    // 禁止默认使用（找不到请求对应的静态文件） public/index.html
-    index: false
-  })
+  app.useStaticAssets(path.join(process.cwd(), './public'))
   app.setBaseViewsDir(path.join(process.cwd(), './pages'))
   app.setViewEngine('hbs')
 
@@ -83,27 +80,26 @@ async function bootstrap() {
    * https://docs.nestjs.com/techniques/compression
    */
   app.use(compression())
-  // TODO 理解 helmet 选项
+
   /**
    * 安全
    * https://docs.nestjs.com/security/helmet
    */
-  app.use(
-    helmet({
-      // 不开启这个选项会导致
-      // Refused to execute inline script because it violates the following Content Security Policy directive: "script-src 'self'".
-      // Either the 'unsafe-inline' keyword, a hash('sha256-KaTA/04nO8gX81h3eJkbac/8o94DAESlPH7wRbp8adU='),
-      // or a nonce('nonce-...') is required to enable inline execution.
-      contentSecurityPolicy: false
-    })
-  )
-  // TODO CSRF 保护
+  // app.use(
+  //   helmet({
+  //     // 不开启这个选项会导致
+  //     // Refused to execute inline script because it violates the following Content Security Policy directive: "script-src 'self'".
+  //     // Either the 'unsafe-inline' keyword, a hash('sha256-KaTA/04nO8gX81h3eJkbac/8o94DAESlPH7wRbp8adU='),
+  //     // or a nonce('nonce-...') is required to enable inline execution.
+  //     contentSecurityPolicy: false
+  //   })
+  // )
+
   /**
    * CSRF 保护
    * https://docs.nestjs.com/security/csrf
    */
 
-  // TODO 获取 Service 实例
   /**
    * context
    */
@@ -120,12 +116,15 @@ async function bootstrap() {
   /**
    * 微服务
    */
-  app.connectMicroservice({
+  // 连接 modules/gprc
+  app.connectMicroservice<MicroserviceOptions>(grpcClientOptions)
+  // 连接 modules/microservices
+  app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.TCP,
     options: {
       port: envService.getNumber('TRANSPORT_PORT'),
-      retryDelay: envService.getNumber('TRANSPORT_RETRY_DELAY') || 3000,
-      retryAttempts: envService.getNumber('TRANSPORT_RETRY_ATTEMPTS') || 5
+      retryDelay: 3000,
+      retryAttempts: 5
     }
   })
   await app.startAllMicroservicesAsync()
