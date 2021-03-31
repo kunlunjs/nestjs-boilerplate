@@ -18,17 +18,25 @@ export class LoggingInterceptor implements NestInterceptor {
   }
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    // const endpoint = this.entrance ? ` ${this.entrance}` : ''
+    const entry = this.entrance ? ` [${this.entrance}] ` : ' '
     const request = context.switchToHttp().getRequest()
     const { method, originalUrl: url, headers, body } = request
     const now = Date.now()
+    log(
+      `[ ${new Date().toISOString()}]${entry}Enter ${LoggingInterceptor.name}`
+    )
     return next.handle().pipe(
       tap(() => {
         if (url.indexOf('/nextjs') === -1) {
+          // log(
+          //   `${method} ${url} ${JSON.stringify(headers)} ${
+          //     /POST|PUT/.test(method) ? JSON.stringify(body) : ''
+          //   } +${Date.now() - now}ms`
+          // )
           log(
-            `${method} ${url} ${JSON.stringify(headers)} ${
-              /POST|PUT/.test(method) ? JSON.stringify(body) : ''
-            } ${Date.now() - now}ms`
+            `[ ${new Date().toISOString()}]${entry}Leave ${
+              LoggingInterceptor.name
+            }`
           )
         }
       })

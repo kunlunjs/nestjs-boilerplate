@@ -2,12 +2,14 @@ import {
   ArgumentsHost,
   Catch,
   ExceptionFilter,
+  HttpCode,
   HttpException,
   HttpStatus
 } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
 import { GqlContextType } from '@nestjs/graphql'
 import { Request, Response } from 'express'
+import { log } from '@/utils/log'
 
 // @Catch()
 // export class AllExceptionsFiles extends BaseExceptionFilter {
@@ -15,6 +17,19 @@ import { Request, Response } from 'express'
 //     super.catch(exception, host)
 //   }
 // }
+
+/**
+ * exception 校验错误
+ * {
+        "response": {
+            "statusCode": 400,
+            "message": "Validation failed",
+            "error": "Bad Request"
+        },
+        "status": 400,
+        "message": "Validation failed"
+    }
+ */
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -35,18 +50,21 @@ export class AllExceptionsFilter implements ExceptionFilter {
     // const req = host.getArgByIndex(0)
     // const res = host.getArgByIndex(1)
     // const next = host.getArgByIndex(2)
-
     const status =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR
+    log(`[ ${new Date().toISOString()}] ${AllExceptionsFilter.name}`)
     response.status(status).json({
       data: null,
       status,
       message:
-        exception instanceof Error ? exception.name : 'Internal server error',
-      error:
-        exception instanceof Error ? exception.stack : 'Internal server error'
+        status === HttpStatus.UNPROCESSABLE_ENTITY
+          ? 'Bad request'
+          : 'Internal server error',
+      // exception instanceof Error ? exception.name : 'Internal server error',
+      error: exception
+      // exception instanceof Error ? exception.stack : 'Internal server error'
     })
   }
 }

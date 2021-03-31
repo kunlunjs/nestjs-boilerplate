@@ -12,7 +12,7 @@ import helmet from 'helmet'
 import compression from 'compression'
 import { log } from '@/utils/log'
 import { AppModule } from './app.module'
-import { LoggingInterceptor } from './common/interceptors'
+import { LoggingInterceptor, TransformInterceptor } from './common/interceptors'
 import { HttpExceptionFilter, AllExceptionsFilter } from './common/filters'
 import { RolesGuard } from './common/guards'
 import { AppService } from './app.service'
@@ -40,7 +40,10 @@ async function bootstrap() {
    * 全局拦截器
    * 会在 module 加载完，controller 加载前初始化
    */
-  app.useGlobalInterceptors(new LoggingInterceptor(bootstrap.name))
+  app.useGlobalInterceptors(
+    new LoggingInterceptor(bootstrap.name),
+    new TransformInterceptor(bootstrap.name)
+  )
   /**
    * 全局过滤器
    *
@@ -54,15 +57,26 @@ async function bootstrap() {
 
   /**
    * 全局管道，依赖 class-validator
+   * app.module.ts
+   *  {
+        provide: APP_PIPE,
+        useClass: ValidationPipe
+      }
    */
   app.useGlobalPipes(
     new ValidationPipe({
+      // 自动删除请求中未定义的属性字段
       whitelist: true,
       transform: true,
-      dismissDefaultMessages: true,
-      // 默认校验错误 HTTP Code
+      // 禁用详细错误
+      // disableErrorMessages: true,
+      // 如果请求出现未定义的属性字段，forbidNonWhitelisted 和 whitelist 都为 true 时则返回错误响应
+      // 是否隐藏默认错误信息 contraints: {...}
+      // forbidNonWhitelisted: true,
+      // dismissDefaultMessages: true,
+      // 默认校验错误码 400，指定为 422
       errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
-      // 默认校验错误 HTTP Exception
+      // 默认校验错误是 BadRequestException，指定为 UnprocessableEntityException
       exceptionFactory: errors => new UnprocessableEntityException(errors)
     })
   )

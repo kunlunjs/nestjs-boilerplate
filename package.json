@@ -47,6 +47,7 @@
     "@nestjs/event-emitter": "^0.0.3",
     "@nestjs/graphql": "^7.10.3",
     "@nestjs/jwt": "^7.2.0",
+    "@nestjs/mapped-types": "^0.4.1",
     "@nestjs/microservices": "^7.6.15",
     "@nestjs/mongoose": "^7.2.4",
     "@nestjs/passport": "^7.1.5",

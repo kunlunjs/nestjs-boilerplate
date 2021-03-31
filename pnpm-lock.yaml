@@ -9,6 +9,7 @@ dependencies:
   '@nestjs/event-emitter': 0.0.3_479652e3cd3a889b8e48548e9230d4c3
   '@nestjs/graphql': 7.10.3_1bcbbedd4232d3194f960d0cf44b8d27
   '@nestjs/jwt': 7.2.0_@nestjs+common@7.6.15
+  '@nestjs/mapped-types': 0.4.1_29c2d37d1e6acc9acedb168e2e140e9b
   '@nestjs/microservices': 7.6.15_1fddc2ee57d1a469291cf51d405fa19d
   '@nestjs/mongoose': 7.2.4_594143cb15d3e2ef9ff02c9c7220a973
   '@nestjs/passport': 7.1.5_829a9ce5dbb5f1a36ae717115f40c1f8
@@ -1428,6 +1429,21 @@ packages:
     resolution:
       integrity: sha1-NSuaZh1tNoY89IsgV2Fs7xssgC0=
       tarball: '@nestjs/mapped-types/download/@nestjs/mapped-types-0.4.0.tgz'
+  /@nestjs/mapped-types/0.4.1_29c2d37d1e6acc9acedb168e2e140e9b:
+    dependencies:
+      '@nestjs/common': 7.6.15_48bc85425fe4bb51ad1938b03b8f369f
+      class-transformer: 0.4.0
+      class-validator: 0.13.1
+      reflect-metadata: 0.1.13
+    dev: false
+    peerDependencies:
+      '@nestjs/common': ^7.0.8
+      class-transformer: ^0.2.0 || ^0.3.0 || ^0.4.0
+      class-validator: ^0.11.1 || ^0.12.0 || ^0.13.0
+      reflect-metadata: ^0.1.12
+    resolution:
+      integrity: sha1-5/4Djwvdp7j4WPp5yoUWuPkGmxo=
+      tarball: '@nestjs/mapped-types/download/@nestjs/mapped-types-0.4.1.tgz'
   /@nestjs/microservices/7.6.15_1fddc2ee57d1a469291cf51d405fa19d:
     dependencies:
       '@nestjs/common': 7.6.15_48bc85425fe4bb51ad1938b03b8f369f
@@ -14509,6 +14525,7 @@ specifiers:
   '@nestjs/event-emitter': ^0.0.3
   '@nestjs/graphql': ^7.10.3
   '@nestjs/jwt': ^7.2.0
+  '@nestjs/mapped-types': ^0.4.1
   '@nestjs/microservices': ^7.6.15
   '@nestjs/mongoose': ^7.2.4
   '@nestjs/passport': ^7.1.5
