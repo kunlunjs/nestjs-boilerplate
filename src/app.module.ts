@@ -35,7 +35,10 @@ import { ConfigService } from './modules/config/config.service'
 import { CacheConfigService } from './modules/cache/cache-config.service'
 import { SharedModule } from './shared/shared.module'
 import { MongooseCatsModule } from './modules/mongoose/cats.module'
-import { LoggerMiddleware } from './common/middlewares/logger.middleware'
+import {
+  logger,
+  LoggerMiddleware
+} from './common/middlewares/logger.middleware'
 import { CatsController } from './modules/mongoose/cats.controller'
 import { ThrottlerConfigService } from './modules/throttler/throttler-config.service'
 import { CalsModule } from './modules/cals/cals.module'
@@ -43,12 +46,14 @@ import { MicroserviceMathModule } from './modules/microservices/microservice-mat
 import { ServerSentEventModule } from './modules/server-sent-event/sse.module'
 import { MVCModule } from './modules/mvc/mvc.module'
 import { CacheManagerModule } from './modules/cache/cache.module'
-import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
+import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core'
 import { JwtAuthGuard } from './common/guards'
 import { HealthModule } from './modules/health/health.module'
 import { GRPCHeroModule } from './modules/grpc/grpc-hero.module'
 import { DogModule } from './modules/health-dog/dog.module'
 import { NextJSModule } from './modules/nextjs/nextjs.module'
+import { RESTfulModule } from './modules/restful/restful.module'
+import { ValidationPipe } from './common/pipes'
 
 @Module({
   imports: [
@@ -294,6 +299,8 @@ import { NextJSModule } from './modules/nextjs/nextjs.module'
     AuthModule, // 可以包含全局路由保护 APP_GUARD
     /* ----------------------------业务模块---------------------------- */
     UsersModule,
+    // 演示 class-validate 的使用
+    RESTfulModule,
     /* ----------------------------NextJS模块---------------------------- */
     NextJSModule,
     /* ----------------------------健康检查---------------------------- */
@@ -312,6 +319,10 @@ import { NextJSModule } from './modules/nextjs/nextjs.module'
       provide: APP_GUARD,
       useClass: JwtAuthGuard
     },
+    // {
+    //   provide: APP_PIPE,
+    //   useClass: ValidationPipe
+    // },
     /**
      * 将缓存处理绑定到全局端点，配合 CacheModule.registerAsync(...)
      * 全局缓存在 CacheKey 下
@@ -326,6 +337,7 @@ import { NextJSModule } from './modules/nextjs/nextjs.module'
 // export class AppModule {}
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
+    consumer.apply(logger(AppModule.name)).forRoutes('*')
     // consumer
     //   .apply(LoggerMiddleware)
     // 支持多中间件

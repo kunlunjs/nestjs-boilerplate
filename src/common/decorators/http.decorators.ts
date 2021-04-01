@@ -13,8 +13,8 @@ import { ApiBearerAuth, ApiUnauthorizedResponse } from '@nestjs/swagger'
 // TODO 待完善
 /**
  * 简化控制器或方法上的装饰器数量
- * @param roles
- * @returns
+ * @param {any} roles
+ * @returns 新装饰器
  */
 export function Auth(...roles: string[]) {
   return applyDecorators(

@@ -11,14 +11,13 @@ export function IsPassword(
   validationOptions?: ValidationOptions
 ): PropertyDecorator {
   return ((object: Record<string, any>, propertyName: string) => {
-    registerDecorator({
+    return registerDecorator({
       propertyName,
       name: 'isPassword',
       target: object.constructor,
       options: validationOptions,
       constraints: property ? [property] : [],
       validator: {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         validate(value: any, args: ValidationArguments) {
           if (typeof value === 'string') {
             return /^[a-zA-Z0-9!@#$%^&*]*$/.test(value)
