@@ -67,6 +67,7 @@ async function bootstrap() {
     new ValidationPipe({
       // 自动删除请求中未定义的属性字段
       whitelist: true,
+      // 允许使用 class-transformer 校验前转换
       transform: true,
       // 禁用详细错误
       // disableErrorMessages: true,

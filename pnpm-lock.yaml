@@ -49,6 +49,7 @@ dependencies:
   grpc: 1.24.6
   hbs: 4.1.1
   helmet: 4.4.1
+  joi: 17.4.0
   jsonwebtoken: 8.5.1
   kafkajs: 1.15.0
   lodash: 4.17.21
@@ -1001,6 +1002,13 @@ packages:
     resolution:
       integrity: sha1-na9XRRVv2EuOmImi3HIfDFjolKo=
       tarball: '@hapi/hoek/download/@hapi/hoek-9.1.1.tgz'
+  /@hapi/topo/5.0.0:
+    dependencies:
+      '@hapi/hoek': 9.1.1
+    dev: false
+    resolution:
+      integrity: sha1-wZr4V3+jk6BunHe2CZWvlZvnIec=
+      tarball: '@hapi/topo/download/@hapi/topo-5.0.0.tgz'
   /@istanbuljs/load-nyc-config/1.1.0:
     dependencies:
       camelcase: 5.3.1
@@ -1933,6 +1941,23 @@ packages:
     resolution:
       integrity: sha1-9H2PttkCn/5karloCsWygzMi3x4=
       tarball: '@schematics/schematics/download/@schematics/schematics-0.1102.0.tgz'
+  /@sideway/address/4.1.1:
+    dependencies:
+      '@hapi/hoek': 9.1.1
+    dev: false
+    resolution:
+      integrity: sha1-njIedDEJY/347r++4Jx71ply3k0=
+      tarball: '@sideway/address/download/@sideway/address-4.1.1.tgz'
+  /@sideway/formula/3.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-/hWK7jLmvV3oUES+YVvAhHigoTw=
+      tarball: '@sideway/formula/download/@sideway/formula-3.0.0.tgz'
+  /@sideway/pinpoint/2.0.0:
+    dev: false
+    resolution:
+      integrity: sha1-z/j/rcNyrSn9P3gneusp5jLMcN8=
+      tarball: '@sideway/pinpoint/download/@sideway/pinpoint-2.0.0.tgz'
   /@sinonjs/commons/1.8.2:
     dependencies:
       type-detect: 4.0.8
@@ -8637,6 +8662,17 @@ packages:
     resolution:
       integrity: sha1-QOj9vkjwDfofDOgSHKdLiKyRSO8=
       tarball: jest/download/jest-26.6.3.tgz
+  /joi/17.4.0:
+    dependencies:
+      '@hapi/hoek': 9.1.1
+      '@hapi/topo': 5.0.0
+      '@sideway/address': 4.1.1
+      '@sideway/formula': 3.0.0
+      '@sideway/pinpoint': 2.0.0
+    dev: false
+    resolution:
+      integrity: sha1-tcInfIUZ4BYxbkmrq9QaGQjZ7yA=
+      tarball: joi/download/joi-17.4.0.tgz
   /js-tokens/4.0.0:
     resolution:
       integrity: sha1-GSA/tZmR35jjoocFDUZHzerzJJk=
@@ -14604,6 +14640,7 @@ specifiers:
   helmet: ^4.4.1
   husky: ^5.2.0
   jest: ^26.6.3
+  joi: ^17.4.0
   jsonwebtoken: ^8.5.1
   kafkajs: ^1.15.0
   lint-staged: ^10.5.4

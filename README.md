@@ -79,10 +79,48 @@ db.createUser(
 #### 参与贡献
 
 
-#### 特技
+#### 配置
 
 `nestconfig.json` 用于指定服务启动的入口文件及格式，可以缺失（默认src/main.ts）
 `nest info` 输出当前操作系统及安装的 nest 相关信息
+
+```
+AppModule consumer -> next()
+  Module consumer ->
+  Module consumer ->
+AppModule consumer ->
+ModuleControllerGuard ->
+   ModuleMethodGuard ->
+      全局拦截器 1 ->
+      ...
+      全局拦截器 n ->
+         业务模块控制器拦截器 1 ->
+         ...
+         业务模块控制器拦截器 n -> 
+            业务模块方法拦截器 1 ->
+            ...
+            业务模块方法拦截器 n ->
+               业务模块控制器管道 1 ->
+               ...
+               业务模块控制器管道 n
+                  业务模块方法管道 1 ->
+                  ...
+                  业务模块方法管道 n ->
+                     方法 ->
+                     service 1 ->
+                     ...
+                     service n ->
+                     方法 ->
+            业务模块方法拦截器 n ->
+            ...
+            业务模块方法拦截器 1 ->
+         业务模块控制器拦截器 n ->
+         ...
+         业务模块控制器拦截器 1 ->
+      全局拦截器 n ->
+      ...
+      全局拦截器 1 ->
+```
 
 ## // TODO
 - 多 MongoDB 数据库支持

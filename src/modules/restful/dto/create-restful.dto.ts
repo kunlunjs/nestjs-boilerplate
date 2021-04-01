@@ -120,14 +120,14 @@ export class CreateRESTfulDto extends Email {
   @ValidateNested()
   tags2: Tag[]
 
-  // // 标签，数组中每一个都要符合要求
-  // @MaxLength(2, {
-  //   each: true
-  // })
-  // set1: Set<string> // 表示不能重复
+  // 标签，数组中每一项都要符合要求（长度小于等于2）
+  @MaxLength(2, {
+    each: true
+  })
+  set1: Set<string> // 表示不能重复
 
-  // @ValidateNested()
-  // set2: Set<Tag>
+  @ValidateNested()
+  set2: Set<Tag>
 
   // // 标签，数组中每一个都要符合要求
   // @MaxLength(2, {
@@ -142,10 +142,10 @@ export class CreateRESTfulDto extends Email {
   // @ValidateNested()
   // martrix: Point[][]
 
-  // // 自定义文本校验
-  // // 值为 custom string 才能通过校验
-  // @Validate(CustomStringValidator, {
-  //   message: 'Wront custom string'
-  // })
-  // custom: string
+  // 自定义文本校验
+  // 值为 custom string 才能通过校验
+  @Validate(CustomStringValidator, {
+    message: 'Wront custom string'
+  })
+  custom: string
 }

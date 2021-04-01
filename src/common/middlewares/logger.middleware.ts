@@ -12,14 +12,13 @@ export class LoggerMiddleware implements NestMiddleware {
   // }
 
   use(req: Request, res: Response, next: NextFunction) {
-    const entry = this.entrance ? ` [${this.entrance}] ` : ' '
+    const entry = this.entrance ? `[${this.entrance}] ` : ''
     const begin = new Date()
-    log(`[ ${begin.toISOString()}]${entry}Enter ${LoggerMiddleware.name}`)
+    log(`${entry}Enter ${LoggerMiddleware.name}`)
     next()
-    const end = new Date()
     log(
-      `[ ${end.toISOString()}]${entry}Leave ${LoggerMiddleware.name} +${
-        end.getTime() - begin.getTime()
+      `${entry}Leave ${LoggerMiddleware.name} +${
+        Date.now() - begin.getTime()
       }ms`
     )
   }
@@ -31,15 +30,10 @@ export class LoggerMiddleware implements NestMiddleware {
  */
 export function logger(name?: string) {
   return (req: Request, res: Response, next: NextFunction) => {
-    const entry = name ? ` [${name}] ` : ' '
+    const entry = name ? `[${name}] ` : ''
     const begin = new Date()
-    log(`[ ${begin.toISOString()}]${entry}Enter ${logger.name}`)
+    log(`${entry}Enter ${logger.name}`)
     next()
-    const end = new Date()
-    log(
-      `[ ${end.toISOString()}]${entry}Leave ${logger.name} +${
-        end.getTime() - begin.getTime()
-      }ms`
-    )
+    log(`${entry}Leave ${logger.name} +${Date.now() - begin.getTime()}ms`)
   }
 }

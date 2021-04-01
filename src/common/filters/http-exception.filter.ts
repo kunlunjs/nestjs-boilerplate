@@ -20,7 +20,7 @@ export class HttpExceptionFilter implements ExceptionFilter<HttpException> {
     // const request = ctx.getRequest()
     const response = ctx.getResponse()
     const status = exception.getStatus()
-    log(`[ ${new Date().toISOString()}] ${HttpExceptionFilter.name}`)
+    log(HttpExceptionFilter.name)
     response.status(status).json({
       data: null,
       status,

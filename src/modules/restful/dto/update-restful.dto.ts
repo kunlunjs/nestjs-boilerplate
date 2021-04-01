@@ -21,7 +21,7 @@ class AdditionalDto {
 
 // 排除掉 CreateRESTfulDto 中的 age 字段然后将其它字段都变为可选的
 export class UpdateRESTfuldto extends PartialType(
-  OmitType(CreateRESTfulDto, [] as const /*['age'] as const */)
+  OmitType(CreateRESTfulDto, ['age'] as const)
 ) {
   // ID
   @IsNumberString()

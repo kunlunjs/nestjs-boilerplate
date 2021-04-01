@@ -18,13 +18,11 @@ export class LoggingInterceptor implements NestInterceptor {
   }
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const entry = this.entrance ? ` [${this.entrance}] ` : ' '
+    const entry = this.entrance ? `[${this.entrance}] ` : ''
     const request = context.switchToHttp().getRequest()
     const { method, originalUrl: url, headers, body } = request
     const now = Date.now()
-    log(
-      `[ ${new Date().toISOString()}]${entry}Enter ${LoggingInterceptor.name}`
-    )
+    log(`${entry}Enter ${LoggingInterceptor.name}`)
     return next.handle().pipe(
       tap(() => {
         if (url.indexOf('/nextjs') === -1) {
@@ -33,11 +31,7 @@ export class LoggingInterceptor implements NestInterceptor {
           //     /POST|PUT/.test(method) ? JSON.stringify(body) : ''
           //   } +${Date.now() - now}ms`
           // )
-          log(
-            `[ ${new Date().toISOString()}]${entry}Leave ${
-              LoggingInterceptor.name
-            }`
-          )
+          log(`${entry}Leave ${LoggingInterceptor.name} +${Date.now() - now}ms`)
         }
       })
     )

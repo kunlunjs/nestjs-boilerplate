@@ -35,10 +35,10 @@ export class TransformInterceptor<T>
     //   JSON.stringify(request.headers),
     //   /POST|PUT/.test(method) ? JSON.stringify(body) : ''
     // )
-    // const now = new Date().getTime()
-    const entry = this.entrance ? ` [${this.entrance}] ` : ' '
+    // const now = Date.now()
+    const entry = this.entrance ? `[${this.entrance}] ` : ''
     const begin = new Date()
-    log(`[ ${begin.toISOString()}]${entry}Enter ${TransformInterceptor.name}`)
+    log(`${entry}Enter ${TransformInterceptor.name}`)
 
     return next.handle().pipe(
       map(data => {
@@ -54,13 +54,12 @@ export class TransformInterceptor<T>
         // if (typeof data === 'string' && typeof data['nModified'] === 'number') {
         //   data = {}
         // }
-        const end = new Date()
         // responseLogger.info(
-        //   `${method} ${url} ${status} +${end.getTime() - begin}ms`
+        //   `${method} ${url} ${status} +${Date.now() - begin}ms`
         // )
         log(
-          `[ ${end.toISOString()}]${entry}Leave ${TransformInterceptor.name} +${
-            end.getTime() - begin.getTime()
+          `${entry}Leave ${TransformInterceptor.name} +${
+            Date.now() - begin.getTime()
           }ms`
         )
         return res

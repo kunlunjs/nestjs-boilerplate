@@ -54,7 +54,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR
-    log(`[ ${new Date().toISOString()}] ${AllExceptionsFilter.name}`)
+    log(AllExceptionsFilter.name)
     response.status(status).json({
       data: null,
       status,
