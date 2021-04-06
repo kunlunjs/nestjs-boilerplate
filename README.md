@@ -84,6 +84,8 @@ db.createUser(
 `nestconfig.json` 用于指定服务启动的入口文件及格式，可以缺失（默认src/main.ts）
 `nest info` 输出当前操作系统及安装的 nest 相关信息
 
+#### 请求 -> 响应数据流动过程
+
 ```
 AppModule consumer -> next()
   Module consumer ->
@@ -107,9 +109,9 @@ ModuleControllerGuard ->
                   ...
                   业务模块方法管道 n ->
                      方法 ->
-                     service 1 ->
-                     ...
-                     service n ->
+                       service 1 ->
+                       ...
+                       service n ->
                      方法 ->
             业务模块方法拦截器 n ->
             ...
@@ -120,6 +122,9 @@ ModuleControllerGuard ->
       全局拦截器 n ->
       ...
       全局拦截器 1 ->
+[异常过滤器1]
+...
+[异常过滤器n]
 ```
 
 ## // TODO

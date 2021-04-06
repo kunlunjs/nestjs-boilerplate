@@ -30,11 +30,11 @@ export class TransformInterceptor<T>
     const ctx = context.switchToHttp()
     const request = ctx.getRequest()
     const { method, originalUrl: url, body } = request
-    // requestLogger.info(
-    //   `${method} ${url}`,
-    //   JSON.stringify(request.headers),
-    //   /POST|PUT/.test(method) ? JSON.stringify(body) : ''
-    // )
+    requestLogger.info(
+      `${method} ${url}`,
+      JSON.stringify(request.headers),
+      /POST|PUT/.test(method) ? JSON.stringify(body) : ''
+    )
     // const now = Date.now()
     const entry = this.entrance ? `[${this.entrance}] ` : ''
     const begin = new Date()
@@ -54,9 +54,9 @@ export class TransformInterceptor<T>
         // if (typeof data === 'string' && typeof data['nModified'] === 'number') {
         //   data = {}
         // }
-        // responseLogger.info(
-        //   `${method} ${url} ${status} +${Date.now() - begin}ms`
-        // )
+        responseLogger.info(
+          `${method} ${url} ${status} +${Date.now() - begin.getTime()}ms`
+        )
         log(
           `${entry}Leave ${TransformInterceptor.name} +${
             Date.now() - begin.getTime()

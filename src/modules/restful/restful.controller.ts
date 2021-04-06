@@ -153,7 +153,7 @@ export class RESTfulController {
   @Public()
   @Get()
   findMany(@Req() req: Request) {
-    console.log(`GET ${req.originalUrl}`)
+    log(`${RESTfulController.name}/${this.findMany.name} handle`)
     return []
   }
 
@@ -178,9 +178,7 @@ export class RESTfulController {
     @Query('id', new ParseArrayPipe({ items: Number, separator: ',' }))
     ids: number[]
   ) {
-    console.log(
-      `GET ${req.originalUrl} ${RESTfulController.name} ${this.findOne.name}`
-    )
+    log(`${RESTfulController.name}/${this.findOne.name} handle`)
     return {}
   }
 
@@ -197,11 +195,7 @@ export class RESTfulController {
     @Query('sort', new ParseBoolPipe()) sort: boolean,
     @Body() createRESTfulDto: CreateRESTfulDto
   ) {
-    console.log(
-      `POST /api/restful ${JSON.stringify(
-        createRESTfulDto
-      )} ${Object.prototype.toString.call(createRESTfulDto.createdDate)}`
-    )
+    log(`${RESTfulController.name}/${this.create.name} handle`)
     return {}
   }
 
@@ -214,7 +208,7 @@ export class RESTfulController {
     @Body(new ParseArrayPipe({ items: UpdateRESTfuldto }))
     updateRESTfulDtos: UpdateRESTfuldto[]
   ) {
-    console.log(`PUT /api/restful ${JSON.stringify(updateRESTfulDtos)}`)
+    log(`${RESTfulController.name}/${this.update.name} handle`)
     return {}
   }
 }
