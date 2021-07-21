@@ -1,10 +1,9 @@
 import * as path from 'path'
 import { BullModule } from '@nestjs/bull'
+import type { NestModule, MiddlewareConsumer } from '@nestjs/common'
 import {
   Module,
   CacheModule,
-  NestModule,
-  MiddlewareConsumer,
   RequestMethod,
   CacheInterceptor
 } from '@nestjs/common'
@@ -71,8 +70,8 @@ import { ValidationPipe } from './common/pipes'
     /**
      * 定时任务
      */
-    // ScheduleModule.forRoot(),
-    // SchedulingService,
+    ScheduleModule.forRoot(),
+    SchedulingService,
     /*----------------------------------------------------------------*/
     /**
      * 队列处理

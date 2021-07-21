@@ -140,7 +140,7 @@ ModuleControllerGuard ->
 
 1. [NestJS 核心概念与能力体系介绍]()
 2. [配置项目目录结构、代码规范、热更新等]()
-3. [前置基础知识：Class、Decorator、TypeScript、reflect-metadata、RxJS]()
+3. [前置基础知识：Class、Decorator、TypeScript、reflect-metadata、RxJS、DI、IOC]()
 4. [NestJS 基于数据流动的架构]()
 5. [NestJS API 概览]()
 6. [如何使用 NestJS 创建一个简单 RESTful API 接口]()

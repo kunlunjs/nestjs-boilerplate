@@ -3,6 +3,7 @@ module.exports = {
   semi: false,
   singleQuote: true,
   trailingComma: 'none',
+  quoteProps: 'consistent',
   arrowParens: 'avoid',
   endOfLine: 'auto',
   overrides: [
@@ -29,6 +30,12 @@ module.exports = {
       files: '*.vue',
       options: {
         parser: 'vue'
+      }
+    },
+    {
+      files: '*.md',
+      options: {
+        parser: 'markdown'
       }
     },
     {

@@ -1,7 +1,7 @@
 module.exports = {
   '**/*.{js,jsx,ts,tsx}': [
     'eslint src --fix --cache --ext .js,jsx,ts,tsx',
-    'prettier --write'
+    'pretty-quick'
   ],
   // https://stylelint.io/user-guide/usage/options
   '**/*.{css,less,sass}': [
