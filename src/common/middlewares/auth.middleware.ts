@@ -1,10 +1,10 @@
+import type { NestMiddleware } from '@nestjs/common'
 import {
   Injectable,
-  NestMiddleware,
   NotFoundException,
   UnauthorizedException
 } from '@nestjs/common'
-import { Request, Response, NextFunction } from 'express'
+import type { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import { jwtConstants } from '../strategies/constants'
 

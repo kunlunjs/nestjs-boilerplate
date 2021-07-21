@@ -1,6 +1,7 @@
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
-import { Test, TestingModule } from '@nestjs/testing'
+import type { TestingModule } from '@nestjs/testing'
+import { Test } from '@nestjs/testing'
 import { JwtStrategy } from '@/common/strategies/jwt.stategy'
 import { LocalStrategy } from '@/common/strategies/local.strategy'
 import { jwtConstants } from '@/common/strategies/constants'

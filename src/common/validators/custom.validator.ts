@@ -1,10 +1,9 @@
-import {
-  registerDecorator,
+import type {
   ValidationArguments,
   ValidationOptions,
-  ValidatorConstraint,
   ValidatorConstraintInterface
 } from 'class-validator'
+import { registerDecorator, ValidatorConstraint } from 'class-validator'
 
 /**
  * 自定义文本校验

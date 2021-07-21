@@ -1,4 +1,4 @@
-import { ITranslationDecorator } from '@/types/ITranslationDecorator'
+import type { ITranslationDecorator } from '@/types/ITranslationDecorator'
 
 export const TRANSLATION_DECORATOR_KEY = 'custom:translate'
 

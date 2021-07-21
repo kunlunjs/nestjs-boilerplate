@@ -1,10 +1,10 @@
 import { NotFoundException } from '@nestjs/common'
 import { Args, Resolver, Query, Mutation, Subscription } from '@nestjs/graphql'
 import { PubSub } from 'apollo-server-express'
-import { RecipeInput } from './dto/new-recipe.input'
-import { RecipesArgs } from './dto/recipes.args'
+import type { RecipeInput } from './dto/new-recipe.input'
+import type { RecipesArgs } from './dto/recipes.args'
 import { RecipeModel } from './models/recipe.model'
-import { RecipesService } from './recipes.service'
+import type { RecipesService } from './recipes.service'
 
 const pubSub = new PubSub()
 

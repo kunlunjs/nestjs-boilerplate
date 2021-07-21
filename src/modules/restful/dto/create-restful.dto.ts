@@ -1,3 +1,4 @@
+import type { ValidationArguments } from 'class-validator'
 import {
   Contains,
   IsDate,
@@ -13,8 +14,7 @@ import {
   Min,
   MinLength,
   Validate,
-  ValidateNested,
-  ValidationArguments
+  ValidateNested
 } from 'class-validator'
 import {
   CustomStringValidator,

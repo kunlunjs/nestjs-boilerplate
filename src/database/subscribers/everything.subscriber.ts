@@ -1,10 +1,10 @@
-import {
+import type {
   EntitySubscriberInterface,
   InsertEvent,
-  EventSubscriber,
   RemoveEvent,
   UpdateEvent
 } from 'typeorm'
+import { EventSubscriber } from 'typeorm'
 
 @EventSubscriber()
 export class EverythingSubscriber implements EntitySubscriberInterface {

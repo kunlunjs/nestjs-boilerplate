@@ -6,8 +6,9 @@ import {
   ValidationPipe
 } from '@nestjs/common'
 import { WsAdapter } from '@nestjs/platform-ws'
-import { MicroserviceOptions, Transport } from '@nestjs/microservices'
-import { NestExpressApplication } from '@nestjs/platform-express'
+import type { MicroserviceOptions } from '@nestjs/microservices'
+import { Transport } from '@nestjs/microservices'
+import type { NestExpressApplication } from '@nestjs/platform-express'
 import helmet from 'helmet'
 import compression from 'compression'
 import { log } from '@/utils/log'

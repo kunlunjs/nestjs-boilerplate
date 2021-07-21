@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common'
-import {
-  HealthIndicator,
-  HealthIndicatorResult,
-  HealthCheckError
-} from '@nestjs/terminus'
-import { DogService } from './dog.service'
+import type { HealthIndicatorResult } from '@nestjs/terminus'
+import { HealthIndicator, HealthCheckError } from '@nestjs/terminus'
+import type { DogService } from './dog.service'
 import { DogState } from './interfaces/dog.interface'
 
 @Injectable()

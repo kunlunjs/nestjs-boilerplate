@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { PageOptionsDto } from './page-options.dto'
+import type { PageOptionsDto } from './page-options.dto'
 
 interface IPageMetaDtoParameters {
   pageOptionsDto: PageOptionsDto

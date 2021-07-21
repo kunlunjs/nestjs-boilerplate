@@ -1,4 +1,5 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
+import type { MiddlewareConsumer, NestModule } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { logger } from '@/common/middlewares'
 import { RESTfulController } from './restful.controller'
 import { RESTfulService } from './restful.service'

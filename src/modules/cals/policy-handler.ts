@@ -1,6 +1,7 @@
 import { Action } from '@/common/constants/action.enum'
-import { IPolicyHandler } from '@/common/guards/policies.guard'
-import { AppAbility, Article } from './cals-ability.factory'
+import type { IPolicyHandler } from '@/common/guards/policies.guard'
+import type { AppAbility } from './cals-ability.factory'
+import { Article } from './cals-ability.factory'
 
 /**
  * 读权限

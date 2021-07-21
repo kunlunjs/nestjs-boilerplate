@@ -1,13 +1,14 @@
+import type { WsResponse } from '@nestjs/websockets'
 import {
   MessageBody,
   SubscribeMessage,
   WebSocketGateway,
-  WebSocketServer,
-  WsResponse
+  WebSocketServer
 } from '@nestjs/websockets'
-import { from, Observable } from 'rxjs'
+import type { Observable } from 'rxjs'
+import { from } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { Server } from 'socket.io'
+import type { Server } from 'socket.io'
 
 /**
  * socket.io 服务默认和主服务在一个端口上

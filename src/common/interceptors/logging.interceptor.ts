@@ -1,10 +1,10 @@
-import {
+import type {
   CallHandler,
   ExecutionContext,
-  Injectable,
   NestInterceptor
 } from '@nestjs/common'
-import { Observable } from 'rxjs'
+import { Injectable } from '@nestjs/common'
+import type { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 import { log } from '@/utils/log'
 

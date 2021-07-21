@@ -1,8 +1,8 @@
 import { AppService } from '@/app.service'
 import { Public } from '@/common/decorators'
 import { Controller, Get, Render, Res } from '@nestjs/common'
-import { Response } from 'express'
-import { MVCService } from './mvc.service'
+import type { Response } from 'express'
+import type { MVCService } from './mvc.service'
 
 /**
  * MVC 渲染动态模板

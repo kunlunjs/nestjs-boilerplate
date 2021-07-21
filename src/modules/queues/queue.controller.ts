@@ -1,6 +1,6 @@
 import { InjectQueue } from '@nestjs/bull'
 import { Controller, Post } from '@nestjs/common'
-import { Queue } from 'bull'
+import type { Queue } from 'bull'
 
 /**
  * POST /queue/transcode 进行队列处理

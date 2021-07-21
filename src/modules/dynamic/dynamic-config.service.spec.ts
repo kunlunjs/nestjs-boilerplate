@@ -1,4 +1,5 @@
-import { Test, TestingModule } from '@nestjs/testing'
+import type { TestingModule } from '@nestjs/testing'
+import { Test } from '@nestjs/testing'
 import { DYNAMIC_CONFIG_OPTIONS } from './constants'
 import { DynamicConfigService } from './dynamic-config.service'
 

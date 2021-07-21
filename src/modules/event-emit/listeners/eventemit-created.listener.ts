@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { OnEvent } from '@nestjs/event-emitter'
-import { EventEmitCreatedEvent } from '../events/eventemit-created.event'
+import type { EventEmitCreatedEvent } from '../events/eventemit-created.event'
 
 @Injectable()
 export class EventEmitCreatedListener {

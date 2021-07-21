@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common'
-import { CreateEventEmitDto } from './dto/create-eventemit.dto'
-import { EventEmitService } from './event-emit.service'
+import type { CreateEventEmitDto } from './dto/create-eventemit.dto'
+import type { EventEmitService } from './event-emit.service'
 
 @Controller('eventemit')
 export class EventEmitController {

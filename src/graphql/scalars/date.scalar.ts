@@ -1,5 +1,7 @@
-import { Scalar, CustomScalar } from '@nestjs/graphql'
-import { Kind, ValueNode } from 'graphql'
+import type { CustomScalar } from '@nestjs/graphql'
+import { Scalar } from '@nestjs/graphql'
+import type { ValueNode } from 'graphql'
+import { Kind } from 'graphql'
 
 @Scalar('Date', type => Date)
 export class DateScalar implements CustomScalar<number, Date> {

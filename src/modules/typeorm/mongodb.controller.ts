@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common'
-import { TypeOrmMongoEntity } from './mongodb.entity'
-import { TypeOrmMongoService } from './mongodb.service'
+import type { TypeOrmMongoEntity } from './mongodb.entity'
+import type { TypeOrmMongoService } from './mongodb.service'
 
 @Controller('typeorm-mongo')
 export class TypeOrmMongoController {

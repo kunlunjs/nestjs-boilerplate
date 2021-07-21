@@ -1,8 +1,8 @@
 import { Public } from '@/common/decorators'
 import { Controller, Get, Type } from '@nestjs/common'
-import { GrpcOptions, RedisOptions, Transport } from '@nestjs/microservices'
-import {
-  HealthCheck,
+import type { RedisOptions } from '@nestjs/microservices'
+import { GrpcOptions, Transport } from '@nestjs/microservices'
+import type {
   HealthCheckService,
   GRPCHealthIndicator,
   MemoryHealthIndicator,
@@ -11,9 +11,10 @@ import {
   SequelizeHealthIndicator,
   MicroserviceHealthIndicator
 } from '@nestjs/terminus'
+import { HealthCheck } from '@nestjs/terminus'
 import { InjectConnection } from '@nestjs/typeorm'
-import { Connection } from 'typeorm'
-import { DogHealthIndicator } from '../health-dog/dog.health'
+import type { Connection } from 'typeorm'
+import type { DogHealthIndicator } from '../health-dog/dog.health'
 
 @Controller('health')
 export class HealthController {

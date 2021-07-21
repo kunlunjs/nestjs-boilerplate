@@ -1,12 +1,13 @@
+import type { WsResponse } from '@nestjs/websockets'
 import {
   SubscribeMessage,
   WebSocketGateway,
-  WebSocketServer,
-  WsResponse
+  WebSocketServer
 } from '@nestjs/websockets'
-import { from, Observable } from 'rxjs'
+import type { Observable } from 'rxjs'
+import { from } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { Server } from 'ws'
+import type { Server } from 'ws'
 
 @WebSocketGateway(8080)
 export class WebSocketEventsGateway {

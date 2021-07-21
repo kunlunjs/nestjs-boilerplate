@@ -1,4 +1,5 @@
-import { CacheInterceptor, ExecutionContext, Injectable } from '@nestjs/common'
+import type { ExecutionContext } from '@nestjs/common'
+import { CacheInterceptor, Injectable } from '@nestjs/common'
 
 @Injectable()
 export class HttpCacheInterceptor extends CacheInterceptor {

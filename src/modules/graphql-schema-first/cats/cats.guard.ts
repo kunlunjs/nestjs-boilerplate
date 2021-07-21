@@ -1,6 +1,7 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
+import type { CanActivate, ExecutionContext } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import { Observable } from 'rxjs'
+import type { Observable } from 'rxjs'
 
 @Injectable()
 export class CatsGuard implements CanActivate {

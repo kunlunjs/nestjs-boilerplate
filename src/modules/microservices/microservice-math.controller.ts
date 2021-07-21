@@ -1,11 +1,7 @@
 import { Controller, Get } from '@nestjs/common'
-import {
-  Client,
-  ClientProxy,
-  MessagePattern,
-  Transport
-} from '@nestjs/microservices'
-import { Observable } from 'rxjs'
+import type { ClientProxy } from '@nestjs/microservices'
+import { Client, MessagePattern, Transport } from '@nestjs/microservices'
+import type { Observable } from 'rxjs'
 import { Public } from '@/common/decorators'
 
 @Controller('microservice-math')

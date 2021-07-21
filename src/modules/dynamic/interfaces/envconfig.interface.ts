@@ -1,3 +1,1 @@
-export interface EnvConfig {
-  [key: string]: string
-}
+export type EnvConfig = Record<string, string>

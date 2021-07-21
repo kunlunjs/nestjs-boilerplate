@@ -1,5 +1,6 @@
 import * as path from 'path'
-import { ClientOptions, Transport } from '@nestjs/microservices'
+import type { ClientOptions } from '@nestjs/microservices'
+import { Transport } from '@nestjs/microservices'
 
 export const grpcClientOptions: ClientOptions = {
   transport: Transport.GRPC,

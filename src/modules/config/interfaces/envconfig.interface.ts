@@ -1,5 +1,5 @@
-import { DatabaseType, LoggerOptions } from 'typeorm'
-import { BaseConnectionOptions } from 'typeorm/connection/BaseConnectionOptions'
+import type { DatabaseType, LoggerOptions } from 'typeorm'
+import type { BaseConnectionOptions } from 'typeorm/connection/BaseConnectionOptions'
 import { PostgresConnectionCredentialsOptions } from 'typeorm/driver/postgres/PostgresConnectionCredentialsOptions'
 
 export interface EnvConfig {

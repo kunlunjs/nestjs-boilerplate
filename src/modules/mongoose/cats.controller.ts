@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common'
-import { CatsService } from './cats.service'
-import { CreateCatDto } from './dto/create-cat.dto'
-import { Cat } from './schemas/cat.schema'
+import type { CatsService } from './cats.service'
+import type { CreateCatDto } from './dto/create-cat.dto'
+import type { Cat } from './schemas/cat.schema'
 
 @Controller('mongoose')
 export class CatsController {

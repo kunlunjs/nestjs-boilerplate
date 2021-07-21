@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import * as dotenv from 'dotenv'
 import * as fs from 'fs-extra'
 import { DYNAMIC_CONFIG_OPTIONS } from './constants'
-import { DynamicConfigOptions, EnvConfig } from './interfaces'
+import type { DynamicConfigOptions, EnvConfig } from './interfaces'
 
 @Injectable()
 export class DynamicConfigService {

@@ -1,9 +1,5 @@
-import {
-  ArgumentMetadata,
-  BadRequestException,
-  Injectable,
-  PipeTransform
-} from '@nestjs/common'
+import type { ArgumentMetadata, PipeTransform } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import mongoose from 'mongoose'
 
 const isMongoIdReg = /^[a-fA-F0-9]{24}$/

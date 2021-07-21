@@ -1,4 +1,5 @@
-import mongoose, { Mongoose } from 'mongoose'
+import type { Mongoose } from 'mongoose'
+import mongoose from 'mongoose'
 
 const CatSchema = new mongoose.Schema({
   name: String,

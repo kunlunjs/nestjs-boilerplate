@@ -1,6 +1,6 @@
 import { Controller, Get, Req, Res } from '@nestjs/common'
-import { NextJSService } from './nextjs.service'
-import { Request, Response } from 'express'
+import type { NextJSService } from './nextjs.service'
+import type { Request, Response } from 'express'
 import { Public } from '@/common/decorators'
 
 @Controller('nextjs')

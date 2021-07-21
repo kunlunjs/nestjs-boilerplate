@@ -1,11 +1,14 @@
 import { Public } from '@/common/decorators'
-import { Controller, Get, Inject, OnModuleInit, Param } from '@nestjs/common'
-import { ClientGrpc, GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices'
+import type { OnModuleInit } from '@nestjs/common'
+import { Controller, Get, Inject, Param } from '@nestjs/common'
+import type { ClientGrpc } from '@nestjs/microservices'
+import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices'
 import { Subject } from 'rxjs'
-import { Observable, ReplaySubject } from 'rxjs'
+import type { Observable } from 'rxjs'
+import { ReplaySubject } from 'rxjs'
 import { toArray } from 'rxjs/operators'
-import { HeroById } from './interfaces/hero-by-id.interface'
-import { Hero } from './interfaces/hero.interface'
+import type { HeroById } from './interfaces/hero-by-id.interface'
+import type { Hero } from './interfaces/hero.interface'
 
 interface HeroService {
   findOne(data: HeroById): Observable<Hero>

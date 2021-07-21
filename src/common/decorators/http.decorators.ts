@@ -1,10 +1,9 @@
+import type { PipeTransform, Type } from '@nestjs/common'
 import {
   applyDecorators,
   Param,
   ParseUUIDPipe,
-  PipeTransform,
   SetMetadata,
-  Type,
   UseGuards,
   UseInterceptors
 } from '@nestjs/common'

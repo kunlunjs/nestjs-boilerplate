@@ -3,11 +3,11 @@ import {
   ROUTE_ARGS_METADATA
 } from '@nestjs/common/constants'
 import { RouteParamtypes } from '@nestjs/common/enums/route-paramtypes.enum'
-import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface'
+import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface'
 import { reverseObjectKeys } from '@nestjs/swagger/dist/utils/reverse-object-keys.util'
 import { mapValues } from 'lodash'
 import { ApiBody, ApiExtraModels, getSchemaPath } from '@nestjs/swagger'
-import { IApiFile } from '@/types/IApiFile'
+import type { IApiFile } from '@/types/IApiFile'
 import { applyDecorators } from '@nestjs/common'
 
 function explore(instance: any, propertyKey: string) {

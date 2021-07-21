@@ -2,15 +2,11 @@ import * as path from 'path'
 import { existsSync, readFileSync } from 'fs-extra'
 import * as dotenv from 'dotenv'
 import { Inject, Injectable, ServiceUnavailableException } from '@nestjs/common'
-import { PickByValue } from 'utility-types'
+import type { PickByValue } from 'utility-types'
 import { CONFIG_OPTIONS } from './constants'
-import {
-  ConfigModuleOptions,
-  EnvConfig,
-  EnvConfigKeys,
-  EnvConfigValueType
-} from './interfaces'
-import { TypeOrmModuleOptions } from '@nestjs/typeorm'
+import type { EnvConfig, EnvConfigKeys, EnvConfigValueType } from './interfaces'
+import { ConfigModuleOptions } from './interfaces'
+import type { TypeOrmModuleOptions } from '@nestjs/typeorm'
 
 // TODO
 // 环境变量是 number 类型的 key
@@ -46,7 +42,7 @@ export class ConfigService {
     } else {
       throw new ServiceUnavailableException('Missing configuration file')
     }
-    this.envConfig = (dotenv.parse(readFileSync(envFile)) as any) as EnvConfig
+    this.envConfig = dotenv.parse(readFileSync(envFile)) as any as EnvConfig
   }
 
   get<T extends EnvConfigKeys>(key: T): EnvConfigValueType<T> {
@@ -55,11 +51,9 @@ export class ConfigService {
       return +config as EnvConfigValueType<T>
     }
     if (['DB_SSL'].includes(key)) {
-      return (config === 'false'
-        ? false
-        : config === 'true'
-        ? true
-        : config) as EnvConfigValueType<T>
+      return (
+        config === 'false' ? false : config === 'true' ? true : config
+      ) as EnvConfigValueType<T>
     }
     return config
   }

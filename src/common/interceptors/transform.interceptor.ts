@@ -1,11 +1,11 @@
-import {
-  Injectable,
+import type {
   NestInterceptor,
   CallHandler,
   ExecutionContext
 } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { map } from 'rxjs/operators'
-import { Observable } from 'rxjs'
+import type { Observable } from 'rxjs'
 import { requestLogger, responseLogger } from '../logger'
 import { log } from '@/utils/log'
 
@@ -15,7 +15,8 @@ interface Response<T> {
 
 @Injectable()
 export class TransformInterceptor<T>
-  implements NestInterceptor<T, Response<T>> {
+  implements NestInterceptor<T, Response<T>>
+{
   entrance: string
   constructor(entrance?: string) {
     if (entrance) {

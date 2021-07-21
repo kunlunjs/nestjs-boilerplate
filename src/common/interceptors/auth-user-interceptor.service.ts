@@ -1,11 +1,11 @@
-import { UserEntity } from '@/modules/users/users.service'
-import {
+import type { UserEntity } from '@/modules/users/users.service'
+import type {
   CallHandler,
   ExecutionContext,
-  Injectable,
   NestInterceptor
 } from '@nestjs/common'
-import { Observable } from 'rxjs'
+import { Injectable } from '@nestjs/common'
+import type { Observable } from 'rxjs'
 import { ContextService } from '../providers'
 
 @Injectable()

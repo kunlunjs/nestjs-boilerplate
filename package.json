@@ -27,13 +27,7 @@
     "husky:pre-commit": "lint-staged",
     "husky:prepare-commit-msg": "devmoji -e --lint"
   },
-  "keywords": [
-    "nestjs",
-    "typeorm",
-    "graphql",
-    "mongoose",
-    "prisma"
-  ],
+  "keywords": ["nestjs", "typeorm", "graphql", "mongoose", "prisma"],
   "author": "zhuyudong@aliyun.com",
   "license": "ISC",
   "dependencies": {

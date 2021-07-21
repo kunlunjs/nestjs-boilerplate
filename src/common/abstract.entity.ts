@@ -3,7 +3,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
-import { AbstractDto } from './dto/abstact.dto'
+import type { AbstractDto } from './dto/abstact.dto'
 import { UtilsService } from './providers/utils.service'
 
 export abstract class AbstractEntity<T extends AbstractDto = AbstractDto> {

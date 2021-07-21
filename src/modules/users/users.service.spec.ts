@@ -1,5 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing'
-import { UserEntity, UsersService } from '../users/users.service'
+import type { TestingModule } from '@nestjs/testing'
+import { Test } from '@nestjs/testing'
+import type { UserEntity } from '../users/users.service'
+import { UsersService } from '../users/users.service'
 
 describe('UserService', () => {
   let service: UsersService

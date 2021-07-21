@@ -1,4 +1,5 @@
-import { DynamicModule, Module } from '@nestjs/common'
+import type { DynamicModule } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { DYNAMIC_CONFIG_OPTIONS } from './constants'
 import { DynamicConfigService } from './dynamic-config.service'
 

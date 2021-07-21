@@ -1,4 +1,4 @@
-import { ThrottlerOptionsFactory } from '@nestjs/throttler'
+import type { ThrottlerOptionsFactory } from '@nestjs/throttler'
 
 export class ThrottlerConfigService implements ThrottlerOptionsFactory {
   async createThrottlerOptions() {

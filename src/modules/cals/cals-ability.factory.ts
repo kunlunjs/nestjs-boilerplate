@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import {
-  Ability,
-  AbilityBuilder,
+import type {
   AbilityClass,
   ExtractSubjectType,
   InferSubjects
 } from '@casl/ability'
+import { Ability, AbilityBuilder } from '@casl/ability'
 import { Action } from '@/common/constants/action.enum'
 
 export class User {

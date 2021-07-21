@@ -1,14 +1,8 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpCode,
-  HttpException,
-  HttpStatus
-} from '@nestjs/common'
+import type { ArgumentsHost, ExceptionFilter } from '@nestjs/common'
+import { Catch, HttpCode, HttpException, HttpStatus } from '@nestjs/common'
 import { BaseExceptionFilter } from '@nestjs/core'
-import { GqlContextType } from '@nestjs/graphql'
-import { Request, Response } from 'express'
+import type { GqlContextType } from '@nestjs/graphql'
+import type { Request, Response } from 'express'
 import { log } from '@/utils/log'
 
 // @Catch()

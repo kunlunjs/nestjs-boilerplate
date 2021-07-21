@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { isString, map } from 'lodash'
-import { I18nService, translateOptions } from 'nestjs-i18n'
+import type { I18nService, translateOptions } from 'nestjs-i18n'
 import { TRANSLATION_DECORATOR_KEY } from '@/common/decorators'
 import { AbstractDto } from '@/common/dto'
 import { ContextService } from '@/common/providers'
-import { ITranslationDecorator } from '@/types/ITranslationDecorator'
+import type { ITranslationDecorator } from '@/types/ITranslationDecorator'
 
 @Injectable()
 export class TranslationService {

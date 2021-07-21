@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Cat } from '../graphql.schema'
+import type { Cat } from '../graphql.schema'
 
 @Injectable()
 export class CatsService {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
-import { EventEmitter2 } from '@nestjs/event-emitter'
-import { CreateEventEmitDto } from './dto/create-eventemit.dto'
-import { EventEmitEntity } from './entities/eventemit.entity'
+import type { EventEmitter2 } from '@nestjs/event-emitter'
+import type { CreateEventEmitDto } from './dto/create-eventemit.dto'
+import type { EventEmitEntity } from './entities/eventemit.entity'
 import { EventEmitCreatedEvent } from './events/eventemit-created.event'
 
 @Injectable()
